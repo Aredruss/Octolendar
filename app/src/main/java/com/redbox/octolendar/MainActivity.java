@@ -1,9 +1,10 @@
 package com.redbox.octolendar;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CalendarView;
-import android.view.View;
+import android.content.Intent;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.temporal.TemporalAdjusters;
 
 
 public class MainActivity extends AppCompatActivity {
+
     TextView textView;
     ProgressBar progressBar;
     CalendarView calendarView;
@@ -21,11 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calendarView = findViewById(R.id.calendarView);
-
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
         getProgress();
+
+        calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                String date = day + "/" + (month+1) + "/" + year;
+                Intent intent = new Intent(MainActivity.this, DayActivity.class);
+                intent.putExtra("Date", date);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void getProgress() {

@@ -34,11 +34,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:onClick="getProgress"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="You are not supposed to see this"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <ScrollView
+            android:id="@+id/upcomingScrollView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
