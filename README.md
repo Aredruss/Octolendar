@@ -5,6 +5,7 @@ At the momement of speaking (02.01.2019) this application has the following feat
 -
 1) It can calculate the current month's progression and display the information in percentages;
 2) While in the process of adding a new event to your schedule, your are able to mark the event with a special tag: "It's Important", "Ugh" or "You can skip it";
+3) A cool name;
 
 Things left to do are:
 -
