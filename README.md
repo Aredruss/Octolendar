@@ -8,10 +8,8 @@ At the momement of speaking (02.01.2019) this application has the following feat
 
 Things left to do are:
 -
-1)Creating a generator for CardView items, which will contain information about planned events;
-
-2)Setting up a simple SQL-database for storing information about planned events;
-
-3)Adding "Settings" activity and "Upcoming events" fragment;
-
+1) Creating a generator for CardView items, which will contain information about planned events;
+2) Setting up a simple SQL-database for storing information about planned events;
+3) Adding "Settings" activity and "Upcoming events" fragment;
+-
 After completing my to-do list I am planning on cleaning up my code and adding some minor features, such as an optional countdown for some events and etc.
