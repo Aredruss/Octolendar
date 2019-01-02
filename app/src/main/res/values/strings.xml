@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Octolendar</string>
+    <string name="string_sample_progress">38% of the month has passed</string>
 </resources>
