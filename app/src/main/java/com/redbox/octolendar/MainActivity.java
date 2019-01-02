@@ -3,6 +3,8 @@ package com.redbox.octolendar;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
 import android.widget.CalendarView;
 import android.content.Intent;
 import android.widget.TextView;
@@ -31,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String date = day + "/" + (month+1) + "/" + year;
+                String date = day + "/" + (month + 1) + "/" + year;
                 Intent intent = new Intent(MainActivity.this, DayActivity.class);
                 intent.putExtra("Date", date);
                 startActivity(intent);
             }
         });
+
+        hideNavBar();
 
     }
 
@@ -46,9 +50,14 @@ public class MainActivity extends AppCompatActivity {
         LocalDate lastDay = now.with(TemporalAdjusters.lastDayOfMonth());
         int l_day = lastDay.getDayOfMonth();
 
-        float percent = ((float)today/(float)l_day)*100;
+        float percent = ((float) today / (float) l_day) * 100;
 
-        textView.setText((int)percent + "% of the month has passed.");
-        progressBar.setProgress((int)percent);
+        textView.setText((int) percent + "% of the month has passed.");
+        progressBar.setProgress((int) percent);
+    }
+
+    public void hideNavBar() {
+        View overlay = findViewById(R.id.MainRelativeLayout);
+        overlay.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 }

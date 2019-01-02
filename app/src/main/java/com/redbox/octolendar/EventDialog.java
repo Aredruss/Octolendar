@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -14,8 +14,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import java.time.LocalTime;
+import android.util.Log;
 
-public class AddDialog extends AppCompatDialogFragment {
+public class EventDialog extends AppCompatDialogFragment {
 
     private EditText heading;
     private EditText comment;
@@ -24,7 +25,7 @@ public class AddDialog extends AppCompatDialogFragment {
     private RadioGroup urgency;
     private String urgency_type;
 
-    private AddDialogListener listener;
+    private EventDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class AddDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_add, null);
+
 
         builder.setView(view).setTitle("Add an event").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class AddDialog extends AppCompatDialogFragment {
         timepick.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-             time = getTimeString(hour, minute);
+                time = getTimeString(hour, minute);
             }
         });
 
@@ -81,7 +83,7 @@ public class AddDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public interface AddDialogListener {
+    public interface EventDialogListener {
         void applyInfo(String head, String comment, String time, String urgency);
     }
 
@@ -89,9 +91,8 @@ public class AddDialog extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (AddDialogListener) context;
-        }
-        catch (ClassCastException e){
+            listener = (EventDialogListener) context;
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "Does not implement class Listener");
         }
     }
@@ -103,15 +104,15 @@ public class AddDialog extends AppCompatDialogFragment {
         time = getTimeString(hour, minute);
     }
 
-    public String getTimeString(int hour, int min){
+    public String getTimeString(int hour, int min) {
         String mock_time = null;
 
-        if (min < 10){
+        if (min < 10) {
             mock_time = hour + ":0" + min;
-        }
-        else if (min == 0) mock_time = hour + ":" + "00";
-        else  mock_time = hour + ":" + min;
+        } else if (min == 0) mock_time = hour + ":" + "00";
+        else mock_time = hour + ":" + min;
 
         return mock_time;
     }
+
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Octolendar</string>
-    <string name="string_sample_progress">38% of the month has passed</string>
+    <string name="string_sample_progress">_% of the month has passed</string>
     <string name="string_event_name">Name of the event</string>
     <string name="string_comment_label">Your comment</string>
+    <string name="string_sample_time">00:00</string>
 </resources>
