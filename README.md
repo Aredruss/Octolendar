@@ -1,4 +1,4 @@
-# Octolendar
+# [Octolendar]
 *Note*: Current version supports Android API 27 and higher, and that's probably not gonna change for some time.
 -
 Octolendar is a calendar application which will allow you to manage your schedule.
