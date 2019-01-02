@@ -11,5 +11,5 @@ Things left to do are:
 1) Creating a generator for CardView items, which will contain information about planned events;
 2) Setting up a simple SQL-database for storing information about planned events;
 3) Adding "Settings" activity and "Upcoming events" fragment;
--
+-#Off-topic
 After completing my to-do list I am planning on cleaning up my code and adding some minor features, such as an optional countdown for some events and etc.
