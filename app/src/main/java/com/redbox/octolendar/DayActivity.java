@@ -54,7 +54,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         });
 
         hideNavBar();
-
     }
 
     @Override
