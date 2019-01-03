@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //TODO Generate a list of upcoming events for the ScrollView
+
     public void getProgress() {
         LocalDate now = LocalDate.now();
         int today = now.getDayOfMonth();

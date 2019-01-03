@@ -47,7 +47,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //TODO Create a dialog for editing events
+                //TODO Create a dialog for editing events - important
 
                 return true;
             }
@@ -55,6 +55,9 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         hideNavBar();
     }
+
+    //TODO Set up an SQL-Database - can wait
+    //TODO Create a generator for cards - important
 
     @Override
     protected void onResume() {
