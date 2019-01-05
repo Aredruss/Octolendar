@@ -18,12 +18,15 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     private TextView timeTextView;
     private TextView urgencyTextView;
     private CardView card;
-
+    private View overlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
+
+        overlay = findViewById(R.id.dayRelativeLayout);
+        UtilityClass.hideNavBar(overlay);
 
         dateTextView = findViewById(R.id.dateTextView);
         Intent intentIncoming = getIntent();
@@ -53,7 +56,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
             }
         });
 
-        hideNavBar();
     }
 
     //TODO Set up an SQL-Database - can wait
@@ -62,7 +64,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     @Override
     protected void onResume() {
         super.onResume();
-        hideNavBar();
+        UtilityClass.hideNavBar(overlay);
     }
 
     @Override
@@ -71,23 +73,12 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         commentTextView.setText(comment);
         urgencyTextView.setText(urgency);
         timeTextView.setText(time);
-        hideNavBar();
-    }
-
-    public void hideNavBar() {
-        this.getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        );
+        UtilityClass.hideNavBar(overlay);
     }
 
     public void openDialog() {
         EventDialog eventDialog = new EventDialog();
         eventDialog.show(getSupportFragmentManager(), "Add an event");
-        hideNavBar();
     }
 
 }

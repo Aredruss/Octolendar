@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
@@ -24,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View overlay = findViewById(R.id.MainRelativeLayout);
+        UtilityClass.hideNavBar(overlay);
 
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
@@ -39,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        hideNavBar();
 
     }
 
@@ -58,8 +57,4 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setProgress((int) percent);
     }
 
-    public void hideNavBar() {
-        View overlay = findViewById(R.id.MainRelativeLayout);
-        overlay.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
 }
