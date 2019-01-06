@@ -1,22 +1,25 @@
 package com.redbox.octolendar;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CalendarView;
 import android.content.Intent;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
     ProgressBar progressBar;
     CalendarView calendarView;
+    ScrollView cardScroll;
+
+    int releaseY;
+    int pressY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +29,17 @@ public class MainActivity extends AppCompatActivity {
         View overlay = findViewById(R.id.MainRelativeLayout);
         UtilityClass.hideNavBar(overlay);
 
+        cardScroll = findViewById(R.id.upcomingScrollView);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
-        getProgress();
+
+        textView.setText(UtilityClass.getMonthProgress() + "% of the month has passed.");
+        progressBar.setProgress(UtilityClass.getMonthProgress());
 
         calendarView = findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
                 String date = day + "/" + (month + 1) + "/" + year;
                 Intent intent = new Intent(MainActivity.this, DayActivity.class);
                 intent.putExtra("Date", date);
@@ -41,20 +47,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        overlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN: {
+                        pressY = (int) motionEvent.getY();
+                    }
+                    case MotionEvent.ACTION_UP:{
+                        releaseY = (int) motionEvent.getY();
 
-    //TODO Generate a list of upcoming events for the ScrollView
+                    }
 
-    public void getProgress() {
-        LocalDate now = LocalDate.now();
-        int today = now.getDayOfMonth();
-        LocalDate lastDay = now.with(TemporalAdjusters.lastDayOfMonth());
-        int l_day = lastDay.getDayOfMonth();
+                    if (releaseY < pressY){
+                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped up", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else if (releaseY > pressY){
+                        //TODO create Timeline activity
+                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped down", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
-        float percent = ((float) today / (float) l_day) * 100;
+                }
+                return true;
+            }
+        });
 
-        textView.setText((int) percent + "% of the month has passed.");
-        progressBar.setProgress((int) percent);
     }
 
 }

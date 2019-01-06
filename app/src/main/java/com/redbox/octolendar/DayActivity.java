@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DayActivity extends AppCompatActivity implements EventDialog.EventDialogListener {
 
@@ -18,7 +21,10 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     private TextView timeTextView;
     private TextView urgencyTextView;
     private CardView card;
+    private ScrollView scrollView;
     private View overlay;
+    private int pressX;
+    private int releaseX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         String date = intentIncoming.getStringExtra("Date");
         dateTextView.setText(date);
         button = findViewById(R.id.addFloatingButton);
+        scrollView = findViewById(R.id.upcomingScrollView);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +58,35 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
             @Override
             public boolean onLongClick(View view) {
                 //TODO Create a dialog for editing events - important
+                return true;
+            }
+        });
 
+        //TODO create logic for swiping between days
+        overlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN: {
+                        pressX = (int) motionEvent.getX();
+                    }
+                    case MotionEvent.ACTION_UP:{
+                        releaseX = (int) motionEvent.getX();
+
+                    }
+
+                    if (releaseX < pressX){
+                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped left", Toast.LENGTH_SHORT);
+                        Log.d("Swipe", pressX + "|" +releaseX);
+                        toast.show();
+                    }
+                    else if (releaseX > pressX){
+                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped right", Toast.LENGTH_SHORT);
+                        Log.d("Swipe", pressX + "|" +releaseX);
+                        toast.show();
+                    }
+
+                }
                 return true;
             }
         });
@@ -80,5 +115,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         EventDialog eventDialog = new EventDialog();
         eventDialog.show(getSupportFragmentManager(), "Add an event");
     }
+
 
 }
