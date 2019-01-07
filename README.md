@@ -15,7 +15,7 @@ Things left to do are:
 2) Setting up a simple SQL-database for storing information about your planned events.
 3) Adding an activity for managing application settings.
 4) An ability to edit and delete existing information.
-5) Adding some logic to the DayActivity, so that the yser will be able to swipe between days;
+5) Adding some logic to the DayActivity, so that the user will be able to swipe between days;
 
 After completing my to-do list I am planning on cleaning up my code and adding some minor features, such as an optional countdown for some events and etc.
 
