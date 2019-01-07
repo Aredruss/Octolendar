@@ -6,30 +6,28 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CalendarView;
 import android.content.Intent;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
-    ProgressBar progressBar;
-    CalendarView calendarView;
-    ScrollView cardScroll;
+   private TextView textView;
+   private ProgressBar progressBar;
+   private CalendarView calendarView;
+   private View overlay;
 
-    int releaseY;
-    int pressY;
+   private int releaseY;
+   private int pressY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View overlay = findViewById(R.id.MainRelativeLayout);
+        overlay = findViewById(R.id.MainRelativeLayout);
         UtilityClass.hideNavBar(overlay);
 
-        cardScroll = findViewById(R.id.upcomingScrollView);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
 
@@ -74,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UtilityClass.hideNavBar(overlay);
+    }
 }

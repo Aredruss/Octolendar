@@ -39,7 +39,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         String date = intentIncoming.getStringExtra("Date");
         dateTextView.setText(date);
         button = findViewById(R.id.addFloatingButton);
-        scrollView = findViewById(R.id.upcomingScrollView);
+        scrollView = findViewById(R.id.plannedScrollView);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

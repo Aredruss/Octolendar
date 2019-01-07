@@ -11,6 +11,8 @@
         android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <CalendarView
@@ -38,18 +40,23 @@
                 android:fontFamily="@font/droid_sans_mono"
                 android:text="@string/string_sample_progress"
                 android:textSize="18sp" />
+
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/upcomingScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+        <TextView
+            android:id="@+id/timelineTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="195dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:gravity="bottom"
+            android:text="@string/string_go_to_timeline"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Check out your timeline \n v" />
 
     </LinearLayout>
 
