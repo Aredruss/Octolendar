@@ -3,7 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#4b4b4b</color>
     <color name="colorAccent">#d81b60</color>
-    <color name="colorCardBackground">#b51888</color>
+    <color name="colorCardBackground">#c30b61</color>
     <color name="colorCardTimeBackground">#36282e</color>
     <color name="colorScrollBack">#272727</color>
 </resources>

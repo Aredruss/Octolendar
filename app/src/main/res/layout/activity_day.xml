@@ -26,83 +26,24 @@
             android:text="TextView"
             android:textSize="24sp" />
 
-        <ScrollView
-            android:id="@+id/plannedScrollView"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="486dp"
-            android:layout_weight="4"
-            android:backgroundTint="@color/colorScrollBack">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/eventCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="0"
-                android:backgroundTint="@color/colorAccent"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="6dp"
-                app:contentPadding="5dp">
-
-                <LinearLayout
-                    android:id="@+id/eventLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/timeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorCardTimeBackground"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="@string/string_sample_time"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/headingTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="TextView"
-                        android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/commentTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="TextView"
-                        android:textAlignment="center"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/urgencyTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="TextView"
-                        android:textAlignment="center" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addFloatingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="54dp"
+            android:layout_height="53dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="0"
             android:clickable="true"
             app:backgroundTint="@color/colorAccent"
             app:elevation="3dp"
             app:rippleColor="@color/colorPrimary"
-            app:srcCompat="@android:drawable/btn_radio" />
+            app:srcCompat="@android:drawable/btn_radio"
+            app:useCompatPadding="false" />
     </LinearLayout>
 </RelativeLayout>
