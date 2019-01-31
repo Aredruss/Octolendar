@@ -2,12 +2,19 @@ package com.redbox.octolendar.database.model;
 
 public class Event {
 
-    public static final String TABLE_NAME = "events";
+    public static final String TABLE_NAME = "events_db";
     public static final String COLUMN_ID = "id";
-    public static final String DATE = "date";
-    public static final String TITLE = "title";
-    public static final String COMMENT = "comment";
-    public static final String URGENCY = "urgency";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_COMMENT = "comment";
+    public static final String COLUMN_URGENCY = "urgency";
+
+    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_DATE + " TEXT," +
+            COLUMN_TITLE + " TEXT," +
+            COLUMN_COMMENT + " TEXT," +
+            COLUMN_URGENCY + " TEXT)";
 
     private int id;
     private String date;
