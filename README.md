@@ -19,4 +19,4 @@ Octolendar is a calendar application which will allow you to manage your schedul
 
 | id  | date | time | title | comment | urgency | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| 1 | 31.10.2019 | 22:30 | Halloween Party| At Ashley's House | It's important|
+| 1 | 31/10/2019 | 22:30 | Halloween Party| At Ashley's House | It's important|
