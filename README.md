@@ -8,7 +8,8 @@ Octolendar is a calendar application which will allow you to manage your schedul
 3) A *cool* name.
 4) Activities are now able to detect swiping gestures (Several features will be based on this).
 5) A model for the future database.
-#Things left to do are:
+-
+## Things left to do are:
 6) Creating a generator for CardView items, which will contain all information about your planned events.
 7) Setting up a simple SQL-database for storing information about your planned events.
 8) Adding an Adapter for the recycler view and for the database.
