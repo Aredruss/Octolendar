@@ -9,15 +9,11 @@ At the momement of speaking (30.01.2019) this application has the following feat
 3) A *cool* name.
 4) Activities are now able to detect swiping gestures (Several features will be based on this).
 5) A model for the future database.
-
-Things left to do are:
--
-1) Creating a generator for CardView items, which will contain all information about your planned events.
-2) Setting up a simple SQL-database for storing information about your planned events.
-3) Adding an Adapter for the recycler view and for the database.
-3) Adding an activity for managing application settings.
-4) An ability to edit and delete existing information.
-5) Adding some logic to the DayActivity, so that the user will be able to swipe between days;
+6) Creating a generator for CardView items, which will contain all information about your planned events.
+7) Setting up a simple SQL-database for storing information about your planned events.
+8) Adding an Adapter for the recycler view and for the database.
+9) Adding an activity for managing application settings.
+10) An ability to edit and delete existing information.
 
 After completing my to-do list I am planning on cleaning up my code and adding some minor features, such as an optional countdown for some events and etc.
 
