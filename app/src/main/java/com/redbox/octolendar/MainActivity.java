@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.redbox.octolendar.utilities.UtilityFunctionsClass;
+
 public class MainActivity extends AppCompatActivity {
 
    private TextView textView;
@@ -26,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         overlay = findViewById(R.id.MainRelativeLayout);
-        UtilityClass.hideNavBar(overlay);
+        UtilityFunctionsClass.hideNavBar(overlay);
 
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
 
-        textView.setText(UtilityClass.getMonthProgress() + "% of the month has passed.");
-        progressBar.setProgress(UtilityClass.getMonthProgress());
+        textView.setText(UtilityFunctionsClass.getMonthProgress() + "% of the month has passed.");
+        progressBar.setProgress(UtilityFunctionsClass.getMonthProgress());
 
         calendarView = findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -76,6 +78,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        UtilityClass.hideNavBar(overlay);
+        UtilityFunctionsClass.hideNavBar(overlay);
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/eventCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="104dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
@@ -16,10 +16,21 @@
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp">
 
-        <LinearLayout
-            android:id="@+id/cardLinearLayout"
+        <TextView
+            android:id="@+id/timeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="TextView"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cardLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -27,18 +38,11 @@
             android:paddingBottom="10dp">
 
             <TextView
-                android:id="@+id/timeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/droid_sans_mono"
-                android:text="TextView"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/headingTextView"
+                android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:focusable="false"
                 android:fontFamily="@font/droid_sans_mono"
                 android:text="TextView"
                 android:textSize="18sp"
@@ -49,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:focusable="false"
                 android:fontFamily="@font/droid_sans_mono"
                 android:text="TextView"
                 android:textStyle="bold" />
@@ -58,9 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:focusable="false"
                 android:fontFamily="@font/droid_sans_mono"
                 android:text="TextView"
                 android:textStyle="bold" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-</RelativeLayout>
+</LinearLayout>

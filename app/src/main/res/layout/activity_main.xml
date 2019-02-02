@@ -43,21 +43,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/timelineTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="195dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/droid_sans_mono"
-            android:gravity="bottom"
-            android:text="@string/string_go_to_timeline"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Check out your timeline \n v" />
-
     </LinearLayout>
 
 </RelativeLayout>

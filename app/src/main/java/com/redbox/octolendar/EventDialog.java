@@ -6,12 +6,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+
+import com.redbox.octolendar.database.model.Event;
+import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 public class EventDialog extends AppCompatDialogFragment {
 
@@ -21,6 +26,7 @@ public class EventDialog extends AppCompatDialogFragment {
     private String time;
     private RadioGroup urgency;
     private String urgencyType;
+    private LayoutInflater inflater;
 
     private EventDialogListener listener;
 
@@ -28,10 +34,13 @@ public class EventDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        inflater = getActivity().getLayoutInflater();
+
+
         View view = inflater.inflate(R.layout.activity_add, null);
 
-        UtilityClass.hideNavBar(view);
+        UtilityFunctionsClass.hideNavBar(view);
+        time = UtilityFunctionsClass.getCurrentTime();
 
         builder.setView(view).setTitle("Add an event").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -40,12 +49,10 @@ public class EventDialog extends AppCompatDialogFragment {
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String head = heading.getText().toString();
-                String comm = comment.getText().toString();
-                String out_time = time;
-                String urg_tp = urgencyType;
 
-                listener.applyInfo(head, comm, out_time, urg_tp);
+                Event event = new Event(0, " ", time, heading.getText().toString(), comment.getText().toString(), urgencyType);
+
+                listener.applyInfo(event);
 
             }
         });
@@ -56,12 +63,12 @@ public class EventDialog extends AppCompatDialogFragment {
         urgency = view.findViewById(R.id.radioGroup);
 
         timepick.setIs24HourView(true);
-        UtilityClass.getCurrentTime();
+        UtilityFunctionsClass.getCurrentTime();
 
         timepick.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                time = UtilityClass.prepareStringTime(hour, minute);
+                time = UtilityFunctionsClass.prepareStringTime(hour, minute);
             }
         });
 
@@ -82,7 +89,7 @@ public class EventDialog extends AppCompatDialogFragment {
     }
 
     public interface EventDialogListener {
-        void applyInfo(String head, String comment, String time, String urgency);
+        void applyInfo(Event event);
     }
 
     @Override

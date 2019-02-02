@@ -1,4 +1,4 @@
-package com.redbox.octolendar;
+package com.redbox.octolendar.utilities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 
-public class UtilityClass extends AppCompatActivity {
+public class UtilityFunctionsClass extends AppCompatActivity {
 
     public static String prepareStringTime(int hour, int minute) {
         String strTime = null;
