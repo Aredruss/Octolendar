@@ -9,14 +9,17 @@ Octolendar is a calendar application which will allow you to manage your schedul
 * Activities are now able to detect swiping gestures (Several features will be based on this).
 * It implements a simple SQL-database for storing information about your planned events.
 * DayActivity now fully supports the card generation process.
+* The User has an ability to edit and delete already existing events.
 
 ## Things left to do are:
 
 * Adding an activity for managing application settings.
-* An ability to edit and delete existing information.
+* Adding an ability to swipe between days via DayActivity.
+* Adding notifications for important events.
+* Possible GoogleDisk integration.
 
 ## Database entries are presented as depicted here:
 
 | id  | date | time | title | comment | urgency | 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| 1 | 31/10/2019 | 22:30 | Halloween Party| At Ashley's House | It's important|
+| 1 | 31-10-2019 | 22:30 | Halloween Party| At Ashley's House | It's important|
