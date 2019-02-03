@@ -3,13 +3,11 @@
 -
 Octolendar is a calendar application which will allow you to manage your schedule.
 -
-* It can calculate the current month's progression and display the information in percentages.
+* This app can calculate the current month's progression and display the information in percentages.
 * While in the process of adding a new event to your schedule, you are able to mark the event with a special tag: "It's Important", "Ugh" or "You can skip it".
-* A *cool* name.
-* Activities are now able to detect swiping gestures (Several features will be based on this).
+* This app has a *cool* name.
 * It implements a simple SQL-database for storing information about your planned events.
-* DayActivity now fully supports the card generation process.
-* The User has an ability to edit and delete already existing events.
+* You have an ability to edit and delete already existing events.
 
 ## Things left to do are:
 
