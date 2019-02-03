@@ -28,8 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-       // sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Event.TABLE_NAME);
-       // onCreate(sqLiteDatabase);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Event.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
     //Insert Event
     public long insertEvent(Event event) {
@@ -89,8 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 events.add(event);
             } while (cursor.moveToNext());
         }
-        else if (!cursor.moveToFirst()) {
-            Log.d("Tag",DatabaseUtils.dumpCursorToString(cursor)); }
 
         cursor.close();
         db.close();

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -37,7 +35,7 @@ public class EventDialog extends AppCompatDialogFragment {
         inflater = getActivity().getLayoutInflater();
 
 
-        View view = inflater.inflate(R.layout.activity_add, null);
+        View view = inflater.inflate(R.layout.add_event_dialog, null);
 
         UtilityFunctionsClass.hideNavBar(view);
         time = UtilityFunctionsClass.getCurrentTime();
@@ -57,13 +55,12 @@ public class EventDialog extends AppCompatDialogFragment {
             }
         });
 
-        heading = view.findViewById(R.id.headingEditText);
+        heading = view.findViewById(R.id.titleEditText);
         comment = view.findViewById(R.id.commentEditText);
         timepick = view.findViewById(R.id.timePicker);
-        urgency = view.findViewById(R.id.radioGroup);
+        urgency = view.findViewById(R.id.urgencyRadioGroup);
 
         timepick.setIs24HourView(true);
-        UtilityFunctionsClass.getCurrentTime();
 
         timepick.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override

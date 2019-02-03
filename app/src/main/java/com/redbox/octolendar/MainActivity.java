@@ -19,9 +19,6 @@ public class MainActivity extends AppCompatActivity {
    private CalendarView calendarView;
    private View overlay;
 
-   private int releaseY;
-   private int pressY;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,41 +37,14 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
-                String date = day + "/" + (month + 1) + "/" + year;
+                String date = day + "-" + (month + 1) + "-" + year;
                 Intent intent = new Intent(MainActivity.this, DayActivity.class);
                 intent.putExtra("Date", date);
                 startActivity(intent);
             }
         });
-
-        overlay.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()){
-                    case MotionEvent.ACTION_DOWN: {
-                        pressY = (int) motionEvent.getY();
-                    }
-                    case MotionEvent.ACTION_UP:{
-                        releaseY = (int) motionEvent.getY();
-
-                    }
-
-                    if (releaseY < pressY){
-                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped up", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                    else if (releaseY > pressY){
-                        //TODO create Timeline activity
-                        Toast toast = Toast.makeText(getApplicationContext(), "You swiped down", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-
-                }
-                return true;
-            }
-        });
-        
     }
+
     @Override
     protected void onResume() {
         super.onResume();

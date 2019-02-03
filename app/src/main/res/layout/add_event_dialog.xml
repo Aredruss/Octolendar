@@ -6,14 +6,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/AppTheme">
 
     <LinearLayout
         android:id="@+id/formLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+       >
 
         <LinearLayout
             android:id="@+id/headingLinearLayout"
@@ -21,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:id="@+id/headingTextView"
@@ -31,7 +34,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/headingEditText"
+                android:id="@+id/titleEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -47,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:theme="@style/AppTheme">
 
             <TextView
                 android:id="@+id/commentTextView"
@@ -71,10 +75,11 @@
             android:id="@+id/radioLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:theme="@style/AppTheme">
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/urgencyRadioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -116,7 +121,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:isScrollContainer="true"
-                android:timePickerMode="spinner"></TimePicker>
+                android:timePickerMode="spinner"
+                />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,8 +1,10 @@
 package com.redbox.octolendar.utilities;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
@@ -44,5 +46,21 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         float percent = ((float) today / (float) l_day) * 100;
 
         return (int)percent;
+    }
+
+    public static int[] getIntTime(String strTime){
+        int[] time = new int[2];
+        String[] splitStr = strTime.split(":");
+        time[0] = Integer.parseInt(splitStr[0]);
+        time[1] = Integer.parseInt(splitStr[1]);
+        return  time;
+    }
+
+    public static String getNextDay(String prevDay){
+        String nextDay = null;
+
+        //todo change dates via swipe
+
+        return prevDay;
     }
 }
