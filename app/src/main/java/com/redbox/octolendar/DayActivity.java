@@ -57,6 +57,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         date = intentIncoming.getStringExtra("Date");
         dateTextView.setText(date);
 
+        
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

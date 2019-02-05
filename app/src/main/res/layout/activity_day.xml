@@ -31,7 +31,9 @@
             android:id="@+id/cardRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_weight="2" >
+
+        </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addFloatingButton"
@@ -48,5 +50,18 @@
             app:rippleColor="@color/colorPrimary"
             app:srcCompat="@android:drawable/btn_radio"
             app:useCompatPadding="false" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorScrollBack"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/bottom_nav_menu"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="3dp"/>
+
     </LinearLayout>
 </LinearLayout>
