@@ -4,5 +4,9 @@
     <string name="string_event_name">Name of the event</string>
     <string name="string_comment_label">Your comment</string>
     <string name="string_sample_time">00:00</string>
-    <string name="string_go_to_timeline">Check out your timeline \n v </string>
+    <string name="string_edittext_placeholder">-</string>
+    <string name="string_rbutton_skip">You can skip it</string>
+    <string name="string_rbutton_ugh">Ugh</string>
+    <string name="string_rbutton_important">It\'s important</string>
+    <string name="string_sample_date">00-00-0000</string>
 </resources>

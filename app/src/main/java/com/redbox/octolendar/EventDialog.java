@@ -5,39 +5,45 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 public class EventDialog extends AppCompatDialogFragment {
 
-    private EditText heading;
-    private EditText comment;
+    private EditText headingEditText;
+    private EditText commentEditText;
     private TimePicker timepick;
     private String time;
-    private RadioGroup urgency;
+    private RadioGroup urgencyRadioGroup;
     private String urgencyType;
     private LayoutInflater inflater;
-
     private EventDialogListener listener;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        inflater = getActivity().getLayoutInflater();
+        try {
+            inflater = getActivity().getLayoutInflater();
+        } catch (NullPointerException e) {
+            Log.d("NullPointerException: ", "NullPointerException while creating dialogue window");
+        }
 
 
         View view = inflater.inflate(R.layout.add_event_dialog, null);
 
-        UtilityFunctionsClass.hideNavBar(view);
         time = UtilityFunctionsClass.getCurrentTime();
 
         builder.setView(view).setTitle("Add an event").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -48,17 +54,30 @@ public class EventDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Event event = new Event(0, " ", time, heading.getText().toString(), comment.getText().toString(), urgencyType);
-
-                listener.applyInfo(event);
-
+                if (!headingEditText.getText().toString().isEmpty()) {
+                    if (commentEditText.getText().toString().equals("-")) {
+                        Event event = new Event(0, " ", time, headingEditText.getText().toString(), "-", urgencyType);
+                        listener.applyInfo(event);
+                    } else {
+                        Event event = new Event(0, " ", time, headingEditText.getText().toString(), commentEditText.getText().toString(), urgencyType);
+                        listener.applyInfo(event);
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "Each event requires a title", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
-        heading = view.findViewById(R.id.titleEditText);
-        comment = view.findViewById(R.id.commentEditText);
+        headingEditText = view.findViewById(R.id.titleEditText);
+        commentEditText = view.findViewById(R.id.commentEditText);
         timepick = view.findViewById(R.id.timePicker);
-        urgency = view.findViewById(R.id.urgencyRadioGroup);
+        urgencyRadioGroup = view.findViewById(R.id.urgencyRadioGroup);
+
+        commentEditText.setText(R.string.string_edittext_placeholder);
+        RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(1);
+        btn.setChecked(true);
+        urgencyType = btn.getText().toString();
 
         timepick.setIs24HourView(true);
 
@@ -67,14 +86,15 @@ public class EventDialog extends AppCompatDialogFragment {
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
                 time = UtilityFunctionsClass.prepareStringTime(hour, minute);
             }
+
         });
 
-        urgency.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int childCount = urgency.getChildCount();
+                int childCount = urgencyRadioGroup.getChildCount();
                 for (int x = 0; x < childCount; x++) {
-                    RadioButton btn = (RadioButton) urgency.getChildAt(x);
+                    RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
                     if (btn.getId() == i) {
                         urgencyType = btn.getText().toString();
                     }

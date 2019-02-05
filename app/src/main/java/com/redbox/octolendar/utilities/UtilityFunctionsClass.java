@@ -48,6 +48,18 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         return (int)percent;
     }
 
+    public static String getToday(){
+        String today = " a";
+
+        LocalDate now = LocalDate.now();
+        int day = now.getDayOfMonth();
+        int month = now.getMonthValue();
+        int year = now.getYear();
+        Log.d(" f", "getToday: " + day + " " + month + " " + year);
+
+        return day + "-" + month + "-" + year;
+    }
+
     public static int[] getIntTime(String strTime){
         int[] time = new int[2];
         String[] splitStr = strTime.split(":");

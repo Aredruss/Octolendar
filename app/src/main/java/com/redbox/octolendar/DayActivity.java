@@ -110,8 +110,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
                 return true;
             }
         });
-
-        UtilityFunctionsClass.hideNavBar(overlay);
     }
 
     private void createNote(Event event) {
@@ -124,9 +122,14 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     @Override
     protected void onResume() {
         super.onResume();
-        UtilityFunctionsClass.hideNavBar(overlay);
         db.getDayEvents(date);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 
     @Override
@@ -149,7 +152,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         Event openedEvent = eventList.get(position);
 
-        CharSequence options[] = new CharSequence[]{"Edit", "Delete"};
+        CharSequence options[] = new CharSequence[]{"Edit", "Delete","Manage Notifications"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose an option");
 
@@ -158,11 +161,14 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
                     openEditDialog(i);
-                } else {
+                } else if(i ==1){
                     Toast toast = Toast.makeText(getApplicationContext(), "The event was deleted", Toast.LENGTH_SHORT);
                     toast.show();
                     db.deleteEvent(openedEvent);
                     getRecyclerViewContent();
+                }  else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Launch notification management dialogue", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -175,8 +181,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         String time = openedEvent.getTime();
         Log.d("Time", "openEditDialog: " + time);
         String urgencyType = openedEvent.getUrgency();
-
-
 
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         View view;

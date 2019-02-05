@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id = "@+id/calendar_icon"
+        android:enabled="true"
+        android:title="Calendar"
+        android:icon="@drawable/ic_action_name_calendar" />
+
+    <item android:id = "@+id/today_icon"
+        android:enabled="true"
+        android:title="Today"
+        android:icon="@drawable/ic_action_name_today" />
+
+    <item android:id = "@+id/timeline_icon"
+        android:enabled="true"
+        android:title="Timeline"
+        android:icon="@drawable/ic_action_name_timeline" />
+
+    <item android:id = "@+id/settings_icon"
+        android:enabled="true"
+        android:title="Settings"
+        android:icon="@drawable/ic_action_name_settings" />
+</menu>

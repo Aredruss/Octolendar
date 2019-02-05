@@ -40,7 +40,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:maxLength="32"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -67,7 +68,8 @@
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:maxLength="64"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -88,14 +90,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="You can skip it" />
+                    android:text="@string/string_rbutton_skip" />
 
                 <RadioButton
                     android:id="@+id/ughRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ugh" />
+                    android:text="@string/string_rbutton_ugh" />
 
                 <RadioButton
                     android:id="@+id/importantRadioButton"
