@@ -71,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Get all events for the day
+    //todo sort events by time parameter
 
     public List<Event> getDayEvents(String date) {
         List<Event> events = new ArrayList<>();
