@@ -1,6 +1,8 @@
 package com.redbox.octolendar.database;
 
 import com.redbox.octolendar.database.model.Event;
+import com.redbox.octolendar.utilities.UtilityFunctionsClass;
+
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;

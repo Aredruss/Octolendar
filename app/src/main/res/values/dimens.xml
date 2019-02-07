@@ -4,4 +4,7 @@
     <dimen name="dimen_10dp">10dp</dimen>
     <dimen name="dimen_elevation">3dp</dimen>
     <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_55dp">55dp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_n_20dp" >-20dp</dimen>
 </resources>

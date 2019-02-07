@@ -10,58 +10,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/dateTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginBottom="@dimen/dimen_20dp"
-            android:layout_weight="0"
+            android:background="@color/colorScrollBack"
             android:fontFamily="@font/droid_sans_mono"
+            android:paddingTop="@dimen/dimen_10dp"
             android:text="@string/string_sample_date"
             android:textAlignment="center"
             android:textSize="24sp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/cardRecyclerView"
+        <FrameLayout
+            android:id="@+id/eventFrameLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_n_20dp"
+            android:layout_weight="1">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cardRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addFloatingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginTop="@dimen/dimen_10dp"
-            android:layout_marginRight="@dimen/dimen_20dp"
-            android:layout_marginBottom="@dimen/dimen_20dp"
-            android:layout_weight="0"
-            android:clickable="true"
-            app:backgroundTint="@color/colorAccent"
-            app:elevation="@dimen/dimen_elevation"
-            app:rippleColor="@color/colorPrimary"
-            app:srcCompat="@android:drawable/btn_radio"
-            app:useCompatPadding="false" />
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addFloatingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:elevation="@dimen/dimen_elevation"
+                app:rippleColor="@color/colorPrimary"
+                app:srcCompat="@android:drawable/btn_radio"
+                app:useCompatPadding="false" />
+        </FrameLayout>
+
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_weight="0"
             android:background="@color/colorScrollBack"
             app:itemIconTint="@android:color/white"
             app:itemTextColor="@android:color/white"
             app:menu="@menu/bottom_nav_menu"
             tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="3dp"/>
+            tools:layout_editor_absoluteY="3dp" />
 
     </LinearLayout>
 </LinearLayout>

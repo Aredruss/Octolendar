@@ -1,8 +1,8 @@
 package com.redbox.octolendar;
-
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     private EventAdapter eAdapter;
     private List<Event> eventList = new ArrayList<>();
     private String date;
+    private BottomNavigationView bottomNavigationView;
     private int pressX;
     private int releaseX;
 
@@ -57,6 +59,10 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         date = intentIncoming.getStringExtra("Date");
         dateTextView.setText(date);
 
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        if(UtilityFunctionsClass.getToday().equals(date)) bottomNavigationView.setSelectedItemId(R.id.today_icon);
+        else { }
         
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +117,42 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
                 return true;
             }
         });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) button.hide();
+                if (dy < 0) button.show();
+            }
+        });
+
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Log.d("TAG", "onOptionsItemSelected: " + item.getItemId());
+
+                switch (item.getItemId()){
+                    case R.id.calendar_icon:{
+                        Intent intent = new Intent(DayActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                    case R.id.timeline_icon:{
+                        Intent intent = new Intent(DayActivity.this, TimelineActivity.class);
+                        startActivity(intent);
+                    }
+                    case R.id.settings_icon:{
+                        Intent intent = new Intent(DayActivity.this, SettingsActivity.class);
+                    }
+                    default:{
+                        return true;
+                    }
+                }
+
+            }
+        });
     }
 
     private void createNote(Event event) {
@@ -143,6 +185,8 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         }
     }
+
+
 
     public void openAddDialog() {
         EventDialog eventDialog = new EventDialog();

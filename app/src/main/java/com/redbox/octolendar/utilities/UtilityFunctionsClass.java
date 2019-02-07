@@ -1,13 +1,16 @@
 package com.redbox.octolendar.utilities;
 
+import android.support.annotation.Keep;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import java.text.ParseException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 
 public class UtilityFunctionsClass extends AppCompatActivity {
 
@@ -19,6 +22,7 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         } else if (minute == 0) strTime = hour + ":" + "00";
         else strTime = hour + ":" + minute;
 
+
         return strTime;
     }
 
@@ -29,6 +33,8 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         return strTime;
     }
 
+
+    @Deprecated
     public static void hideNavBar(View overlay) {
         overlay.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -49,7 +55,7 @@ public class UtilityFunctionsClass extends AppCompatActivity {
     }
 
     public static String getToday(){
-        String today = " a";
+
 
         LocalDate now = LocalDate.now();
         int day = now.getDayOfMonth();
@@ -66,13 +72,30 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         time[0] = Integer.parseInt(splitStr[0]);
         time[1] = Integer.parseInt(splitStr[1]);
         return  time;
+
+
     }
 
+    @Keep
     public static String getNextDay(String prevDay){
         String nextDay = null;
 
         //todo change dates via swipe
 
         return prevDay;
+    }
+
+    @Keep
+    public static void parseTimeFromString(String timeStr){
+
+        DateFormat sdf = new SimpleDateFormat("hh:mm");
+        try{
+
+            Date time = sdf.parse(timeStr);
+            Log.d("U", "parseTimeFromString: " + time);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

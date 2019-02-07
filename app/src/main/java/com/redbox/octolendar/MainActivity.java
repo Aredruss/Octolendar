@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
