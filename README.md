@@ -11,7 +11,8 @@ Octolendar is a calendar application which will allow you to manage your schedul
 
 ## Things left to do are:
 
-* Adding an activity for managing application settings.
+* Adding a functional activity for managing application settings.
+* Adding a functional timeline activity.
 * Adding an ability to swipe between days via DayActivity.
 * Adding notifications for important events.
 * Possible GoogleDisk integration.
