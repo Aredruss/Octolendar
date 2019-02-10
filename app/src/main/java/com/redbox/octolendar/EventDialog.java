@@ -56,10 +56,10 @@ public class EventDialog extends AppCompatDialogFragment {
 
                 if (!headingEditText.getText().toString().isEmpty()) {
                     if (commentEditText.getText().toString().equals("-")) {
-                        Event event = new Event(0, " ", time, headingEditText.getText().toString(), "-", urgencyType);
+                        Event event = new Event(0, time, headingEditText.getText().toString(), "-", urgencyType, " "," ", " ", 0);
                         listener.applyInfo(event);
                     } else {
-                        Event event = new Event(0, " ", time, headingEditText.getText().toString(), commentEditText.getText().toString(), urgencyType);
+                        Event event = new Event(0, time, headingEditText.getText().toString(), commentEditText.getText().toString(), urgencyType, " ", " ", " ", 0);
                         listener.applyInfo(event);
                     }
                 } else {
@@ -86,7 +86,6 @@ public class EventDialog extends AppCompatDialogFragment {
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
                 time = UtilityFunctionsClass.prepareStringTime(hour, minute);
             }
-
         });
 
         urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

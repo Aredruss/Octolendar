@@ -20,8 +20,9 @@
             android:id="@+id/timeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_12dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:fontFamily="@font/droid_sans_mono"
             android:text="TextView"
             android:textStyle="bold" />

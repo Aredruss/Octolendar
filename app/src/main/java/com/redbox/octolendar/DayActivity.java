@@ -61,7 +61,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
-        if(UtilityFunctionsClass.getToday().equals(date)) bottomNavigationView.setSelectedItemId(R.id.today_icon);
+        if(UtilityFunctionsClass.getToday().equals(date)) bottomNavigationView.setSelectedItemId(R.id.today);
         else { }
         
 
@@ -134,16 +134,16 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
                 Log.d("TAG", "onOptionsItemSelected: " + item.getItemId());
 
                 switch (item.getItemId()){
-                    case R.id.calendar_icon:{
+                    case R.id.calendar:{
                         Intent intent = new Intent(DayActivity.this, MainActivity.class);
                         startActivity(intent);
                         return true;
                     }
-                    case R.id.timeline_icon:{
+                    case R.id.timeline:{
                         Intent intent = new Intent(DayActivity.this, TimelineActivity.class);
                         startActivity(intent);
                     }
-                    case R.id.settings_icon:{
+                    case R.id.settings:{
                         Intent intent = new Intent(DayActivity.this, SettingsActivity.class);
                     }
                     default:{
@@ -155,7 +155,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         });
     }
 
-    private void createNote(Event event) {
+    private void createEvent(Event event) {
         long id = db.insertEvent(event);
         event = db.getEvent(id);
         eventList.add(0, event);
@@ -166,7 +166,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
     protected void onResume() {
         super.onResume();
         db.getDayEvents(date);
-
     }
 
     @Override
@@ -180,13 +179,10 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
         if (event != null) {
             event.setDate(date);
             event.setId(db.getEventCount() + 1);
-            createNote(event);
-            Log.d("apply", "applyInfo: " + event.getDate() + " " + event.getTime() + " " + event.getId());
-
+            createEvent(event);
+            getRecyclerViewContent();
         }
     }
-
-
 
     public void openAddDialog() {
         EventDialog eventDialog = new EventDialog();
@@ -224,7 +220,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         Event openedEvent = eventList.get(position);
         String time = openedEvent.getTime();
-        Log.d("Time", "openEditDialog: " + time);
         String urgencyType = openedEvent.getUrgency();
 
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());

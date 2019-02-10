@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity">
 
+    <ListView
+        android:id="@+id/timeline_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

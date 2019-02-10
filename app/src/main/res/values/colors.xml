@@ -6,4 +6,5 @@
     <color name="colorCardBackground">#c30b61</color>
     <color name="colorCardTimeBackground">#36282e</color>
     <color name="colorScrollBack">#272727</color>
+    <color name="colorTimelineBack">#7CECBF</color>
 </resources>

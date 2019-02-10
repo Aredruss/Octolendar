@@ -17,11 +17,15 @@ public class UtilityFunctionsClass extends AppCompatActivity {
     public static String prepareStringTime(int hour, int minute) {
         String strTime = null;
 
+
         if (minute < 10) {
             strTime = hour + ":0" + minute;
         } else if (minute == 0) strTime = hour + ":" + "00";
         else strTime = hour + ":" + minute;
 
+        if (hour < 10){
+            strTime = "0" + strTime;
+        }
 
         return strTime;
     }
@@ -32,7 +36,6 @@ public class UtilityFunctionsClass extends AppCompatActivity {
 
         return strTime;
     }
-
 
     @Deprecated
     public static void hideNavBar(View overlay) {
@@ -56,7 +59,6 @@ public class UtilityFunctionsClass extends AppCompatActivity {
 
     public static String getToday(){
 
-
         LocalDate now = LocalDate.now();
         int day = now.getDayOfMonth();
         int month = now.getMonthValue();
@@ -72,22 +74,17 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         time[0] = Integer.parseInt(splitStr[0]);
         time[1] = Integer.parseInt(splitStr[1]);
         return  time;
-
-
     }
 
     @Keep
     public static String getNextDay(String prevDay){
         String nextDay = null;
 
-        //todo change dates via swipe
-
         return prevDay;
     }
 
     @Keep
     public static void parseTimeFromString(String timeStr){
-
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         try{
 

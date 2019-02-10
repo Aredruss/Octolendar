@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id = "@+id/calendar_icon"
+    <item
+        android:id="@+id/calendar"
         android:enabled="true"
-        android:title=" "
-        android:icon="@drawable/ic_action_name_calendar" />
+        android:icon="@drawable/ic_action_name_calendar"
+        android:title="@string/string_navbar_title" />
 
-    <item android:id = "@+id/today_icon"
+    <item
+        android:id="@+id/today"
         android:enabled="true"
-        android:title=" "
-        android:icon="@drawable/ic_action_name_today" />
+        android:icon="@drawable/ic_action_name_today"
+        android:title="@string/string_navbar_title" />
 
-    <item android:id = "@+id/timeline_icon"
+    <item
+        android:id="@+id/timeline"
         android:enabled="true"
-        android:title=" "
-        android:icon="@drawable/ic_action_name_timeline" />
+        android:icon="@drawable/ic_action_name_timeline"
+        android:title="@string/string_navbar_title" />
 
-    <item android:id = "@+id/settings_icon"
+    <item
+        android:id="@+id/settings"
         android:enabled="true"
-        android:title=" "
-        android:icon="@drawable/ic_action_name_settings" />
+        android:icon="@drawable/ic_action_name_settings"
+        android:title="@string/string_navbar_title" />
 </menu>

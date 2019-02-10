@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.calendar_icon);
+        bottomNavigationView.setSelectedItemId(R.id.calendar);
 
         percentString = "%d%% of the month has passed";
 
@@ -60,22 +60,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TAG", "onOptionsItemSelected: " + item.getItemId());
 
                 switch (item.getItemId()){
-                    case R.id.calendar_icon:{
+                    case R.id.calendar:{
                         return true;
                     }
-                    case R.id.today_icon:{
+                    case R.id.today:{
                         String date =   UtilityFunctionsClass.getToday();
                         Intent intent = new Intent(MainActivity.this, DayActivity.class);
                         intent.putExtra("Date", date);
                         startActivity(intent);
                         return true;
                     }
-                    case R.id.timeline_icon:{
+                    case R.id.timeline:{
                         Intent intent = new Intent(MainActivity.this, TimelineActivity.class);
                         startActivity(intent);
                         return true;
                     }
-                    case R.id.settings_icon:{
+                    case R.id.settings:{
                         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivity(intent);
                         return true;
@@ -107,6 +107,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bottomNavigationView.setSelectedItemId(R.id.calendar_icon);
+        bottomNavigationView.setSelectedItemId(R.id.calendar);
     }
 }

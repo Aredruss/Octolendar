@@ -1,12 +1,10 @@
 package com.redbox.octolendar.database;
 
 import com.redbox.octolendar.database.model.Event;
-import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -33,16 +31,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Event.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
     //Insert Event
     public long insertEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Event.COLUMN_DATE, event.getDate());
+        values.put(Event.COLUMN_DAY, event.getDay());
+        values.put(Event.COLUMN_MONTH, event.getMonth());
+        values.put(Event.COLUMN_YEAR, event.getYear());
         values.put(Event.COLUMN_TIME, event.getTime());
         values.put(Event.COLUMN_TITLE, event.getTitle());
         values.put(Event.COLUMN_COMMENT, event.getComment());
         values.put(Event.COLUMN_URGENCY, event.getUrgency());
+        values.put(Event.COLUMN_COMPLETED, event.getCompleted());
 
         long id = db.insert(Event.TABLE_NAME, null, values);
 
@@ -51,20 +53,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Get one event
-    public Event getEvent(long id){
+    public Event getEvent(long id) {
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.query(Event.TABLE_NAME, new String[]{Event.COLUMN_ID, Event.COLUMN_DATE, Event.COLUMN_TIME, Event.COLUMN_TITLE, Event.COLUMN_COMMENT, Event.COLUMN_URGENCY},
+        Cursor cursor = database.query(Event.TABLE_NAME, new String[]{Event.COLUMN_ID, Event.COLUMN_DAY, Event.COLUMN_MONTH, Event.COLUMN_YEAR,
+                        Event.COLUMN_TIME, Event.COLUMN_TITLE, Event.COLUMN_COMMENT, Event.COLUMN_URGENCY, Event.COLUMN_COMPLETED},
                 Event.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null , null);
+                new String[]{String.valueOf(id)}, null, null, null);
 
         if (cursor != null) cursor.moveToFirst();
         Event event = new Event(
                 cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(Event.COLUMN_DATE)),
+                cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)),
+                cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)),
+                cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)),
-                cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
+                cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)),
+                cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
 
         cursor.close();
         return event;
@@ -75,20 +81,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Event> getDayEvents(String date) {
         List<Event> events = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " WHERE date=?" + " ORDER BY " + Event.COLUMN_TIME;
-
+        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " WHERE day=? AND month=? AND year=?" + "ORDER BY " + Event.COLUMN_TIME + " ASC";
+        String[] splitDateStr = date.split("-");
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{date});
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{splitDateStr[0], splitDateStr[1], splitDateStr[2]});
 
         if (cursor.moveToFirst()) {
             do {
                 Event event = new Event();
                 event.setId(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)));
-                event.setDate(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DATE)));
+                event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
+                event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
+                event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
                 event.setTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)));
                 event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
                 event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
                 event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
+                event.setCompleted(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
                 events.add(event);
             } while (cursor.moveToNext());
         }
@@ -98,22 +107,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return events;
     }
 
+
+    public List<Event> getAllEvents() {
+        List<Event> eventList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " ORDER BY " + Event.COLUMN_MONTH + " ASC, "+ Event.COLUMN_DAY + " ASC," + Event.COLUMN_YEAR + " ASC, " + Event.COLUMN_TIME + " ASC";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setId(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)));
+                event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
+                event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
+                event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
+                event.setTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)));
+                event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
+                event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
+                event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
+                event.setCompleted(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        int i = 0;
+
+        return eventList;
+    }
+
     //Count Events
-    public int getEventCount(){
+    public int getEventCount() {
         String countQuery = "SELECT * FROM " + Event.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.rawQuery(countQuery, null);
-
         int count = cursor.getCount();
         cursor.close();
-
         return count;
     }
 
 
     //Update event
-    public int updateEvent (Event event){
+    public int updateEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -121,12 +158,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Event.COLUMN_TITLE, event.getTitle());
         values.put(Event.COLUMN_COMMENT, event.getComment());
         values.put(Event.COLUMN_URGENCY, event.getUrgency());
+        values.put(Event.COLUMN_COMPLETED,event.getCompleted());
 
         return db.update(Event.TABLE_NAME, values, Event.COLUMN_ID + " =?", new String[]{String.valueOf(event.getId())});
     }
 
-
-    public void deleteEvent(Event event){
+    public void deleteEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Event.TABLE_NAME, Event.COLUMN_ID + " =?", new String[]{String.valueOf(event.getId())});
         db.close();

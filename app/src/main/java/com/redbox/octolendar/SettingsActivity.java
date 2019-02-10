@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.settings_icon);
+        bottomNavigationView.setSelectedItemId(R.id.settings);
 
 
         //todo come up with some fucking settings
@@ -34,12 +34,12 @@ public class SettingsActivity extends AppCompatActivity {
                 Log.d("TAG", "onOptionsItemSelected: " + item.getItemId());
 
                 switch (item.getItemId()){
-                    case R.id.calendar_icon:{
+                    case R.id.calendar:{
                         Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
                         startActivity(intent);
                         return true;
                     }
-                    case R.id.today_icon:{
+                    case R.id.today:{
                         String date =   UtilityFunctionsClass.getToday();
                         Intent intent = new Intent(SettingsActivity.this, DayActivity.class);
                         intent.putExtra("Date", date);
@@ -47,12 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
                         return true;
                     }
 
-                    case R.id.timeline_icon:{
+                    case R.id.timeline:{
                         Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
                         startActivity(intent);
-                    }
-                    case R.id.settings_icon:{
-                        return true;
                     }
                     default:{
                         return true;

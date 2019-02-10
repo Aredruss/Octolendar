@@ -13,4 +13,6 @@
     <string name="string_settings_card_color">Card Color</string>
     <string name="string_rbutton_coral">Coral</string>
     <string name="string_rbutton_lime">Lime</string>
+    <string name="string_navbar_title" />
+    <string name="string_sample_text">SampleText</string>
 </resources>
