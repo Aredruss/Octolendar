@@ -8,17 +8,17 @@ Octolendar is a calendar application which will allow you to manage your schedul
 * This app has a *cool* name.
 * It implements a simple SQL-database for storing information about your planned events.
 * You have an ability to edit and delete already existing events.
+* Events can be reviewed via timwline activity.
 
 ## Things left to do are:
 
 * Adding a functional activity for managing application settings.
-* Adding a functional timeline activity.
 * Adding an ability to swipe between days via DayActivity.
 * Adding notifications for important events.
 * Possible GoogleDisk integration.
 
 ## Database entries are presented as depicted here:
 
-| id  | date | time | title | comment | urgency | 
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| 1 | 31-10-2019 | 22:30 | Halloween Party| At Ashley's House | It's important|
+| id  | day | month | year | time | title | comment | urgency | completed |
+| ------------- | ------------- | -------------  | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
+| 1 | 31 | 10 | 2019 | 22:30 | Halloween Party| At Ashley's House | It's important| 0 |
