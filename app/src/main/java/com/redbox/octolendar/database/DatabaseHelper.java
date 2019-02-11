@@ -76,9 +76,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return event;
     }
 
-    //Get all events for the day
-    //todo sort events by time parameter
-
     public List<Event> getDayEvents(String date) {
         List<Event> events = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " WHERE day=? AND month=? AND year=?" + "ORDER BY " + Event.COLUMN_TIME + " ASC";

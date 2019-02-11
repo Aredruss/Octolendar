@@ -1,10 +1,13 @@
 package com.redbox.octolendar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +21,13 @@ import android.widget.TextView;
 
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.database.model.Event;
+import com.redbox.octolendar.dialogs.TimelineInfoDialog;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 import org.qap.ctimelineview.TimelineRow;
 import org.qap.ctimelineview.TimelineViewAdapter;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,25 +70,25 @@ public class TimelineActivity extends AppCompatActivity {
         ListView myListView = findViewById(R.id.timeline_listView);
         myListView.setAdapter(timelineRowArrayAdapter);
 
-
-        //todo fix
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final Event e = getItem(i);
-                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-                View infoView = inflater.inflate(R.layout.timeline_info_layout, null);
 
-                TextView titleTextView = findViewById(R.id.titleTimelineTextView);
-                TextView commentTextView = findViewById(R.id.commentTimelineTextView);
-                TextView dateTextView = findViewById(R.id.dateTimelineTextView);
-                TextView urgencyTextView = findViewById(R.id.urgencyTimelineTextView);
+                TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
 
-                titleTextView.setText(e.getTitle());
-                commentTextView.setText(e.getComment());
-                dateTextView.setText(e.getTime() + " " + e.getDate());
-                urgencyTextView.setText(e.getUrgency());
 
+                Bundle args = new Bundle();
+                args.putString("Date", e.getDate());
+                Log.d("TAG", "onItemClick: " +  args.getString("Date"));
+                args.putString("Time", e.getTime());
+                args.putString("Title",e.getTitle());
+                args.putString("Comment", e.getComment());
+                args.putString("Urgency", e.getUrgency());
+
+                timelineInfoDialog.setArguments(args);
+
+                timelineInfoDialog.show(getFragmentManager(), "Info");
             }
         });
 

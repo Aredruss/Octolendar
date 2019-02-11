@@ -26,8 +26,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".TimelineActivity"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TimelineActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

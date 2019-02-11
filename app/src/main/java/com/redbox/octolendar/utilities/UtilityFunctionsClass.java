@@ -79,7 +79,6 @@ public class UtilityFunctionsClass extends AppCompatActivity {
     @Keep
     public static String getNextDay(String prevDay){
         String nextDay = null;
-
         return prevDay;
     }
 
@@ -87,7 +86,6 @@ public class UtilityFunctionsClass extends AppCompatActivity {
     public static void parseTimeFromString(String timeStr){
         DateFormat sdf = new SimpleDateFormat("hh:mm");
         try{
-
             Date time = sdf.parse(timeStr);
             Log.d("U", "parseTimeFromString: " + time);
         }

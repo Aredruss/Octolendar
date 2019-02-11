@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.redbox.octolendar.adapters.EventAdapter;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.database.model.Event;
+import com.redbox.octolendar.dialogs.EventDialog;
 import com.redbox.octolendar.utilities.RecyclerTouchListener;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
@@ -103,9 +104,9 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
                     if (releaseX < pressX){
                         Toast toast = Toast.makeText(getApplicationContext(), "You swiped left", Toast.LENGTH_SHORT);
-                        String next  = UtilityFunctionsClass.getNextDay(date);
-                        dateTextView.setText(next);
-
+                       // String next  = UtilityFunctionsClass.getNextDay(date);
+                       // dateTextView.setText(next);
+                        toast.show();
                     }
                     else if (releaseX > pressX){
                         Toast toast = Toast.makeText(getApplicationContext(), "You swiped right", Toast.LENGTH_SHORT);

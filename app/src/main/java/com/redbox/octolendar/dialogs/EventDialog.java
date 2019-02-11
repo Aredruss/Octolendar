@@ -1,4 +1,4 @@
-package com.redbox.octolendar;
+package com.redbox.octolendar.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.redbox.octolendar.R;
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
