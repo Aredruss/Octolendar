@@ -1,7 +1,7 @@
 # Octolendar
 ### *Note*: Current version supports Android API 27 and higher, and that's probably not gonna change.
 
-Octolendar is a calendar application which allows you to manage your schedule.
+Octolendar is a calendar-based application which allows you to manage your schedule.
 -
 * This app can calculate the current month's progression and display the information in percentages.
 * While in the process of adding a new event to your schedule, you are able to mark the event with a special tag: "It's Important", "Ugh" or "You can skip it".
