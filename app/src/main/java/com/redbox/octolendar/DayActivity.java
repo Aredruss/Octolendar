@@ -145,7 +145,7 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
                         startActivity(intent);
                     }
                     case R.id.settings:{
-                        Intent intent = new Intent(DayActivity.this, SettingsActivity.class);
+                        Intent intent = new Intent(DayActivity.this, MiscActivity.class);
                     }
                     default:{
                         return true;

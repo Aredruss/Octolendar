@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
-public class SettingsActivity extends AppCompatActivity {
+public class MiscActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
 
@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.activity_misc);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.settings);
@@ -35,20 +35,20 @@ public class SettingsActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.calendar:{
-                        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                        Intent intent = new Intent(MiscActivity.this, MainActivity.class);
                         startActivity(intent);
                         return true;
                     }
                     case R.id.today:{
                         String date =   UtilityFunctionsClass.getToday();
-                        Intent intent = new Intent(SettingsActivity.this, DayActivity.class);
+                        Intent intent = new Intent(MiscActivity.this, DayActivity.class);
                         intent.putExtra("Date", date);
                         startActivity(intent);
                         return true;
                     }
 
                     case R.id.timeline:{
-                        Intent intent = new Intent(SettingsActivity.this, TimelineActivity.class);
+                        Intent intent = new Intent(MiscActivity.this, TimelineActivity.class);
                         startActivity(intent);
                     }
                     default:{
