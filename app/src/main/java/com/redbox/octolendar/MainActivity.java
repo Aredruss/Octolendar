@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.settings:{
-                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, MiscActivity.class);
                         startActivity(intent);
                         return true;
                     }
