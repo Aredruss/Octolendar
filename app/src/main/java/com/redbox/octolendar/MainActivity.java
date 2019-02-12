@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.progressTextView);
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.bottom_nav_menu,menu);
-        menu.setQwertyMode(true);
+        //menu.setQwertyMode(true);
         return  true;
     }
 

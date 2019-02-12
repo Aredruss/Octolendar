@@ -48,8 +48,7 @@
                 android:clickable="true"
                 app:backgroundTint="@color/colorPrimary"
                 app:elevation="@dimen/dimen_elevation"
-                app:rippleColor="@color/colorPrimary"
-                app:srcCompat="@android:drawable/btn_radio"
+                app:srcCompat="@drawable/ic_action_name_add"
                 app:useCompatPadding="false" />
         </FrameLayout>
 
@@ -60,8 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@color/colorScrollBack"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
+            android:measureAllChildren="true"
+            app:itemIconTint="@color/navbar_item_selected_color"
+            app:itemTextColor="@color/navbar_item_selected_color"
             app:menu="@menu/bottom_nav_menu"
             tools:layout_editor_absoluteX="50dp"
             tools:layout_editor_absoluteY="3dp" />

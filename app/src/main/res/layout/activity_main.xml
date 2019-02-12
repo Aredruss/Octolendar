@@ -45,7 +45,6 @@
 
     </LinearLayout>
 
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -53,8 +52,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorScrollBack"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white" >
+        app:itemIconTint="@color/navbar_item_selected_color"
+        app:itemTextColor="@color/navbar_item_selected_color">
 
     </android.support.design.widget.BottomNavigationView>
 

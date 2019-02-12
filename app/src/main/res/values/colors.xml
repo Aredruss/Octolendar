@@ -7,4 +7,5 @@
     <color name="colorCardTimeBackground">#36282e</color>
     <color name="colorScrollBack">#272727</color>
     <color name="colorTimelineBack">#7CECBF</color>
+    <color name="infoCardViewBackground">#3C3C3C</color>
 </resources>
