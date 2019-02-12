@@ -10,10 +10,9 @@ Octolendar is a calendar-based application which allows you to manage your sched
 * You have an ability to edit and delete already existing events.
 * Events can be reviewed via timeline activity.
 
-## Things left to do:
-* Adding a functional activity for managing application settings.
-* Adding an ability to swipe between days via DayActivity.
+## To-do:
 * Adding notifications for important events.
+* Re-do Bottom Navigation bar as an actual fragment, not as a copy-paste piece of code.
 * Possible GoogleDisk integration.
 
 ## Database entries are presented as depicted here:
