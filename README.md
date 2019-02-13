@@ -11,9 +11,9 @@ Octolendar is a calendar-based application which allows you to manage your sched
 * Events can be reviewed via timeline activity.
 
 ## To-do:
-* Adding notifications for important events.
-* Re-do Bottom Navigation bar as an actual fragment, not as a copy-paste piece of code.
-* Possible GoogleDisk integration.
+* Add notifications for important events.
+* Replace activities with fragments.
+* GoogleDisk ang Google services integration.
 
 ## Database entries are presented as depicted here:
 
