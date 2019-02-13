@@ -39,54 +39,6 @@ public class TimelineActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.timeline);
         db = new DatabaseHelper(this);
 
-        eventList= new ArrayList<>();
-        eventList = db.getAllEvents();
-
-        ArrayList<TimelineRow>  timeline = new ArrayList<>();
-        int i = 0;
-        for (Event e : eventList){
-            TimelineRow timelineRow = new TimelineRow(i);
-
-            timelineRow.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTimelineBack));
-            timelineRow.setBellowLineColor(ContextCompat.getColor(this, R.color.colorTimelineBack));
-            timelineRow.setBellowLineSize(5);
-
-            timelineRow.setTitle(eventList.get(i).getTitle());
-            timelineRow.setDescription(eventList.get(i).getTime() + " " + eventList.get(i).getDate() + " - " + eventList.get(i).getUrgency());
-            timelineRow.setImageSize(30);
-
-            timeline.add(timelineRow);
-            i++;
-        }
-
-        ArrayAdapter<TimelineRow> timelineRowArrayAdapter = new TimelineViewAdapter(this, 0, timeline, false);
-        ListView myListView = findViewById(R.id.timeline_listView);
-        myListView.setAdapter(timelineRowArrayAdapter);
-
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Event e = getItem(i);
-
-                TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
-
-
-                Bundle args = new Bundle();
-                args.putString("Date", e.getDate());
-                Log.d("TAG", "onItemClick: " +  args.getString("Date"));
-                args.putString("Time", e.getTime());
-                args.putString("Title",e.getTitle());
-                args.putString("Comment", e.getComment());
-                args.putString("Urgency", e.getUrgency());
-
-                timelineInfoDialog.setArguments(args);
-
-                timelineInfoDialog.show(getFragmentManager(), "Info");
-            }
-        });
-
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

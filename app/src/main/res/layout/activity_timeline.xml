@@ -7,12 +7,12 @@
     android:theme="@style/AppTheme"
     tools:context=".TimelineActivity">
 
-    <ListView
-        android:id="@+id/timeline_listView"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp" />
+        android:layout_height="wrap_content"
+        android:id="@+id/timelineFragment"
+        android:name="com.redbox.octolendar.fragments.TimelineFragment"
+        />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"

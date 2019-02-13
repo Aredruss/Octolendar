@@ -17,7 +17,7 @@
     <string name="string_sample_text">SampleText</string>
     <string name="string_misc_heading" > Octolendar </string>
     <string name="string_copyright">No rights reserved. </string>
-    <string name="string_version">Version 0.8</string>
+    <string name="string_version">Version 0.8.1</string>
     <string name="string_github"><a href="https://github.com/Aredruss/Octolendar">Github</a></string>
     <string name="string_feedback"><a href="https://twitter.com/Aredruss">Feedback</a></string>
 </resources>

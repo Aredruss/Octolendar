@@ -18,20 +18,11 @@ import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 public class MiscActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private TextView githubTexView;
-    private TextView feedbackTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misc);
-
-        githubTexView = findViewById(R.id.githubTextView);
-        feedbackTextView = findViewById(R.id.feedbackTextView);
-
-        githubTexView.setMovementMethod(LinkMovementMethod.getInstance());
-        feedbackTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.settings);

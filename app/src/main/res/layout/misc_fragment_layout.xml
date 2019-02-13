@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/headingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:fontFamily="@font/droid_sans_mono"
+        android:text="@string/string_misc_heading"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/infoCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_20dp"
+        android:layout_marginTop="@dimen/dimen_55dp"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:layout_marginBottom="@dimen/dimen_150dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/githubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_55dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:fontFamily="@font/droid_sans_mono"
+                android:linksClickable="true"
+                android:text="@string/string_github"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/feedbackTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/droid_sans_mono"
+                android:linksClickable="true"
+                android:text="@string/string_feedback"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/versionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/dimen_25dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_version"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:id="@+id/copyrightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_copyright"
+            android:textAlignment="center" />
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

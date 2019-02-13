@@ -10,19 +10,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 public class MainActivity extends AppCompatActivity {
 
-   private TextView textView;
-   private ProgressBar progressBar;
-   private CalendarView calendarView;
-   private View overlay;
-   private String percentString;
    private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -30,30 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        overlay = findViewById(R.id.MainRelativeLayout);
-
-        progressBar = findViewById(R.id.progressBar);
-        textView = findViewById(R.id.progressTextView);
-
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
-
-        percentString = "%d%% of the month has passed";
-
-        textView.setText(String.format(percentString, UtilityFunctionsClass.getMonthProgress()));
-
-        progressBar.setProgress(UtilityFunctionsClass.getMonthProgress());
-
-        calendarView = findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
-                String date = day + "-" + (month + 1) + "-" + year;
-                Intent intent = new Intent(MainActivity.this, DayActivity.class);
-                intent.putExtra("Date", date);
-                startActivity(intent);
-            }
-        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

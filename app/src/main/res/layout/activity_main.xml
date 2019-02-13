@@ -7,43 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/mainLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="100" />
-
-            <TextView
-                android:id="@+id/progressTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/droid_sans_mono"
-                android:text="@string/string_sample_progress"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+ <fragment
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/calendarFragment"
+     android:name="com.redbox.octolendar.fragments.CalendarFragment"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"
