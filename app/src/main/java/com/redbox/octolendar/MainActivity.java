@@ -1,5 +1,7 @@
 package com.redbox.octolendar;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,13 +11,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.redbox.octolendar.fragments.CalendarFragment;
+import com.redbox.octolendar.fragments.MiscFragment;
+import com.redbox.octolendar.fragments.TimelineFragment;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
 public class MainActivity extends AppCompatActivity {
 
    private BottomNavigationView bottomNavigationView;
+   private FragmentTransaction fragmentTransaction;
+   private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
 
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -32,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.calendar:{
+                        currentFragment = new CalendarFragment();
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, currentFragment);
+                        fragmentTransaction.commit();
                         return true;
                     }
                     case R.id.today:{
@@ -42,13 +55,17 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.timeline:{
-                        Intent intent = new Intent(MainActivity.this, TimelineActivity.class);
-                        startActivity(intent);
+                        currentFragment = new TimelineFragment();
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, currentFragment);
+                        fragmentTransaction.commit();
                         return true;
                     }
                     case R.id.settings:{
-                        Intent intent = new Intent(MainActivity.this, MiscActivity.class);
-                        startActivity(intent);
+                        currentFragment = new MiscFragment();
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, currentFragment);
+                        fragmentTransaction.commit();
                         return true;
                     }
                     default:{

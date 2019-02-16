@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,9 @@ import com.redbox.octolendar.adapters.EventAdapter;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.dialogs.EventDialog;
+import com.redbox.octolendar.fragments.CalendarFragment;
+import com.redbox.octolendar.fragments.MiscFragment;
+import com.redbox.octolendar.fragments.TimelineFragment;
 import com.redbox.octolendar.utilities.RecyclerTouchListener;
 import com.redbox.octolendar.utilities.UtilityFunctionsClass;
 
@@ -64,7 +69,6 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
         if(UtilityFunctionsClass.getToday().equals(date)) bottomNavigationView.setSelectedItemId(R.id.today);
         else { }
-        
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,16 +140,14 @@ public class DayActivity extends AppCompatActivity implements EventDialog.EventD
 
                 switch (item.getItemId()){
                     case R.id.calendar:{
-                        Intent intent = new Intent(DayActivity.this, MainActivity.class);
-                        startActivity(intent);
                         return true;
                     }
                     case R.id.timeline:{
-                        Intent intent = new Intent(DayActivity.this, TimelineActivity.class);
-                        startActivity(intent);
+
+                        return true;
                     }
                     case R.id.settings:{
-                        Intent intent = new Intent(DayActivity.this, MiscActivity.class);
+                        return true;
                     }
                     default:{
                         return true;

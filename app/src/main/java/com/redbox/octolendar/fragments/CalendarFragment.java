@@ -42,6 +42,9 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
+
+                //todo send info to the planned events fragment
+
                 String date = day + "-" + (month + 1) + "-" + year;
                 Intent intent = new Intent(getContext(), DayActivity.class);
                 intent.putExtra("Date", date);

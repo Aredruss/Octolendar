@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
- <fragment
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:id="@+id/calendarFragment"
-     android:name="com.redbox.octolendar.fragments.CalendarFragment"/>
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"

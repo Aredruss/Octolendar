@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dateFragmentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:background="@color/colorScrollBack"
+            android:fontFamily="@font/droid_sans_mono"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:text="@string/string_sample_date"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <FrameLayout
+            android:id="@+id/eventFragmentFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_n_20dp"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cardFragmentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addFragmentFloatingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:elevation="@dimen/dimen_elevation"
+                app:srcCompat="@drawable/ic_action_name_add" />
+        </FrameLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
