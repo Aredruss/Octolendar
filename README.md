@@ -1,7 +1,7 @@
 # Octolendar
 ### *Note*: Current version supports Android API 27 and higher, and that's probably not gonna change.
 
-#Watch project's development process [https://trello.com/b/mrR4UjZy/octolendar]
+# Watch project's development process [https://trello.com/b/mrR4UjZy/octolendar]
 
 Octolendar is a calendar-based application which allows you to manage your schedule.
 -
