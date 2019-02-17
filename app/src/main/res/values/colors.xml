@@ -8,4 +8,5 @@
     <color name="colorScrollBack">#272727</color>
     <color name="colorTimelineBack">#7CECBF</color>
     <color name="infoCardViewBackground">#3C3C3C</color>
+    <color name="timelineLineColor">#438B77</color>
 </resources>

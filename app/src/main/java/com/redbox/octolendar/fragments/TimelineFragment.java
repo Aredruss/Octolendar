@@ -44,8 +44,8 @@ public class TimelineFragment extends Fragment {
             TimelineRow timelineRow = new TimelineRow(i);
 
             timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineBack));
-            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineBack));
-            timelineRow.setBellowLineSize(6);
+            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.timelineLineColor));
+            timelineRow.setBellowLineSize(10);
 
             timelineRow.setTitle(e.getTitle());
             timelineRow.setDescription(e.getTime() + " " + e.getDate());

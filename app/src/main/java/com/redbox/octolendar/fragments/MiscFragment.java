@@ -21,7 +21,6 @@ public class MiscFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View miscView = inflater.inflate(R.layout.misc_fragment_layout, container, false);
 
-
         githubTexView = miscView.findViewById(R.id.githubTextView);
         feedbackTextView = miscView.findViewById(R.id.feedbackTextView);
 

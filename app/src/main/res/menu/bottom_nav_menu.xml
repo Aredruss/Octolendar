@@ -19,7 +19,7 @@
         android:title="@string/string_navbar_title" />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/info"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_misc"
         android:title="@string/string_navbar_title" />

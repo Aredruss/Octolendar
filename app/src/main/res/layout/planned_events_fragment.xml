@@ -16,6 +16,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:background="@color/colorScrollBack"
+            android:elevation="@dimen/dimen_elevation"
             android:fontFamily="@font/droid_sans_mono"
             android:paddingTop="@dimen/dimen_10dp"
             android:text="@string/string_sample_date"
@@ -27,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_n_20dp"
+            android:layout_marginBottom="@dimen/dimen_55dp"
             android:layout_weight="1">
 
             <android.support.v7.widget.RecyclerView
@@ -41,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:layout_marginBottom="@dimen/dimen_25dp"
                 android:clickable="true"
                 app:backgroundTint="@color/colorPrimary"
                 app:elevation="@dimen/dimen_elevation"
