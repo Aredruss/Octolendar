@@ -75,6 +75,7 @@ public class TimelineFragment extends Fragment {
 
                 timelineInfoDialog.setArguments(args);
 
+
                 timelineInfoDialog.show(getFragmentManager(), " ");
             }
         });

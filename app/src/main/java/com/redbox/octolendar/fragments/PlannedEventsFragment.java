@@ -61,7 +61,6 @@ public class PlannedEventsFragment extends Fragment {
             Log.d("M", "onCreateView: " + " Fail to pass date");
         }
 
-        //Get Date  From Calendar Fragment
         dateTextView.setText(date);
 
         db = new DatabaseHelper(getContext());
