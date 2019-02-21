@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/calendar"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_calendar"
-        android:title="@string/string_navbar_title" />
+        android:title="@string/string_calendar" />
 
     <item
         android:id="@+id/today"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_today"
-        android:title="@string/string_navbar_title" />
+        android:title="@string/string_today" />
 
     <item
         android:id="@+id/timeline"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_timeline"
-        android:title="@string/string_navbar_title" />
+        android:title="@string/string_timeline" />
+
+    <item android:id="@+id/request"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_name_request"
+        android:title="I am bored"
+        />
 
     <item
         android:id="@+id/info"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_misc"
-        android:title="@string/string_navbar_title" />
+        android:title="@string/string_misc" />
 </menu>

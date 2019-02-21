@@ -20,9 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorScrollBack"
-        app:menu="@menu/bottom_nav_menu"
+        android:textAlignment="center"
+        android:textDirection="inherit"
         app:itemIconTint="@color/navbar_item_selected_color"
-        app:itemTextColor="@color/navbar_item_selected_color">
+        app:itemTextColor="@color/navbar_item_selected_color"
+        app:menu="@menu/bottom_nav_menu">
 
     </android.support.design.widget.BottomNavigationView>
 

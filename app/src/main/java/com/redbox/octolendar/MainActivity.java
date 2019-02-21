@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import com.redbox.octolendar.fragments.CalendarFragment;
 import com.redbox.octolendar.fragments.MiscFragment;
 import com.redbox.octolendar.fragments.PlannedEventsFragment;
+import com.redbox.octolendar.fragments.RequestFragment;
 import com.redbox.octolendar.fragments.TimelineFragment;
 
 public class MainActivity extends AppCompatActivity implements CalendarFragment.OnCalendarInteractionListener {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new CalendarFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.addToBackStack("Calendar");
+                       // fragmentTransaction.addToBackStack("Calendar");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new PlannedEventsFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.addToBackStack("Today");
+                        //fragmentTransaction.addToBackStack("Today");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new TimelineFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.addToBackStack("Timeline");
+                       // fragmentTransaction.addToBackStack("Timeline");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -76,7 +77,15 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new MiscFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.addToBackStack("Misc");
+                      //  fragmentTransaction.addToBackStack("Misc");
+                        fragmentTransaction.commit();
+                        return true;
+                    }
+
+                    case R.id.request:{
+                        currentFragment = new RequestFragment();
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, currentFragment);
                         fragmentTransaction.commit();
                         return true;
                     }
