@@ -43,13 +43,20 @@ public class TimelineFragment extends Fragment {
         for (Event e : eventList){
             TimelineRow timelineRow = new TimelineRow(i);
 
-            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineBack));
-            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.timelineLineColor));
-            timelineRow.setBellowLineSize(10);
+            if(i % 2 == 0){
+                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineBack));
+            }
+
+            else{
+                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.timelineSecondColor));
+            }
+
+            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.timelineBackground));
+            timelineRow.setBellowLineSize(12);
 
             timelineRow.setTitle(e.getTitle());
             timelineRow.setDescription(e.getTime() + " " + e.getDate());
-            timelineRow.setImageSize(30);
+            timelineRow.setImageSize(20);
 
             timeline.add(timelineRow);
             i++;

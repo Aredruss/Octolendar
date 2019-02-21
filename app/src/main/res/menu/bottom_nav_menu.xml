@@ -22,7 +22,7 @@
     <item android:id="@+id/request"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_request"
-        android:title="I am bored"
+        android:title="Advice"
         />
 
     <item

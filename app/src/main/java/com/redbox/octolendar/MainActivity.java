@@ -1,5 +1,6 @@
 package com.redbox.octolendar;
 
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
+
+        bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
