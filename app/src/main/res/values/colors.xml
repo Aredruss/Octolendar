@@ -7,8 +7,8 @@
     <color name="colorCardTimeBackground">#36282e</color>
     <color name="colorScrollBack">#272727</color>
     <color name="colorTimelineBack">#7CECBF</color>
-    <color name="infoCardViewBackground">#3C3C3C</color>
-    <color name="timelineLineColor">#438B77</color>
-    <color name="timelineSecondColor">#57D5DD</color>
-    <color name="timelineBackground">#242424</color>
+    <color name="colorInfoCardViewBackground">#3C3C3C</color>
+    <color name="colorTimelineLineColor">#252525</color>
+    <color name="colorTimelineIconSecond">#D52D52</color>
+    <color name="colorTimelineIcon">#242424</color>
 </resources>

@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new CalendarFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                       // fragmentTransaction.addToBackStack("Calendar");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new PlannedEventsFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        //fragmentTransaction.addToBackStack("Today");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new TimelineFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                       // fragmentTransaction.addToBackStack("Timeline");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         currentFragment = new MiscFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                      //  fragmentTransaction.addToBackStack("Misc");
                         fragmentTransaction.commit();
                         return true;
                     }
@@ -119,13 +115,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     public void onBackPressed() {
 
         if (frameLayout.getChildAt(0).equals(findViewById(R.id.calendarRelativeLayout))) finish();
-
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            finish();
-        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
             bottomNavigationView.setSelectedItemId(R.id.calendar);
-        }
     }
 
     @Override

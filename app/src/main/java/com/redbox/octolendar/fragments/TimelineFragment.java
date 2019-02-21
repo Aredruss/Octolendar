@@ -38,25 +38,19 @@ public class TimelineFragment extends Fragment {
         eventList = new ArrayList<>();
         eventList = db.getAllEvents();
 
-        ArrayList <TimelineRow> timeline = new ArrayList<>();
+        ArrayList<TimelineRow> timeline = new ArrayList<>();
         int i = 0;
-        for (Event e : eventList){
+        for (Event e : eventList) {
             TimelineRow timelineRow = new TimelineRow(i);
 
-            if(i % 2 == 0){
-                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineBack));
-            }
+            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
 
-            else{
-                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.timelineSecondColor));
-            }
-
-            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.timelineBackground));
-            timelineRow.setBellowLineSize(12);
+            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
+            timelineRow.setBellowLineSize(15);
 
             timelineRow.setTitle(e.getTitle());
             timelineRow.setDescription(e.getTime() + " " + e.getDate());
-            timelineRow.setImageSize(20);
+            timelineRow.setImageSize(30);
 
             timeline.add(timelineRow);
             i++;
@@ -75,20 +69,20 @@ public class TimelineFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putString("Date", e.getDate());
                 args.putString("Time", e.getTime());
-                args.putString("Title",e.getTitle());
+                args.putString("Title", e.getTitle());
                 args.putString("Comment", e.getComment());
                 args.putString("Urgency", e.getUrgency());
 
                 timelineInfoDialog.setArguments(args);
 
-                timelineInfoDialog.show(getFragmentManager()," ");
+                timelineInfoDialog.show(getFragmentManager(), " ");
             }
         });
 
         return timelineView;
     }
 
-    public Event getItem(int i){
+    public Event getItem(int i) {
         return eventList.get(i);
     }
 }

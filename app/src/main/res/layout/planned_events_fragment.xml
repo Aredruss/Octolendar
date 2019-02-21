@@ -45,7 +45,7 @@
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="@dimen/dimen_25dp"
                 android:clickable="true"
-                app:backgroundTint="@color/colorPrimary"
+                app:backgroundTint="@color/colorAccent"
                 app:elevation="@dimen/dimen_elevation"
                 app:srcCompat="@drawable/ic_action_name_add" />
         </FrameLayout>
