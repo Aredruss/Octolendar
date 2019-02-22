@@ -110,13 +110,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         return true;
     }
 
-
     @Override
     public void onBackPressed() {
-
-        if (frameLayout.getChildAt(0).equals(findViewById(R.id.calendarRelativeLayout))) finish();
-            getSupportFragmentManager().popBackStack();
-            bottomNavigationView.setSelectedItemId(R.id.calendar);
+        moveTaskToBack(true);
     }
 
     @Override
