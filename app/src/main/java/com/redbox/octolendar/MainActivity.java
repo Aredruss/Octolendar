@@ -26,14 +26,11 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     private BottomNavigationView bottomNavigationView;
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment;
-    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        frameLayout = findViewById(R.id.content);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);

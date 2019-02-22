@@ -84,13 +84,24 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Log.d("TOUCH", "onClick: " + position);
+                Event openedEvent = eventList.get(position);
+                if(openedEvent.getCompleted() == 0) {
+                    openedEvent.setCompleted(1);
+                    Toast.makeText(getContext(), "Marked as done", Toast.LENGTH_SHORT).show();
+                    db.updateEvent(openedEvent);
+                }
+                else {
+                    openedEvent.setCompleted(0);
+                    Toast.makeText(getContext(), "Marked as not done", Toast.LENGTH_SHORT).show();
+                    db.updateEvent(openedEvent);
+                }
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 openActionsDialog(position);
             }
+
         }
         ));
 
@@ -308,4 +319,9 @@ public class PlannedEventsFragment extends Fragment {
         });
         builder.show();
     }
+
+    //Add Notifications
+    private void openNotificationsDialog(){
+    }
+
 }

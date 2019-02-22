@@ -41,15 +41,21 @@ public class TimelineFragment extends Fragment {
         ArrayList<TimelineRow> timeline = new ArrayList<>();
         int i = 0;
         for (Event e : eventList) {
+
             TimelineRow timelineRow = new TimelineRow(i);
 
-            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            if((e.getCompleted() == 1)){
+                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIconSecond));
+            }
+            else{
+                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            }
 
             timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
             timelineRow.setBellowLineSize(15);
 
             timelineRow.setTitle(e.getTitle());
-            timelineRow.setDescription(e.getTime() + " " + e.getDate());
+            timelineRow.setDescription(e.getDate());
             timelineRow.setImageSize(30);
 
             timeline.add(timelineRow);
@@ -71,10 +77,9 @@ public class TimelineFragment extends Fragment {
                 args.putString("Time", e.getTime());
                 args.putString("Title", e.getTitle());
                 args.putString("Comment", e.getComment());
-                args.putString("Urgency", e.getUrgency());
+                args.putString("Completed", String.valueOf(e.getCompleted()));
 
                 timelineInfoDialog.setArguments(args);
-
 
                 timelineInfoDialog.show(getFragmentManager(), " ");
             }

@@ -3,6 +3,7 @@ package com.redbox.octolendar.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -25,14 +26,26 @@ public class TimelineInfoDialog extends android.support.v4.app.DialogFragment {
         TextView titleTextView = view.findViewById(R.id.titleTimelineTextView);
         TextView commentTextView = view.findViewById(R.id.commentTimelineTextView);
         TextView dateTextView = view.findViewById(R.id.dateTimelineTextView);
-        TextView urgencyTextView = view.findViewById(R.id.urgencyTimelineTextView);
+        TextView timeTextView = view.findViewById(R.id.timeInfoTextView);
+        TextView completedTextView = view.findViewById(R.id.completedTextView);
 
-        dateTextView.setText(getArguments().getString("Date") + " " + getArguments().getString("Time"));
+
+        dateTextView.setText(getArguments().getString("Date"));
         titleTextView.setText(getArguments().getString("Title"));
         commentTextView.setText(getArguments().getString("Comment"));
-        urgencyTextView.setText(getArguments().getString("Urgency"));
+        timeTextView.setText(getArguments().getString("Time"));
 
-        return builder.setTitle("Info").create();
+        if (getArguments().getString("Completed").equals("1")){
+            completedTextView.setText("Done");
+        }
+        else completedTextView.setText("Not done yet");
+
+        return builder.setTitle("Info").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create();
     }
 
 }

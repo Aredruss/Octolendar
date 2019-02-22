@@ -9,6 +9,6 @@
     <color name="colorTimelineBack">#7CECBF</color>
     <color name="colorInfoCardViewBackground">#3C3C3C</color>
     <color name="colorTimelineLineColor">#252525</color>
-    <color name="colorTimelineIconSecond">#D52D52</color>
+    <color name="colorTimelineIconSecond">#57C3EC</color>
     <color name="colorTimelineIcon">#242424</color>
 </resources>
