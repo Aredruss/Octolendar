@@ -2,23 +2,18 @@ package com.redbox.octolendar;
 
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import com.redbox.octolendar.fragments.CalendarFragment;
 import com.redbox.octolendar.fragments.MiscFragment;
 import com.redbox.octolendar.fragments.PlannedEventsFragment;
-import com.redbox.octolendar.fragments.RequestFragment;
 import com.redbox.octolendar.fragments.TimelineFragment;
 
 public class MainActivity extends AppCompatActivity implements CalendarFragment.OnCalendarInteractionListener {
@@ -70,16 +65,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                     }
 
                     case R.id.info: {
-
                         currentFragment = new MiscFragment();
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.commit();
-                        return true;
-                    }
-
-                    case R.id.request:{
-                        currentFragment = new RequestFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
                         fragmentTransaction.commit();

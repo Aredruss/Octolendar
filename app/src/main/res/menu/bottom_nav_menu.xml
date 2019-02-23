@@ -8,22 +8,17 @@
         android:title="@string/string_calendar" />
 
     <item
-        android:id="@+id/today"
-        android:enabled="true"
-        android:icon="@drawable/ic_action_name_today"
-        android:title="@string/string_today" />
-
-    <item
         android:id="@+id/timeline"
         android:enabled="true"
         android:icon="@drawable/ic_action_name_timeline"
         android:title="@string/string_timeline" />
 
-    <item android:id="@+id/request"
+    <item
+        android:id="@+id/today"
         android:enabled="true"
-        android:icon="@drawable/ic_action_name_request"
-        android:title="Adviser"
-        />
+        android:icon="@drawable/ic_action_name_today"
+        android:title="@string/string_today" />
+
 
     <item
         android:id="@+id/info"
