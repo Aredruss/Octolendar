@@ -1,6 +1,8 @@
 package com.redbox.octolendar.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView titleTextView;
         public TextView commentTextView;
         public TextView urgencyTextView;
+        public CardView cardEventView;
 
         public ViewHolder(View view){
             super(view);
@@ -29,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             titleTextView = view.findViewById(R.id.titleTextView);
             commentTextView = view.findViewById(R.id.commentTextView);
             urgencyTextView = view.findViewById(R.id.urgencyTextView);
+            cardEventView = view.findViewById(R.id.eventCard);
         }
 
     }
@@ -51,6 +55,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.titleTextView.setText(event.getTitle());
         holder.commentTextView.setText(event.getComment());
         holder.urgencyTextView.setText(event.getUrgency());
+
+        if (event.getCompleted() == 1){
+            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTimelineIconSecond));
+        }
+        else holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
     }
 
     @Override
