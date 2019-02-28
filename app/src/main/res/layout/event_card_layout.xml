@@ -8,10 +8,11 @@
     <android.support.v7.widget.CardView
         android:id="@+id/eventCard"
         android:layout_width="match_parent"
-        android:layout_height="104dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/dimen_10dp"
         android:layout_marginRight="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_15dp"
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp">
@@ -27,47 +28,66 @@
             android:text="TextView"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/cardLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:paddingBottom="10dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_12dp"
                 android:focusable="false"
                 android:fontFamily="@font/droid_sans_mono"
                 android:text="TextView"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/commentTextView"
+            <CheckBox
+                android:id="@+id/doneCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:focusable="false"
-                android:fontFamily="@font/droid_sans_mono"
-                android:text="TextView"
-                android:textStyle="bold" />
+                android:layout_gravity="right"
+                android:layout_marginLeft="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_info_card_corner_radius"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:buttonTint="@color/colorCheck"
+                android:text="@string/string_navbar_title"
+                android:textColorLink="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/urgencyTextView"
+            <LinearLayout
+                android:id="@+id/cardLinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:focusable="false"
-                android:fontFamily="@font/droid_sans_mono"
-                android:text="TextView"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/dimen_55dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/commentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="false"
+                    android:fontFamily="@font/droid_sans_mono"
+                    android:text="TextView"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/urgencyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="false"
+                    android:fontFamily="@font/droid_sans_mono"
+                    android:text="TextView"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

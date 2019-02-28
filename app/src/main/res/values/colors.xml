@@ -2,13 +2,14 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#4b4b4b</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorCardBackground">#c30b61</color>
+    <color name="colorAccent">#CA0C51</color>
+    <color name="colorCardBackground">#AD1457</color>
     <color name="colorCardTimeBackground">#36282e</color>
     <color name="colorScrollBack">#272727</color>
     <color name="colorTimelineBack">#7CECBF</color>
     <color name="colorInfoCardViewBackground">#3C3C3C</color>
     <color name="colorTimelineLineColor">#252525</color>
-    <color name="colorTimelineIconSecond">#57C3EC</color>
+    <color name="colorTimelineIconSecond">#5E8FE2</color>
     <color name="colorTimelineIcon">#242424</color>
+    <color name="colorCheck">#E9E7E7</color>
 </resources>

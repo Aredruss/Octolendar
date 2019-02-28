@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,6 +37,7 @@ import java.util.List;
 public class PlannedEventsFragment extends Fragment {
 
     private TextView dateTextView;
+    private CheckBox doneCheckBox;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private List<Event> eventList;
@@ -46,7 +48,6 @@ public class PlannedEventsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.planned_events_fragment, container, false);
-
 
         dateTextView = fragmentView.findViewById(R.id.dateFragmentTextView);
         recyclerView = fragmentView.findViewById(R.id.cardFragmentRecyclerView);
@@ -86,22 +87,6 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Event openedEvent = eventList.get(position);
-                View v = recyclerView.getChildAt(position);
-                CardView cardView = v.findViewById(R.id.eventCard);
-
-                if(openedEvent.getCompleted() == 0) {
-
-
-                    cardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIconSecond));
-                    openedEvent.setCompleted(1);
-                    db.updateEvent(openedEvent);
-                }
-                else {
-                    openedEvent.setCompleted(0);
-                    cardView.setCardBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-                    db.updateEvent(openedEvent);
-                }
             }
 
             @Override
@@ -116,7 +101,6 @@ public class PlannedEventsFragment extends Fragment {
     }
 
 
-
     //Get Content for the recyclerView
     public void getRecyclerViewContent() {
 
@@ -124,7 +108,6 @@ public class PlannedEventsFragment extends Fragment {
 
         if(!eventList.isEmpty()) {
             while (iter.hasNext()) {
-                Event e = iter.next();
                 iter.remove();
             }
         }
@@ -158,7 +141,6 @@ public class PlannedEventsFragment extends Fragment {
         int urgencyChildrenCount = urgencyRadioGroup.getChildCount();
         timePicker.setIs24HourView(true);
 
-
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
@@ -187,10 +169,8 @@ public class PlannedEventsFragment extends Fragment {
         for (int x = 0; x < urgencyChildrenCount; x++) {
             RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
             if (urgencyType.equals(btn.getText().toString())) {
-                Log.d("urgency", "openEditDialog: " + urgencyType.equals(btn.getText().toString()) );
                 btn.setChecked(true);
             }
-            else {  Log.d("urgency", "openEditDialog: " + urgencyType.equals(btn.getText().toString()) + " not");}
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
