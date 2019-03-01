@@ -107,9 +107,7 @@ public class PlannedEventsFragment extends Fragment {
         Iterator<Event> iter = eventList.iterator();
 
         if(!eventList.isEmpty()) {
-            while (iter.hasNext()) {
-                iter.remove();
-            }
+           eventList.clear();
         }
         eventList.addAll(db.getDayEvents(date));
         eventAdapter = new EventAdapter(getContext(), eventList);
