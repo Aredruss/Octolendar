@@ -215,7 +215,7 @@ public class PlannedEventsFragment extends Fragment {
                     db.deleteEvent(openedEvent);
                     getRecyclerViewContent();
                 }  else {
-                    Toast toast = Toast.makeText(getContext(), "Launch notification management dialogue", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), "Launch notification management dialogue // WIP", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
