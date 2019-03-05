@@ -2,6 +2,7 @@ package com.redbox.octolendar.utilities;
 
 import android.support.v7.widget.RecyclerView;
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
             @Override
             public void onLongPress(MotionEvent e) {
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
+                Log.d("T", "onLongPress: " + child.toString());
                 if (child != null && clickListener != null){
                     clickListener.onLongClick(child, rv.getChildAdapterPosition(child));
                 }

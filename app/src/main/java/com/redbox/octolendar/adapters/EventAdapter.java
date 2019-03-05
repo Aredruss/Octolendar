@@ -59,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         db = new DatabaseHelper(context);
-        Event event = list.get(position);
+        Event event = list.get(holder.getAdapterPosition());
         holder.timeTextView.setText(event.getTime());
         holder.titleTextView.setText(event.getTitle());
         holder.commentTextView.setText(event.getComment());

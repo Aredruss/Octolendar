@@ -119,7 +119,9 @@ public class PlannedEventsFragment extends Fragment {
     //Open dialog which allows you to edi the event
     public void openEditDialog(final int position) {
 
-        Event openedEvent = eventList.get(position+1);
+        Log.d("tAG", "openEditDialog: " + position);
+
+        Event openedEvent = eventList.get(position);
         String time = openedEvent.getTime();
         String urgencyType = openedEvent.getUrgency();
 
@@ -187,6 +189,7 @@ public class PlannedEventsFragment extends Fragment {
         });
 
         builder.show();
+        eventAdapter.notifyDataSetChanged();
 
         getRecyclerViewContent();
 
@@ -205,7 +208,7 @@ public class PlannedEventsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    openEditDialog(i);
+                    openEditDialog(position);
                 } else if(i ==1){
                     Toast toast = Toast.makeText(getContext(), "The event was deleted", Toast.LENGTH_SHORT);
                     toast.show();
