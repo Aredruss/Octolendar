@@ -57,6 +57,7 @@ public class PlannedEventsFragment extends Fragment {
 
         try {
             date = getArguments().getString("Date");
+            Log.d("M", "onCreateView: " + date);
         }
         catch (NullPointerException exc){
             Log.d("M", "onCreateView: " + " Fail to pass date");
@@ -118,7 +119,7 @@ public class PlannedEventsFragment extends Fragment {
     //Open dialog which allows you to edi the event
     public void openEditDialog(final int position) {
 
-        Event openedEvent = eventList.get(position);
+        Event openedEvent = eventList.get(position+1);
         String time = openedEvent.getTime();
         String urgencyType = openedEvent.getUrgency();
 
