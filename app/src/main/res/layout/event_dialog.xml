@@ -26,19 +26,13 @@
             android:orientation="vertical"
             >
 
-            <TextView
-                android:id="@+id/headingTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_event_name"
-                android:textSize="18sp" />
-
             <EditText
                 android:id="@+id/titleEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:hint="@string/string_event_name"
+                android:inputType="text"
                 android:maxLength="32"
                 android:singleLine="true"
                 android:textAlignment="center" />
@@ -54,21 +48,17 @@
             android:orientation="vertical"
             android:theme="@style/AppTheme">
 
-            <TextView
-                android:id="@+id/commentTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_comment_label"
-                android:textSize="18sp" />
-
             <EditText
                 android:id="@+id/commentEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textMultiLine"
+                android:freezesText="true"
+                android:hint="@string/string_comment_label"
+                android:inputType="text"
+                android:justificationMode="none"
                 android:maxLength="64"
-                android:singleLine="false"
+                android:singleLine="true"
                 android:textAlignment="center" />
 
         </LinearLayout>
