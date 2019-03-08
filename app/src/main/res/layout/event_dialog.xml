@@ -58,7 +58,7 @@
                 android:hint="@string/string_comment_label"
                 android:inputType="text"
                 android:justificationMode="none"
-                android:maxLength="64"
+                android:maxLength="20"
                 android:singleLine="true"
                 android:textAlignment="center" />
 
@@ -105,18 +105,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"/>
 
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:animateLayoutChanges="true"
-                android:isScrollContainer="true"
-                android:timePickerMode="spinner" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/startTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_25dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:text="@string/string_time_select"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

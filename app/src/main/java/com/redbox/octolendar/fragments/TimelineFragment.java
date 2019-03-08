@@ -3,7 +3,6 @@ package com.redbox.octolendar.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -74,7 +73,8 @@ public class TimelineFragment extends Fragment {
 
                 Bundle args = new Bundle();
                 args.putString("Date", e.getDate());
-                args.putString("Time", e.getTime());
+                if (e.getEndTime() != null) args.putString("Time", e.getStartTime() + "-" + e.getEndTime());
+                else args.putString("Time", e.getStartTime());
                 args.putString("Title", e.getTitle());
                 args.putString("Comment", e.getComment());
                 args.putString("Completed", String.valueOf(e.getCompleted()));

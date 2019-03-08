@@ -40,7 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Event.COLUMN_DAY, event.getDay());
         values.put(Event.COLUMN_MONTH, event.getMonth());
         values.put(Event.COLUMN_YEAR, event.getYear());
-        values.put(Event.COLUMN_TIME, event.getTime());
+        values.put(Event.COLUMN_START_TIME, event.getStartTime());
+        values.put(Event.COLUMN_END_TIME,event.getEndTime());
         values.put(Event.COLUMN_TITLE, event.getTitle());
         values.put(Event.COLUMN_COMMENT, event.getComment());
         values.put(Event.COLUMN_URGENCY, event.getUrgency());
@@ -57,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Event getEvent(long id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.query(Event.TABLE_NAME, new String[]{Event.COLUMN_ID, Event.COLUMN_DAY, Event.COLUMN_MONTH, Event.COLUMN_YEAR,
-                        Event.COLUMN_TIME, Event.COLUMN_TITLE, Event.COLUMN_COMMENT, Event.COLUMN_URGENCY, Event.COLUMN_COMPLETED},
+                        Event.COLUMN_START_TIME, Event.COLUMN_END_TIME, Event.COLUMN_TITLE, Event.COLUMN_COMMENT, Event.COLUMN_URGENCY, Event.COLUMN_COMPLETED},
                 Event.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null);
 
@@ -67,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)),
-                cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)),
+                cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)),
                 cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)),
@@ -79,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Event> getDayEvents(String date) {
         List<Event> events = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " WHERE day=? AND month=? AND year=?" + "ORDER BY " + Event.COLUMN_TIME + " ASC";
+        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " WHERE day=? AND month=? AND year=?" + "ORDER BY " + Event.COLUMN_START_TIME + " ASC";
         String[] splitDateStr = date.split("-");
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{splitDateStr[0], splitDateStr[1], splitDateStr[2]});
@@ -91,7 +92,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
                 event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
                 event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
-                event.setTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)));
+                event.setStartTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)));
+                event.setEndTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_END_TIME)));
                 event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
                 event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
                 event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
@@ -108,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Event> getAllEvents() {
         List<Event> eventList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " ORDER BY " + Event.COLUMN_MONTH + " ASC, "+ Event.COLUMN_DAY + " ASC," + Event.COLUMN_YEAR + " ASC, " + Event.COLUMN_TIME + " ASC";
+        String selectQuery = "SELECT * FROM " + Event.TABLE_NAME + " ORDER BY " + Event.COLUMN_MONTH + " ASC, "+ Event.COLUMN_DAY + " ASC," + Event.COLUMN_YEAR + " ASC, " + Event.COLUMN_START_TIME + " ASC";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -120,7 +122,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
                 event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
                 event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
-                event.setTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TIME)));
+                event.setStartTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)));
+                event.setEndTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_END_TIME)));
                 event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
                 event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
                 event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
@@ -146,13 +149,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-
     //Update event
     public int updateEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Event.COLUMN_TIME, event.getTime());
+        values.put(Event.COLUMN_START_TIME, event.getStartTime());
+        values.put(Event.COLUMN_END_TIME, event.getEndTime());
         values.put(Event.COLUMN_TITLE, event.getTitle());
         values.put(Event.COLUMN_COMMENT, event.getComment());
         values.put(Event.COLUMN_URGENCY, event.getUrgency());

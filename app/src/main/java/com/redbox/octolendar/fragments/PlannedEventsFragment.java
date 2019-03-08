@@ -1,5 +1,6 @@
 package com.redbox.octolendar.fragments;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,7 +60,7 @@ public class PlannedEventsFragment extends Fragment {
             date = getArguments().getString("Date");
         }
         catch (NullPointerException exc){
-            Log.d("M", "onCreateView: " + " Fail to pass date");
+            exc.printStackTrace();
         }
 
         dateTextView.setText(date);
@@ -67,7 +68,7 @@ public class PlannedEventsFragment extends Fragment {
         db = new DatabaseHelper(getContext());
         getRecyclerViewContent();
 
-        floatingActionButton.setOnClickListener((View v) -> openCreateDilog());
+        floatingActionButton.setOnClickListener((View v) -> openCreateDialog());
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -96,9 +97,6 @@ public class PlannedEventsFragment extends Fragment {
 
     //Get Content for the recyclerView
     public void getRecyclerViewContent() {
-
-        Iterator<Event> iter = eventList.iterator();
-
         if(!eventList.isEmpty()) {
            eventList.clear();
         }
@@ -107,84 +105,6 @@ public class PlannedEventsFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(eventAdapter);
-    }
-
-
-    //Open dialog which allows you to edi the event
-    public void openEditDialog(final int position) {
-
-        Event openedEvent = eventList.get(position);
-        String time = openedEvent.getTime();
-        String urgencyType = openedEvent.getUrgency();
-
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view;
-        view = inflater.inflate(R.layout.event_dialog, null);
-
-        EditText titleEditText = view.findViewById(R.id.titleEditText);
-        EditText commentEditText = view.findViewById(R.id.commentEditText);
-        RadioGroup urgencyRadioGroup = view.findViewById(R.id.urgencyRadioGroup);
-        TimePicker timePicker = view.findViewById(R.id.timePicker);
-
-        titleEditText.setText(openedEvent.getTitle());
-        commentEditText.setText(openedEvent.getComment());
-
-        int urgencyChildrenCount = urgencyRadioGroup.getChildCount();
-        timePicker.setIs24HourView(true);
-
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                String innerTime = UtilityFunctionsClass.prepareStringTime(hour, minute);
-                openedEvent.setTime(innerTime);
-            }
-        });
-        //todo Переделать на работу с индексами, а не с сравнением строк
-
-        urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                for (int x = 0; x < urgencyChildrenCount; x++) {
-                    RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
-                    if (btn.getId() == i) {
-                        String innerUrgencyType = btn.getText().toString();
-                        openedEvent.setUrgency(innerUrgencyType);
-                    }
-                }
-            }
-        });
-
-        int[] prevTime = UtilityFunctionsClass.getIntTime(time);
-        timePicker.setHour(prevTime[0]);
-        timePicker.setMinute(prevTime[1]);
-
-        for (int x = 0; x < urgencyChildrenCount; x++) {
-            RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
-            if (urgencyType.equals(btn.getText().toString())) {
-                btn.setChecked(true);
-            }
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(view).setTitle("Edit the event").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                openedEvent.setTitle(titleEditText.getText().toString());
-                openedEvent.setComment(commentEditText.getText().toString());
-
-                db.updateEvent(openedEvent);
-                getRecyclerViewContent();
-            }
-        });
-
-        builder.show();
-
-        getRecyclerViewContent();
-
     }
 
     //Opens Action Menu
@@ -200,13 +120,10 @@ public class PlannedEventsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    //openEditDialog(i);
                     Intent intent = new Intent(getActivity(), EventManagerActivity.class);
                     Event openedEvent = eventList.get(position);
                     intent.putExtra("Event", openedEvent);
                     startActivity(intent);
-
-
                 } else if(i ==1){
                     Toast toast = Toast.makeText(getContext(), "The event was deleted", Toast.LENGTH_SHORT);
                     toast.show();
@@ -223,7 +140,7 @@ public class PlannedEventsFragment extends Fragment {
 
 
     //Opens event creation dialog
-    private void openCreateDilog(){
+    private void openCreateDialog(){
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View dialogView = layoutInflater.inflate(R.layout.event_dialog,null);
         Event newEvent = new Event();
@@ -231,19 +148,25 @@ public class PlannedEventsFragment extends Fragment {
         EditText titleEditText = dialogView.findViewById(R.id.titleEditText);
         EditText commentEditText = dialogView.findViewById(R.id.commentEditText);
         RadioGroup urgencyRadioGroup = dialogView.findViewById(R.id.urgencyRadioGroup);
-        TimePicker timePicker = dialogView.findViewById(R.id.timePicker);
+        TextView timeTextView = dialogView.findViewById(R.id.startTextView);
 
-       // int urgencyChildrenCount = urgencyRadioGroup.getChildCount();
-        timePicker.setIs24HourView(true);
 
-        newEvent.setTime(UtilityFunctionsClass.getCurrentTime());
+        newEvent.setStartTime(UtilityFunctionsClass.getCurrentTime());
         newEvent.setUrgency("Ugh");
 
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int hour, int minutes) {
-                newEvent.setTime(UtilityFunctionsClass.prepareStringTime(hour, minutes));
-            }
+        timeTextView.setOnClickListener((View v) -> {
+            TimePickerDialog pickerDialog;
+            int hour = 0, minute = 0;
+            pickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    String timeStr = UtilityFunctionsClass.prepareStringTime(hourOfDay, minute);
+                    timeTextView.setText(timeStr);
+                    newEvent.setStartTime(timeStr);
+                }
+            }, hour, minute, true);
+            pickerDialog.setTitle("Pick time");
+            pickerDialog.show();
         });
 
         urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

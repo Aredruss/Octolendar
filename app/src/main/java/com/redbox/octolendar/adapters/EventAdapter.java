@@ -60,7 +60,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         db = new DatabaseHelper(context);
         Event event = list.get(holder.getAdapterPosition());
-        holder.timeTextView.setText(event.getTime());
+        if (event.getEndTime() !=null) holder.timeTextView.setText(event.getStartTime() + "-" + event.getEndTime());
+        else holder.timeTextView.setText(event.getStartTime());
         holder.titleTextView.setText(event.getTitle());
         holder.commentTextView.setText(event.getComment());
         holder.urgencyTextView.setText(event.getUrgency());

@@ -29,4 +29,6 @@
     <string name="string_bored_button">Find something to do</string>
     <string name="string_done">Done</string>
     <string name="string_save">Save</string>
+    <string name="string_time_select">Select time</string>
+    <string name="string_end_time">Is a long event</string>
 </resources>

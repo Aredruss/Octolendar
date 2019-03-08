@@ -26,6 +26,7 @@
             android:layout_marginBottom="@dimen/dimen_20dp"
             android:fontFamily="@font/droid_sans_mono"
             android:text="TextView"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <FrameLayout

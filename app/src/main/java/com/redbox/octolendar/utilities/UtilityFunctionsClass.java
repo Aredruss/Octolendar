@@ -5,7 +5,10 @@ import android.util.Log;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
 
 public class UtilityFunctionsClass extends AppCompatActivity {
 
@@ -50,12 +53,11 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         return day + "-" + month + "-" + year;
     }
 
-    public static int[] getIntTime(String strTime){
-        int[] time = new int[2];
-        String[] splitStr = strTime.split(":");
-        time[0] = Integer.parseInt(splitStr[0]);
-        time[1] = Integer.parseInt(splitStr[1]);
-        return  time;
+    public static LocalTime getTimeFromString(String strTime){
+
+        LocalTime time =  LocalTime.parse(strTime, DateTimeFormatter.ofPattern("HH:mm"));
+        return time;
+
     }
 
 }
