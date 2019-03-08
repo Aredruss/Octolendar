@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.redbox.octolendar.fragments.CalendarFragment;
 import com.redbox.octolendar.fragments.MiscFragment;
@@ -21,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     private BottomNavigationView bottomNavigationView;
     private FragmentTransaction fragmentTransaction;
     private Fragment currentFragment;
+    public FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        frameLayout = findViewById(R.id.content);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
@@ -95,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(true);
+        if (frameLayout.getChildAt(0).equals(findViewById(R.id.calendarRelativeLayout))) finish();
+
+        getSupportFragmentManager().popBackStack();
+        bottomNavigationView.setSelectedItemId(R.id.calendar);
     }
 
     @Override

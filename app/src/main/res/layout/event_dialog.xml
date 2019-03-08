@@ -33,9 +33,10 @@
                 android:ems="10"
                 android:hint="@string/string_event_name"
                 android:inputType="text"
-                android:maxLength="32"
+                android:maxLength="16"
                 android:singleLine="true"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
