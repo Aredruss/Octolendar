@@ -1,6 +1,8 @@
 package com.redbox.octolendar.database.model;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable {
 
     public static final String TABLE_NAME = "events_db";
     public static final String COLUMN_ID = "id";

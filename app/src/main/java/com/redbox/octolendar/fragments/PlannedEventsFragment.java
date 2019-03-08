@@ -1,6 +1,7 @@
 package com.redbox.octolendar.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.redbox.octolendar.EventManagerActivity;
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.adapters.EventAdapter;
 import com.redbox.octolendar.database.DatabaseHelper;
@@ -35,7 +36,6 @@ import java.util.List;
 public class PlannedEventsFragment extends Fragment {
 
     private TextView dateTextView;
-    private CheckBox doneCheckBox;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private List<Event> eventList;
@@ -67,12 +67,7 @@ public class PlannedEventsFragment extends Fragment {
         db = new DatabaseHelper(getContext());
         getRecyclerViewContent();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCreateDilog();
-            }
-        });
+        floatingActionButton.setOnClickListener((View v) -> openCreateDilog());
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -144,6 +139,7 @@ public class PlannedEventsFragment extends Fragment {
                 openedEvent.setTime(innerTime);
             }
         });
+        //todo Переделать на работу с индексами, а не с сравнением строк
 
         urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -204,7 +200,13 @@ public class PlannedEventsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    openEditDialog(i);
+                    //openEditDialog(i);
+                    Intent intent = new Intent(getActivity(), EventManagerActivity.class);
+                    Event openedEvent = eventList.get(position);
+                    intent.putExtra("Event", openedEvent);
+                    startActivity(intent);
+
+
                 } else if(i ==1){
                     Toast toast = Toast.makeText(getContext(), "The event was deleted", Toast.LENGTH_SHORT);
                     toast.show();

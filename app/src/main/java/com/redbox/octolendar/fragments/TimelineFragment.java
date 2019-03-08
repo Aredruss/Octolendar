@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import java.util.List;
 
 public class TimelineFragment extends Fragment {
 
-    private BottomNavigationView bottomNavigationView;
     private DatabaseHelper db;
     private List<Event> eventList;
 
@@ -81,7 +81,13 @@ public class TimelineFragment extends Fragment {
 
                 timelineInfoDialog.setArguments(args);
 
-                timelineInfoDialog.show(getFragmentManager(), " ");
+                try {
+                    timelineInfoDialog.show(getFragmentManager(), " ");
+                }
+                catch (NullPointerException exc){
+                    Log.d("Timeline - dialog", "onItemClick: " + "NULL exc, I wonder why?");
+                }
+
             }
         });
 

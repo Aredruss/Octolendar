@@ -53,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Get one event
+    @Deprecated
     public Event getEvent(long id) {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.query(Event.TABLE_NAME, new String[]{Event.COLUMN_ID, Event.COLUMN_DAY, Event.COLUMN_MONTH, Event.COLUMN_YEAR,

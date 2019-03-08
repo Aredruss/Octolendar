@@ -71,12 +71,9 @@ public class CalendarFragment extends Fragment {
         requestTextView.setText("Something you can do");
         new JsonGet().execute(getResources().getString(R.string.string_url));
 
-        requestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        requestButton.setOnClickListener((View v) -> {
                 new JsonGet().execute(getResources().getString(R.string.string_url));
                 requestTextView.setText(jsonResponse);
-            }
         });
 
         return fragmentView;
