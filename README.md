@@ -15,6 +15,6 @@ Octolendar is a calendar-based application which allows you to manage your sched
 
 ## Database entries are presented as depicted here:
 
-| id  | day | month | year | time | title | comment | urgency | completed |
-| ------------- | ------------- | -------------  | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
-| 1 | 31 | 10 | 2019 | 22:30 | Halloween Party| At Ashley's House | It's important| 0 |
+| id  | day | month | year | time_start| time_end | title | comment | urgency | completed |
+| ------------- | ------------- | -------------  | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |------------- |
+| 1 | 31 | 10 | 2019 | 22:30 | 23:55| Halloween Party| At Ashley's House | It's important| 0 |
