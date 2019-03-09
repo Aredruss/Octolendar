@@ -38,47 +38,38 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.calendar: {
-
                         currentFragment = new CalendarFragment();
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.commit();
-                        return true;
+                        break;
                     }
 
                     case R.id.today: {
-
                         currentFragment = new PlannedEventsFragment();
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.commit();
-                        return true;
+                        break;
                     }
 
                     case R.id.timeline: {
-
                         currentFragment = new TimelineFragment();
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.commit();
-                        return true;
+                        break;
                     }
 
                     case R.id.info: {
                         currentFragment = new MiscFragment();
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.content, currentFragment);
-                        fragmentTransaction.commit();
-                        return true;
+                        break;
                     }
 
                     default: {
-                        return true;
+                        break;
                     }
                 }
+                fragmentTransaction.commit();
+                return true;
             }
         });
     }

@@ -89,31 +89,27 @@ public class EventManagerActivity extends AppCompatActivity {
         timeStartTextView.setOnClickListener((View v) -> setTime(0));
         timeEndTextView.setOnClickListener((View v) -> setTime(1));
 
-        timeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        timeSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
                 timeEndTextView.setEnabled(true);
                 if (!isChecked) {
                     timeEndTextView.setEnabled(false);
                     timeEndTextView.setText(getResources().getText(R.string.string_time_select));
                     openedEvent.setEndTime(null);
                 }
-            }
         });
     }
 
     public void setTime(int type) {
         TimePickerDialog pickerDialog;
-        int hour = 0, minute = 0;
-        pickerDialog = new TimePickerDialog(EventManagerActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        int o_hour = 0, o_minute = 0;
+        pickerDialog = new TimePickerDialog(EventManagerActivity.this, (TimePicker view, int hourOfDay, int minute)-> {
+
                 String timeStr = UtilityFunctionsClass.prepareStringTime(hourOfDay, minute);
 
                 if (type == 0) timeStartTextView.setText(timeStr);
                 else timeEndTextView.setText(timeStr);
-            }
-        }, hour, minute, true);
+
+        }, o_hour, o_minute, true);
         pickerDialog.setTitle("Pick time");
         pickerDialog.show();
     }
