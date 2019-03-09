@@ -1,16 +1,20 @@
 package com.redbox.octolendar.utilities;
 
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import com.redbox.octolendar.EventManagerActivity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Locale;
 
-public class UtilityFunctionsClass extends AppCompatActivity {
+public class DateTimeUtilityClass extends AppCompatActivity {
 
     public static String prepareStringTime(int hour, int minute) {
         String strTime;
@@ -21,7 +25,6 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         if (hour < 10){
             strTime = "0" + strTime;
         }
-
         return strTime;
     }
 
@@ -48,7 +51,7 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         int day = now.getDayOfMonth();
         int month = now.getMonthValue();
         int year = now.getYear();
-        Log.d(" f", "getToday: " + day + " " + month + " " + year);
+
 
         return day + "-" + month + "-" + year;
     }
@@ -59,5 +62,18 @@ public class UtilityFunctionsClass extends AppCompatActivity {
         return time;
 
     }
+
+   public static void openTimeDialog(Context c, TextView textView){
+       TimePickerDialog pickerDialog;
+       int orig_hour = 0, orig_minute = 0;
+       final String[] timeStr = new String[1];
+       pickerDialog = new TimePickerDialog(c, (TimePicker view, int hourOfDay, int minute)-> {
+            textView.setText(DateTimeUtilityClass.prepareStringTime(hourOfDay,minute));
+           Log.d(" f", "getToday: " + timeStr[0]);
+       }, orig_hour, orig_minute, true);
+       pickerDialog.setTitle("Pick time");
+       pickerDialog.show();
+
+   }
 
 }

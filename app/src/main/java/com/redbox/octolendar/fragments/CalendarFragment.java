@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.redbox.octolendar.R;
-import com.redbox.octolendar.utilities.UtilityFunctionsClass;
+import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,10 +53,10 @@ public class CalendarFragment extends Fragment {
         progressTextView = fragmentView.findViewById(R.id.monthProgressTextView);
         progressBar = fragmentView.findViewById(R.id.monthProgressBar);
         percentString = "%d%% of the month has passed";
-        date = UtilityFunctionsClass.getToday();
+        date = DateTimeUtilityClass.getToday();
 
-        progressTextView.setText(String.format(percentString, UtilityFunctionsClass.getMonthProgress()));
-        progressBar.setProgress(UtilityFunctionsClass.getMonthProgress());
+        progressTextView.setText(String.format(percentString, DateTimeUtilityClass.getMonthProgress()));
+        progressBar.setProgress(DateTimeUtilityClass.getMonthProgress());
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

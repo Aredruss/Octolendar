@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         frameLayout = findViewById(R.id.content);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+
         bottomNavigationView.setSelectedItemId(R.id.calendar);
 
         bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnNavigationItemSelectedListener((MenuItem item) -> {
+
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.calendar: {
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 }
                 fragmentTransaction.commit();
                 return true;
-            }
         });
     }
 
@@ -96,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         bottomNavigationView.setSelectedItemId(R.id.calendar);
     }
 

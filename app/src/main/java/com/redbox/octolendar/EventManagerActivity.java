@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -20,9 +19,10 @@ import android.widget.TimePicker;
 
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.database.DatabaseHelper;
-import com.redbox.octolendar.utilities.UtilityFunctionsClass;
+import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class EventManagerActivity extends AppCompatActivity {
@@ -100,18 +100,8 @@ public class EventManagerActivity extends AppCompatActivity {
     }
 
     public void setTime(int type) {
-        TimePickerDialog pickerDialog;
-        int o_hour = 0, o_minute = 0;
-        pickerDialog = new TimePickerDialog(EventManagerActivity.this, (TimePicker view, int hourOfDay, int minute)-> {
-
-                String timeStr = UtilityFunctionsClass.prepareStringTime(hourOfDay, minute);
-
-                if (type == 0) timeStartTextView.setText(timeStr);
-                else timeEndTextView.setText(timeStr);
-
-        }, o_hour, o_minute, true);
-        pickerDialog.setTitle("Pick time");
-        pickerDialog.show();
+        if (type == 0) DateTimeUtilityClass.openTimeDialog(EventManagerActivity.this, timeStartTextView);
+        else DateTimeUtilityClass.openTimeDialog(EventManagerActivity.this, timeEndTextView);
     }
 
     public void saveChanges(View v) {
@@ -146,8 +136,8 @@ public class EventManagerActivity extends AppCompatActivity {
     }
 
     public boolean checkTime(){
-        LocalTime startTime = UtilityFunctionsClass.getTimeFromString(timeStartTextView.getText().toString());
-        LocalTime endTime = UtilityFunctionsClass.getTimeFromString(timeEndTextView.getText().toString());
+        LocalTime startTime = DateTimeUtilityClass.getTimeFromString(timeStartTextView.getText().toString());
+        LocalTime endTime = DateTimeUtilityClass.getTimeFromString(timeEndTextView.getText().toString());
         boolean timeError = false;
 
         if (startTime.compareTo(endTime) > 0) {
