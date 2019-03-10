@@ -65,10 +65,8 @@ public class TimelineFragment extends Fragment {
         ListView listView = timelineView.findViewById(R.id.timelineListView);
         listView.setAdapter(timelineRowArrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final Event e = getItem(i);
+        listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int index, long l)-> {
+                final Event e = getItem(index);
                 TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
 
                 Bundle args = new Bundle();
@@ -88,9 +86,7 @@ public class TimelineFragment extends Fragment {
                     Log.d("Timeline - dialog", "onItemClick: " + "NULL exc, I wonder why?");
                 }
 
-            }
         });
-
         return timelineView;
     }
 

@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/private/var/folders/w4/hqflhlcd5d91mpmqzf9ftj380000gn/T/AppTranslocation/9EB6B184-05BC-4AD3-AA37-D737E9E54DAC/d/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_clear_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/aredruss/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/182.5264788/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_notifications_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,7 +45,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_action_close_manager" />
+                                      <entry key="outputName" value="ic_action_notification" />
                                       <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

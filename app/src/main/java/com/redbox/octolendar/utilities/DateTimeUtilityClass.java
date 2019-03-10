@@ -7,8 +7,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.redbox.octolendar.EventManagerActivity;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

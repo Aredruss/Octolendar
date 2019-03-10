@@ -58,12 +58,9 @@ public class CalendarFragment extends Fragment {
         progressTextView.setText(String.format(percentString, DateTimeUtilityClass.getMonthProgress()));
         progressBar.setProgress(DateTimeUtilityClass.getMonthProgress());
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
+        calendarView.setOnDateChangeListener((CalendarView calendarView, int year, int month, int day)-> {
                 date = day + "-" + (month + 1) + "-" + year;
                 sendDate();
-            }
         });
 
         requestButton = fragmentView.findViewById(R.id.boredButton);
@@ -167,6 +164,8 @@ public class CalendarFragment extends Fragment {
         interactionListener.onCalendarInteraction(date);
     }
 
+
+    //Will be used to check if there is no connection to the internet
     public boolean checkConnection(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager != null;

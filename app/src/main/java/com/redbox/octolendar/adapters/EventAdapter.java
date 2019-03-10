@@ -71,10 +71,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             holder.doneCheckBox.setChecked(true);
         }
 
-        holder.doneCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+        holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
                 if(isChecked){
                     holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTimelineIconSecond));
                     event.setCompleted(1);
@@ -85,8 +82,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     event.setCompleted(0);
                     db.updateEvent(event);
                 }
-
-            }
         });
 
     }

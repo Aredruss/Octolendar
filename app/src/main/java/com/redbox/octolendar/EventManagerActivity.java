@@ -1,6 +1,5 @@
 package com.redbox.octolendar;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +14,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Spinner;
 import android.widget.Button;
-import android.widget.TimePicker;
 
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class EventManagerActivity extends AppCompatActivity {

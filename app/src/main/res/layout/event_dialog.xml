@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/droid_sans_mono"
                 android:hint="@string/string_event_name"
                 android:inputType="text"
                 android:maxLength="16"
@@ -54,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/droid_sans_mono"
                 android:freezesText="true"
                 android:hint="@string/string_comment_label"
                 android:inputType="text"
@@ -81,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/droid_sans_mono"
                     android:text="@string/string_rbutton_skip" />
 
                 <RadioButton
@@ -88,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/droid_sans_mono"
                     android:text="@string/string_rbutton_ugh" />
 
                 <RadioButton
@@ -95,6 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/droid_sans_mono"
                     android:text="It's important" />
 
             </RadioGroup>
@@ -114,6 +119,7 @@
             android:layout_marginStart="@dimen/dimen_30dp"
             android:layout_marginTop="@dimen/dimen_25dp"
             android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
             android:text="@string/string_time_select"
             android:textAlignment="center"
             android:textSize="18sp" />
