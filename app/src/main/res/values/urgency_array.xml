@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="urgency_string_array">
+        <item>You can skip it</item>
+        <item>Ugh</item>
+        <item>It\'s important</item></string-array>
+   </resources>

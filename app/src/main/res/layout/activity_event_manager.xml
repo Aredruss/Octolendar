@@ -52,7 +52,7 @@
             android:fontFamily="@font/droid_sans_mono"
             android:hint="@string/string_comment_label"
             android:inputType="text"
-            android:maxLength="20"
+            android:maxLength="32"
             android:singleLine="true"
             android:text="TextView"
             android:textSize="18sp" />

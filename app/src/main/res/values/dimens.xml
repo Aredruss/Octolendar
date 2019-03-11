@@ -13,4 +13,7 @@
     <dimen name="dimen_30dp">30dp</dimen>
     <dimen name="dimen_15dp">15dp</dimen>
     <dimen name="dimen_greater_elevation">6dp</dimen>
+    <dimen name="dimen_font_size">20dp</dimen>
+    <dimen name="dimen_smaller_font">16dp</dimen>
+    <dimen name="dimen_5dp">5dp</dimen>
 </resources>

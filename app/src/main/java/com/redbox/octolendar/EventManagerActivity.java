@@ -53,6 +53,8 @@ public class EventManagerActivity extends AppCompatActivity {
         timeEndTextView = findViewById(R.id.mangerEndTextView);
         urgencySpinner = findViewById(R.id.managerUrgencySpinner);
         timeSwitch = findViewById(R.id.endTimeSwitch);
+        closeButton = findViewById(R.id.managerCloseImageButton);
+        saveButton = findViewById(R.id.managerSaveButton);
 
         openedEvent = (Event) intent.getSerializableExtra("Event");
 
@@ -66,22 +68,20 @@ public class EventManagerActivity extends AppCompatActivity {
             timeSwitch.setChecked(true);
         }
 
-        closeButton = findViewById(R.id.managerCloseImageButton);
-        saveButton = findViewById(R.id.managerSaveButton);
-
         titleEditText.setText(openedEvent.getTitle());
         commentEditText.setText(openedEvent.getComment());
         dateTextView.setText(openedEvent.getDate());
         timeStartTextView.setText(openedEvent.getStartTime());
 
-        ArrayAdapter<String> urgencyAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, urgency);
-        urgencySpinner.setAdapter(urgencyAdapter);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.urgency_string_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        urgencySpinner.setAdapter(adapter);
 
         closeButton.setOnClickListener((View v) -> super.onBackPressed());
 
-        saveButton.setOnClickListener((View v) -> {
-            saveChanges(v);
-        });
+        saveButton.setOnClickListener(this::saveChanges);
 
         timeStartTextView.setOnClickListener((View v) -> setTime(0));
         timeEndTextView.setOnClickListener((View v) -> setTime(1));

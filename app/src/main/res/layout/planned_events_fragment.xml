@@ -9,19 +9,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dateFragmentTextView"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/dimen_20dp"
-            android:background="@color/colorScrollBack"
-            android:elevation="@dimen/dimen_elevation"
-            android:fontFamily="@font/droid_sans_mono"
-            android:paddingTop="@dimen/dimen_10dp"
-            android:text="@string/string_sample_date"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:layout_marginTop="@dimen/dimen_10dp"
+            app:cardCornerRadius="@dimen/dimen_info_card_corner_radius">
+
+            <TextView
+                android:id="@+id/dateFragmentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:elevation="@dimen/dimen_elevation"
+                android:fontFamily="@font/droid_sans_mono"
+                android:paddingStart="@dimen/dimen_15dp"
+                android:paddingEnd="@dimen/dimen_15dp"
+                android:text="@string/string_sample_date"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+        </android.support.v7.widget.CardView>
 
         <FrameLayout
             android:id="@+id/eventFragmentFrameLayout"
@@ -34,7 +41,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/cardFragmentRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimen_20dp">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -42,8 +50,11 @@
                 android:id="@+id/addFragmentFloatingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="@dimen/dimen_25dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginEnd="@dimen/dimen_15dp"
+                android:layout_marginRight="@dimen/dimen_25dp"
+                android:layout_marginBottom="@dimen/dimen_15dp"
                 android:clickable="true"
                 app:backgroundTint="@color/colorAccent"
                 app:elevation="@dimen/dimen_elevation"

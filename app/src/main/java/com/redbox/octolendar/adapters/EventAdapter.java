@@ -67,18 +67,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.urgencyTextView.setText(event.getUrgency());
 
         if (event.getCompleted() == 1){
-            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTimelineIconSecond));
+            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
             holder.doneCheckBox.setChecked(true);
+        }
+        else{
+            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.design_default_color_primary));
+
         }
 
         holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
                 if(isChecked){
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorTimelineIconSecond));
+                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
                     event.setCompleted(1);
                     db.updateEvent(event);
                 }
                 else{
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorAccent));
+                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.design_default_color_primary));
                     event.setCompleted(0);
                     db.updateEvent(event);
                 }
