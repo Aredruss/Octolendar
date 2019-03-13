@@ -70,16 +70,23 @@ public class PlannedEventsFragment extends Fragment {
 
         floatingActionButton.setOnClickListener((View v) -> openCreateDialog());
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+               if (dy > 0) floatingActionButton.hide();
+               else floatingActionButton.show();
+            }
+        });
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-            }
 
+            }
             @Override
             public void onLongClick(View view, int position) {
-                openActionsDialog(position);
-            }
 
+            }
         }
         ));
 
@@ -98,37 +105,6 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView.setAdapter(eventAdapter);
     }
 
-    //Opens Action Menu
-    private void openActionsDialog(final int position) {
-
-        Event openedEvent = eventList.get(position);
-
-        CharSequence options[] = new CharSequence[]{"Edit", "Delete","Manage Notifications"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Choose an option");
-
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    Intent intent = new Intent(getActivity(), EventManagerActivity.class);
-                    Event openedEvent = eventList.get(position);
-                    intent.putExtra("Event", openedEvent);
-                    startActivity(intent);
-                } else if(i ==1){
-                    Toast toast = Toast.makeText(getContext(), "The event was deleted", Toast.LENGTH_SHORT);
-                    toast.show();
-                    db.deleteEvent(openedEvent);
-                    getRecyclerViewContent();
-                }  else {
-                    Toast toast = Toast.makeText(getContext(), "Launch notification management dialogue", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            }
-        });
-        builder.show();
-    }
-
 
     //Opens event creation dialog
     private void openCreateDialog(){
@@ -140,7 +116,6 @@ public class PlannedEventsFragment extends Fragment {
         EditText commentEditText = dialogView.findViewById(R.id.commentEditText);
         RadioGroup urgencyRadioGroup = dialogView.findViewById(R.id.urgencyRadioGroup);
         TextView timeTextView = dialogView.findViewById(R.id.startTextView);
-
 
         newEvent.setStartTime(DateTimeUtilityClass.getCurrentTime());
         newEvent.setUrgency("Ugh");
@@ -182,33 +157,23 @@ public class PlannedEventsFragment extends Fragment {
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                     if(!titleEditText.getText().toString().isEmpty()){
+
+                        newEvent.setTitle(titleEditText.getText().toString());
+                        newEvent.setDate(date);
+                        newEvent.setId(db.getEventCount()+1);
+
                         if(commentEditText.getText().toString().isEmpty()){
-                            newEvent.setTitle(titleEditText.getText().toString());
                             newEvent.setComment(" ");
-                            newEvent.setDate(date);
-                            newEvent.setId(db.getEventCount()+1);
-
-                            eventList.add(0, newEvent);
-                            eventAdapter.notifyDataSetChanged();
-
-                            db.insertEvent(newEvent);
-                            getRecyclerViewContent();
                         }
                         else{
-                            newEvent.setTitle(titleEditText.getText().toString());
                             newEvent.setComment(commentEditText.getText().toString());
 
-                            newEvent.setDate(date);
-                            newEvent.setId(db.getEventCount()+1);
-
-                            eventList.add(0, newEvent);
-                            eventAdapter.notifyDataSetChanged();
-
-                            db.insertEvent(newEvent);
-                            getRecyclerViewContent();
                         }
+                        eventList.add(0, newEvent);
+                        eventAdapter.notifyDataSetChanged();
+                        db.insertEvent(newEvent);
+                        getRecyclerViewContent();
                     }
                     else {
                         Toast toast = Toast.makeText(getContext(), "The title field is not optional", Toast.LENGTH_SHORT);
@@ -218,9 +183,4 @@ public class PlannedEventsFragment extends Fragment {
         });
         builder.show();
     }
-
-    //Add Notifications
-    private void openNotificationsDialog(){
-    }
-
 }

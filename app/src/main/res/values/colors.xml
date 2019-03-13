@@ -3,8 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#3E3E3E</color>
     <color name="colorAccent">#CA0C51</color>
-    <color name="colorCardBackground">#AD1457</color>
-    <color name="colorCardTimeBackground">#36282e</color>
+    <color name="colorCardBackgroundNotDone">#D11F51</color>
+    <color name="colorCardBackgroundDone">#4759D1</color>
     <color name="colorScrollBack">#272727</color>
     <color name="colorTimelineBack">#7CECBF</color>
     <color name="colorInfoCardViewBackground">#3C3C3C</color>
@@ -14,4 +14,6 @@
     <color name="colorCheck">#E9E7E7</color>
     <color name="colorNoColor">#00FFFFFF</color>
     <color name="colorManagerBack">#2B2B2B</color>
+    <color name="colorActionButtonBack">#81D6D7</color>
+    <color name="colorDarker">#46212121</color>
 </resources>

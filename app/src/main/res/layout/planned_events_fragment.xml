@@ -56,9 +56,9 @@
                 android:layout_marginRight="@dimen/dimen_25dp"
                 android:layout_marginBottom="@dimen/dimen_15dp"
                 android:clickable="true"
-                app:backgroundTint="@color/colorAccent"
+                app:backgroundTint="@color/colorScrollBack"
                 app:elevation="@dimen/dimen_elevation"
-                app:srcCompat="@drawable/ic_action_name_add" />
+                app:srcCompat="@drawable/ic_action_add" />
         </FrameLayout>
 
 

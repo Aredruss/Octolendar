@@ -1,6 +1,7 @@
 package com.redbox.octolendar.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
 
+import com.redbox.octolendar.EventManagerActivity;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.R;
@@ -31,6 +34,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView urgencyTextView;
         public CardView cardEventView;
         public CheckBox doneCheckBox;
+        public ImageButton editButton;
+        public ImageButton deleteButton;
+        public RecyclerView recyclerView;
 
 
         public ViewHolder(View view){
@@ -41,6 +47,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             urgencyTextView = view.findViewById(R.id.urgencyTextView);
             cardEventView = view.findViewById(R.id.eventCard);
             doneCheckBox = view.findViewById(R.id.doneCheckBox);
+            editButton = view.findViewById(R.id.editButton);
+            deleteButton = view.findViewById(R.id.deleteButton);
+            recyclerView = view.findViewById(R.id.cardFragmentRecyclerView);
         }
 
     }
@@ -67,25 +76,39 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.urgencyTextView.setText(event.getUrgency());
 
         if (event.getCompleted() == 1){
-            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundDone));
             holder.doneCheckBox.setChecked(true);
         }
         else{
-            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.design_default_color_primary));
+            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundNotDone));
 
         }
 
         holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
                 if(isChecked){
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundDone));
                     event.setCompleted(1);
                     db.updateEvent(event);
                 }
                 else{
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.design_default_color_primary));
+                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorCardBackgroundNotDone));
                     event.setCompleted(0);
                     db.updateEvent(event);
                 }
+        });
+
+        holder.editButton.setOnClickListener((View v) ->{
+            Intent intent = new Intent(v.getContext(), EventManagerActivity.class);
+            intent.putExtra("Event", event);
+            v.getContext().startActivity(intent);
+        });
+
+        holder.deleteButton.setOnClickListener((View v) ->{
+//            int index = holder.getAdapterPosition();
+//             super.notifyItemRemoved(index);
+//            Log.d("T", "onBindViewHolder: " + holder.getAdapterPosition());
+//            holder.recyclerView.removeViewAt(index);
+//            db.deleteEvent(event);
         });
 
     }

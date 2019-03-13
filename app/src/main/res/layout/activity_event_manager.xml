@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|left"
                     android:layout_margin="@dimen/dimen_15dp"
-                    app:srcCompat="@drawable/ic_action_name_notification" />
+                    app:srcCompat="@drawable/ic_action_notification" />
 
             </FrameLayout>
 

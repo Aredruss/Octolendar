@@ -4,25 +4,25 @@
     <item
         android:id="@+id/calendar"
         android:enabled="true"
-        android:icon="@drawable/ic_action_name_calendar"
+        android:icon="@drawable/ic_action_calendar"
         android:title="@string/string_calendar" />
 
     <item
         android:id="@+id/timeline"
         android:enabled="true"
-        android:icon="@drawable/ic_action_name_timeline"
+        android:icon="@drawable/ic_action_timeline"
         android:title="@string/string_timeline" />
 
     <item
         android:id="@+id/today"
         android:enabled="true"
-        android:icon="@drawable/ic_action_name_today"
+        android:icon="@drawable/ic_action_today"
         android:title="@string/string_today" />
 
 
     <item
         android:id="@+id/info"
         android:enabled="true"
-        android:icon="@drawable/ic_action_name_misc"
+        android:icon="@drawable/ic_action_misc"
         android:title="@string/string_misc" />
 </menu>
