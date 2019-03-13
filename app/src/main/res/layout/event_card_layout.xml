@@ -52,6 +52,8 @@
                         android:text="@string/string_navbar_title"
                         android:textColorLink="@color/colorPrimary" />
 
+
+
                 </TableRow>
 
                 <TableRow
@@ -97,9 +99,10 @@
 
                     <TextView
                         android:id="@+id/urgencyTextView"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_marginStart="@dimen/dimen_25dp"
                         android:layout_marginTop="@dimen/dimen_15dp"
+                        android:layout_marginEnd="@dimen/dimen_25dp"
                         android:focusable="false"
                         android:fontFamily="@font/droid_sans_mono"
                         android:forceHasOverlappingRendering="false"

@@ -1,9 +1,16 @@
 package com.redbox.octolendar;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -19,6 +26,7 @@ import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
+import java.nio.channels.Channel;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -35,7 +43,7 @@ public class EventManagerActivity extends AppCompatActivity {
     private Event openedEvent;
     private Switch timeSwitch;
     private DatabaseHelper db;
-    private String[] urgency = {"It's important", "Ugh", "You can skip it"};
+    private ImageButton notificationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,7 @@ public class EventManagerActivity extends AppCompatActivity {
         timeSwitch = findViewById(R.id.endTimeSwitch);
         closeButton = findViewById(R.id.managerCloseImageButton);
         saveButton = findViewById(R.id.managerSaveButton);
+        notificationButton = findViewById(R.id.notificationImageButton);
 
         openedEvent = (Event) intent.getSerializableExtra("Event");
 
@@ -94,6 +103,10 @@ public class EventManagerActivity extends AppCompatActivity {
                     openedEvent.setEndTime(null);
                 }
         });
+
+        notificationButton.setOnClickListener((v -> {
+            //todo Add Notifications
+        }));
     }
 
     public void setTime(int type) {
