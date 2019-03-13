@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         setContentView(R.layout.activity_main);
         frameLayout = findViewById(R.id.content);
 
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-
         bottomNavigationView.setSelectedItemId(R.id.calendar);
-
         bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
         bottomNavigationView.setOnNavigationItemSelectedListener((MenuItem item) -> {
 
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 switch (item.getItemId()) {
                     case R.id.calendar: {
                         currentFragment = new CalendarFragment();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+        //overridePendingTransition(0, 0);
     }
 
     @Override

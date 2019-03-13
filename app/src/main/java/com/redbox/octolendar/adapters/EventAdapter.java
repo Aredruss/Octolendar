@@ -26,6 +26,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private Context context;
     private List<Event> list;
     private DatabaseHelper db;
+    private int deleteButtonId;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView timeTextView;
@@ -52,6 +53,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             recyclerView = view.findViewById(R.id.cardFragmentRecyclerView);
         }
 
+        public ImageButton getDeleteButton(){
+            return deleteButton;
+        }
+
     }
 
     public EventAdapter(Context context, List<Event> eventlist){
@@ -59,9 +64,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         this.list = eventlist;
     }
 
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card_layout, parent, false);
+
         return new ViewHolder(itemView);
     }
 
@@ -84,6 +92,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         }
 
+
         holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
                 if(isChecked){
                     holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundDone));
@@ -103,13 +112,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             v.getContext().startActivity(intent);
         });
 
-        holder.deleteButton.setOnClickListener((View v) ->{
+//        holder.deleteButton.setOnClickListener((View v) ->{
 //            int index = holder.getAdapterPosition();
-//             super.notifyItemRemoved(index);
-//            Log.d("T", "onBindViewHolder: " + holder.getAdapterPosition());
-//            holder.recyclerView.removeViewAt(index);
+//            super.notifyItemRemoved(index);
+//              Log.d("T", "onBindViewHolder: " + index);
+//             holder.recyclerView.removeViewAt(index);
 //            db.deleteEvent(event);
-        });
+//        });
 
     }
 

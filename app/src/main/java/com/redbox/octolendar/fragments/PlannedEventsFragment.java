@@ -2,7 +2,6 @@ package com.redbox.octolendar.fragments;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,18 +10,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.redbox.octolendar.EventManagerActivity;
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.adapters.EventAdapter;
 import com.redbox.octolendar.database.DatabaseHelper;
@@ -31,7 +29,6 @@ import com.redbox.octolendar.utilities.RecyclerTouchListener;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class PlannedEventsFragment extends Fragment {
@@ -78,9 +75,29 @@ public class PlannedEventsFragment extends Fragment {
             }
         });
 
+        /*This is a very problematic part. I don't think it's the right way, and yet I can't find any other working solution
+
+            The problem is that I can't notify Recycler View from the ViewHolder, and if I don't, user will have to reload fragment to see the changes.
+        */
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            //Deleting the event from recyclerView
             @Override
             public void onClick(View view, int position) {
+                EventAdapter.ViewHolder childViewHolder = (EventAdapter.ViewHolder) recyclerView.getChildViewHolder(view);
+                ImageButton deleteButton = childViewHolder.getDeleteButton();
+
+                deleteButton.setOnClickListener((View v) -> {
+                    Event event = eventList.get(position);
+                    db.deleteEvent(event);
+                    eventAdapter.notifyItemRemoved(position);
+
+                    Toast toast = Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    getRecyclerViewContent();
+                });
 
             }
             @Override
@@ -90,19 +107,19 @@ public class PlannedEventsFragment extends Fragment {
         }
         ));
 
+        eventAdapter = new EventAdapter(getContext(), eventList);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(eventAdapter);
         return fragmentView;
     }
 
-    //Get Content for the recyclerView
+    //Get Content for the recyclerView [A basic reload]
     public void getRecyclerViewContent() {
         if(!eventList.isEmpty()) {
            eventList.clear();
         }
         eventList.addAll(db.getDayEvents(date));
-        eventAdapter = new EventAdapter(getContext(), eventList);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(eventAdapter);
     }
 
 
@@ -162,7 +179,6 @@ public class PlannedEventsFragment extends Fragment {
                         newEvent.setTitle(titleEditText.getText().toString());
                         newEvent.setDate(date);
                         newEvent.setId(db.getEventCount()+1);
-
                         if(commentEditText.getText().toString().isEmpty()){
                             newEvent.setComment(" ");
                         }
