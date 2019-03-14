@@ -50,6 +50,7 @@ public class EventManagerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        notificationUtils = new NotificationUtils(getApplicationContext());
         db = new DatabaseHelper(getApplicationContext());
 
         titleEditText = findViewById(R.id.managerTitleEditText);
@@ -102,17 +103,10 @@ public class EventManagerActivity extends AppCompatActivity {
                 }
         });
 
-        notificationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = titleEditText.getText().toString();
-                String comment = commentEditText.getText().toString();
+        notificationButton.setOnClickListener((View v)-> {
+                Notification.Builder nb = notificationUtils.getEventChannelNotification(openedEvent.getTitle());
+                notificationUtils.getManager().notify(101, nb.build());
 
-
-                    Notification.Builder nb = notificationUtils.getEventChannelNotification(title, comment);
-                    notificationUtils.getManager().notify(101, nb.build());
-
-            }
         });
     }
 

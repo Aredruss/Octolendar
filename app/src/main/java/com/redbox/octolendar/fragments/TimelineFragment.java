@@ -44,7 +44,7 @@ public class TimelineFragment extends Fragment {
             TimelineRow timelineRow = new TimelineRow(i);
 
             if((e.getCompleted() == 1)){
-                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIconSecond));
+                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextDone));
             }
             else{
                 timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));

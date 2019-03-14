@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#3E3E3E</color>
     <color name="colorAccent">#CA0C51</color>
     <color name="colorTextNotDone">#D61E4B</color>
-    <color name="colorTextDone">#97E245</color>
+    <color name="colorTextDone">#68B900</color>
     <color name="colorScrollBack">#272727</color>
-    <color name="colorTimelineBack">#7CECBF</color>
+    <color name="colorTimelineBack">#CE1E47</color>
     <color name="colorInfoCardViewBackground">#3C3C3C</color>
     <color name="colorTimelineLineColor">#252525</color>
     <color name="colorTimelineIconSecond">#5E8FE2</color>
@@ -14,11 +14,13 @@
     <color name="colorCheck">#000000</color>
     <color name="colorNoColor">#00FFFFFF</color>
     <color name="colorManagerBack">#2B2B2B</color>
-    <color name="colorDarker">#4D212121</color>
+    <color name="colorDarker">#000000</color>
     <color name="colorEventManagerBack">#373737</color>
     <color name="colorCardBack">#FFFFFF</color>
     <color name="colorCardText">#000000</color>
     <color name="colorTextSecondary">#4C4C4C</color>
+    <color name="gradientFirst">#2E2E2E</color>
+    <color name="gradientSecond">#030303</color>
 
 
 </resources>

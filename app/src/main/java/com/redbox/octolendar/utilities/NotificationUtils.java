@@ -25,7 +25,7 @@ public class NotificationUtils extends ContextWrapper {
                 EVENT_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
         notificationChannel.enableLights(true);
         notificationChannel.enableVibration(true);
-        notificationChannel.setLightColor(Color.RED);
+        notificationChannel.setLightColor(Color.GREEN);
         notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
         getManager().createNotificationChannel(notificationChannel);
@@ -39,11 +39,13 @@ public class NotificationUtils extends ContextWrapper {
         return manager;
     }
 
-    public Notification.Builder getEventChannelNotification(String title, String comment){
+    public Notification.Builder getEventChannelNotification(String title){
+
+
         return new Notification.Builder(getApplicationContext(), EVENT_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
-                .setContentText(comment)
+                .setContentText("Don't forget about that")
                 .setAutoCancel(true);
     }
 }
