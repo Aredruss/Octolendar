@@ -3,9 +3,7 @@ package com.redbox.octolendar.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +24,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private Context context;
     private List<Event> list;
     private DatabaseHelper db;
-    private int deleteButtonId;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView timeTextView;
-        public TextView titleTextView;
-        public TextView commentTextView;
-        public TextView urgencyTextView;
-        public CardView cardEventView;
-        public CheckBox doneCheckBox;
-        public ImageButton editButton;
-        public ImageButton deleteButton;
-        public RecyclerView recyclerView;
-
-
+        private TextView timeTextView;
+        private TextView titleTextView;
+        private TextView commentTextView;
+        private TextView urgencyTextView;
+        private CheckBox doneCheckBox;
+        private ImageButton editButton;
+        private ImageButton deleteButton;
+        private TextView doneTextView;
         public ViewHolder(View view){
             super(view);
             timeTextView = view.findViewById(R.id.timeTextView);
             titleTextView = view.findViewById(R.id.titleTextView);
             commentTextView = view.findViewById(R.id.commentTextView);
             urgencyTextView = view.findViewById(R.id.urgencyTextView);
-            cardEventView = view.findViewById(R.id.eventCard);
             doneCheckBox = view.findViewById(R.id.doneCheckBox);
+            deleteButton= view.findViewById(R.id.deleteButton);
             editButton = view.findViewById(R.id.editButton);
-            deleteButton = view.findViewById(R.id.deleteButton);
-            recyclerView = view.findViewById(R.id.cardFragmentRecyclerView);
+            doneTextView = view.findViewById(R.id.doneTextView);
         }
 
         public ImageButton getDeleteButton(){
@@ -84,23 +77,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.urgencyTextView.setText(event.getUrgency());
 
         if (event.getCompleted() == 1){
-            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundDone));
-            holder.doneCheckBox.setChecked(true);
+           holder.doneTextView.setText(R.string.string_done);
+           holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
+
+           holder.doneCheckBox.setChecked(true);
         }
         else{
-            holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundNotDone));
-
+            holder.doneTextView.setText(R.string.string_not_done);
+            holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
         }
 
 
         holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
                 if(isChecked){
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorCardBackgroundDone));
+                    holder.doneTextView.setText(R.string.string_done);
+                    holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
                     event.setCompleted(1);
                     db.updateEvent(event);
                 }
                 else{
-                    holder.cardEventView.setCardBackgroundColor(ContextCompat.getColor(context,R.color.colorCardBackgroundNotDone));
+                    holder.doneTextView.setText(R.string.string_not_done);
+                    holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
                     event.setCompleted(0);
                     db.updateEvent(event);
                 }
@@ -111,14 +108,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             intent.putExtra("Event", event);
             v.getContext().startActivity(intent);
         });
-
-//        holder.deleteButton.setOnClickListener((View v) ->{
-//            int index = holder.getAdapterPosition();
-//            super.notifyItemRemoved(index);
-//              Log.d("T", "onBindViewHolder: " + index);
-//             holder.recyclerView.removeViewAt(index);
-//            db.deleteEvent(event);
-//        });
 
     }
 

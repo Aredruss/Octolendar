@@ -33,9 +33,9 @@ public class TimelineInfoDialog extends android.support.v4.app.DialogFragment {
         timeTextView.setText(getArguments().getString("Time"));
 
         if (getArguments().getString("Completed").equals("1")){
-            completedTextView.setText("Done");
+            completedTextView.setText(R.string.string_done);
         }
-        else completedTextView.setText("Not done yet");
+        else completedTextView.setText(R.string.string_not_done);
 
         return builder.setTitle("Info").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override

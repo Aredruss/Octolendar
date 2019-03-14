@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_20dp"
+    android:background="@color/colorEventManagerBack"
     android:orientation="vertical">
 
     <TextView
@@ -45,7 +47,7 @@
         android:fontFamily="@font/droid_sans_mono"
         android:gravity="center"
         android:text="@string/string_sample_text"
-        android:textSize="18sp" />
+        android:textSize="@dimen/dimen_smaller_font" />
 
     <LinearLayout
         android:layout_width="match_parent"
