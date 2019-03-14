@@ -1,13 +1,10 @@
 package com.redbox.octolendar;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +22,8 @@ import android.widget.Button;
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
+import com.redbox.octolendar.utilities.NotificationUtils;
 
-import java.nio.channels.Channel;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -44,6 +41,7 @@ public class EventManagerActivity extends AppCompatActivity {
     private Switch timeSwitch;
     private DatabaseHelper db;
     private ImageButton notificationButton;
+    private NotificationUtils notificationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +102,18 @@ public class EventManagerActivity extends AppCompatActivity {
                 }
         });
 
-        notificationButton.setOnClickListener((v -> {
-            //todo Add Notifications
-        }));
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleEditText.getText().toString();
+                String comment = commentEditText.getText().toString();
+
+
+                    Notification.Builder nb = notificationUtils.getEventChannelNotification(title, comment);
+                    notificationUtils.getManager().notify(101, nb.build());
+
+            }
+        });
     }
 
     public void setTime(int type) {
@@ -151,10 +158,10 @@ public class EventManagerActivity extends AppCompatActivity {
         boolean timeError = false;
 
         if (startTime.compareTo(endTime) > 0) {
-            timeEndTextView.setTextColor(getResources().getColor(R.color.colorAccent));
+            timeEndTextView.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
             timeError = true;
         } else
-            timeEndTextView.setTextColor(getResources().getColor(R.color.colorCheck));
+            timeEndTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.design_default_color_primary));
 
         return  timeError;
     }
