@@ -12,6 +12,8 @@ Octolendar is a calendar-based application which allows you to manage your sched
 * You have an ability to edit and delete already existing events.
 * Events can be reviewed via timeline activity.
 * You can get advice on how to entertain yourself (Via Bored API)
+* You can set a reminder for your event
+* You can share event to another app
 
 ## Database entries are presented as depicted here:
 
