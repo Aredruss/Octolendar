@@ -151,7 +151,7 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorAccent">
+                    android:background="@color/colorCardButtonRow">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -162,24 +162,43 @@
                             android:id="@+id/editButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_marginEnd="@dimen/dimen_5dp"
+                            android:layout_marginBottom="@dimen/dimen_5dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/colorDarker"
+                            android:background="@drawable/button_background"
+                            android:elevation="@dimen/dimen_elevation"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:srcCompat="@drawable/ic_action_edit" />
 
                         <ImageButton
                             android:id="@+id/shareButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_marginEnd="@dimen/dimen_5dp"
+                            android:layout_marginBottom="@dimen/dimen_5dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/colorDarker"
+                            android:background="@drawable/button_background"
+                            android:elevation="@dimen/dimen_elevation"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
+                            android:paddingBottom="@dimen/dimen_5dp"
                             app:srcCompat="@drawable/ic_action_share" />
 
                         <ImageButton
                             android:id="@+id/deleteButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_marginTop="@dimen/dimen_5dp"
+                            android:layout_marginEnd="@dimen/dimen_5dp"
+                            android:layout_marginBottom="@dimen/dimen_5dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/colorDarker"
+                            android:background="@drawable/button_background"
+                            android:elevation="@dimen/dimen_elevation"
+                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             app:srcCompat="@drawable/ic_action_delete" />
 
                     </LinearLayout>

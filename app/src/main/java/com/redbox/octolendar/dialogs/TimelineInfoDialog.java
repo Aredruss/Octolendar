@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.redbox.octolendar.R;
 
+
+//Displays a dialog for an Event, used in TimelineFragment
 public class TimelineInfoDialog extends android.support.v4.app.DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {

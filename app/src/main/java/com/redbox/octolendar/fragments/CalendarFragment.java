@@ -1,7 +1,6 @@
 package com.redbox.octolendar.fragments;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,19 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.redbox.octolendar.R;
+import com.redbox.octolendar.parser.GetJson;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class CalendarFragment extends Fragment {
 
@@ -43,7 +31,6 @@ public class CalendarFragment extends Fragment {
 
     private OnCalendarInteractionListener interactionListener;
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -66,17 +53,16 @@ public class CalendarFragment extends Fragment {
         requestButton = fragmentView.findViewById(R.id.boredButton);
         requestTextView = fragmentView.findViewById(R.id.boredTextView);
         requestTextView.setText("Something you can do");
-        new JsonGet().execute(getResources().getString(R.string.string_url));
+        new ApiInteraction().execute(getResources().getString(R.string.string_url));
 
         requestButton.setOnClickListener((View v) -> {
-                new JsonGet().execute(getResources().getString(R.string.string_url));
+                new ApiInteraction().execute(getResources().getString(R.string.string_url));
                 requestTextView.setText(jsonResponse);
         });
-
         return fragmentView;
     }
 
-    private class JsonGet extends AsyncTask<String, String, String> {
+    private class ApiInteraction extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -90,59 +76,8 @@ public class CalendarFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... strings) {
-
-            BufferedReader bufferedReader = null;
-            HttpURLConnection httpURLConnection = null;
-
-            try {
-                URL url = new URL(strings[0]);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.connect();
-
-                InputStream stream = httpURLConnection.getInputStream();
-                bufferedReader = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer buff = new StringBuffer();
-                String line = "";
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    buff.append(line + '\n');
-                }
-                jsonResponse = fetchStringFromJSON(buff);
-
-                return buff.toString();
-
-            } catch (MalformedURLException exc) {
-                exc.printStackTrace();
-            } catch (IOException exc) {
-                exc.printStackTrace();
-            } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                    try {
-                        if (bufferedReader != null) bufferedReader.close();
-                    } catch (IOException exc) {
-                        exc.printStackTrace();
-                    }
-                }
-            }
-            return null;
-        }
-
-        public String fetchStringFromJSON(StringBuffer buff){
-            String fetchedString = "";
-            try {
-                JSONObject jsonObject = new JSONObject(buff.toString());
-                JSONArray jsonArray = jsonObject.names();
-                JSONArray valArray = jsonObject.toJSONArray(jsonArray);
-                fetchedString = valArray.getString(0);
-                return fetchedString;
-
-            } catch (JSONException exc) {
-                exc.printStackTrace();
-            } catch (NullPointerException exc) {
-                exc.printStackTrace();
-            }
-            return null;
+            jsonResponse = GetJson.getInfoFromUrl(strings);
+            return "Launch success";
         }
     }
 
@@ -162,13 +97,6 @@ public class CalendarFragment extends Fragment {
 
     public void sendDate() {
         interactionListener.onCalendarInteraction(date);
-    }
-
-
-    //Will be used to check if there is no connection to the internet
-    public boolean checkConnection(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager != null;
     }
 
 }

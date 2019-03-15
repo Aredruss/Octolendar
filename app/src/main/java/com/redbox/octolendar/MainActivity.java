@@ -29,46 +29,48 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         setContentView(R.layout.activity_main);
         frameLayout = findViewById(R.id.content);
 
-
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.calendar);
         bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
+        /* Fragment manager which allows us to load other fragments via NavBar */
+
         bottomNavigationView.setOnNavigationItemSelectedListener((MenuItem item) -> {
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                switch (item.getItemId()) {
-                    case R.id.calendar: {
-                        currentFragment = new CalendarFragment();
-                        fragmentTransaction.replace(R.id.content, currentFragment);
-                        break;
-                    }
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-                    case R.id.today: {
-                        currentFragment = new PlannedEventsFragment();
-                        fragmentTransaction.replace(R.id.content, currentFragment);
-                        break;
-                    }
-
-                    case R.id.timeline: {
-                        currentFragment = new TimelineFragment();
-                        fragmentTransaction.replace(R.id.content, currentFragment);
-                        break;
-                    }
-
-                    case R.id.info: {
-                        currentFragment = new MiscFragment();
-                        fragmentTransaction.replace(R.id.content, currentFragment);
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
+            switch (item.getItemId()) {
+                case R.id.calendar: {
+                    currentFragment = new CalendarFragment();
+                    fragmentTransaction.replace(R.id.content, currentFragment);
+                    break;
                 }
-                fragmentTransaction.commit();
-                return true;
+
+                case R.id.today: {
+                    currentFragment = new PlannedEventsFragment();
+                    fragmentTransaction.replace(R.id.content, currentFragment);
+                    break;
+                }
+
+                case R.id.timeline: {
+                    currentFragment = new TimelineFragment();
+                    fragmentTransaction.replace(R.id.content, currentFragment);
+                    break;
+                }
+
+                case R.id.info: {
+                    currentFragment = new MiscFragment();
+                    fragmentTransaction.replace(R.id.content, currentFragment);
+                    break;
+                }
+
+                default: {
+                    break;
+                }
+            }
+            fragmentTransaction.commit();
+            return true;
         });
     }
 
@@ -98,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         bottomNavigationView.setSelectedItemId(R.id.calendar);
     }
 
+
+    /*Because of the fact that calendarFragment is the "Home page" sorts, we implement a listener
+    for interactions and launching other fragment.
+     */
     @Override
     public void onCalendarInteraction(String date) {
         Bundle bundle = new Bundle();

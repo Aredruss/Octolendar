@@ -8,160 +8,178 @@
     android:orientation="vertical"
     tools:context=".EventManagerActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorEventManagerBack"
+        android:elevation="@dimen/dimen_greater_elevation"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_30dp">
+
+        <ImageButton
+            android:id="@+id/managerCloseImageButton"
+            android:layout_width="62dp"
+            android:layout_height="52dp"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/dimen_15dp"
+            android:background="@color/colorNoColor"
+            app:srcCompat="@drawable/ic_action_close_manager" />
+
+        <EditText
+            android:id="@+id/managerTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:background="@null"
+            android:fontFamily="@font/droid_sans_mono"
+            android:hint="@string/string_event_name"
+            android:inputType="text"
+            android:maxLength="16"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/managerCommentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:background="@null"
+            android:fontFamily="@font/droid_sans_mono"
+            android:hint="@string/string_comment_label"
+            android:inputType="text"
+            android:maxLength="32"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_25dp"
+            android:layout_marginEnd="@dimen/dimen_15dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/managerDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="TextView"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/managerSaveButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorEventManagerBack"
+                android:layout_weight="0"
+                android:backgroundTint="@color/colorAccent"
                 android:elevation="@dimen/dimen_greater_elevation"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dimen_30dp">
-
-                <ImageButton
-                    android:id="@+id/managerCloseImageButton"
-                    android:layout_width="62dp"
-                    android:layout_height="52dp"
-                    android:layout_gravity="right"
-                    android:layout_margin="@dimen/dimen_15dp"
-                    android:background="@color/colorNoColor"
-                    app:srcCompat="@drawable/ic_action_close_manager" />
-
-                <EditText
-                    android:id="@+id/managerTitleEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_15dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:background="@null"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:hint="@string/string_event_name"
-                    android:inputType="text"
-                    android:maxLength="16"
-                    android:singleLine="true"
-                    android:text="TextView"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/managerCommentEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_15dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:background="@null"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:hint="@string/string_comment_label"
-                    android:inputType="text"
-                    android:maxLength="32"
-                    android:singleLine="true"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_25dp"
-                    android:layout_marginEnd="@dimen/dimen_15dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/managerDateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="TextView"
-                        android:textSize="18sp" />
-
-                    <Button
-                        android:id="@+id/managerSaveButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:backgroundTint="@color/colorAccent"
-                        android:elevation="@dimen/dimen_greater_elevation"
-                        android:text="@string/string_save" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dimen_30dp">
-
-                <TextView
-                    android:id="@+id/managerStartTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_25dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <Switch
-                    android:id="@+id/endTimeSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_15dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:text="@string/string_end_time"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/mangerEndTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_15dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/managerUrgencySpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_30dp"
-                    android:layout_marginTop="@dimen/dimen_25dp"
-                    android:layout_marginEnd="@dimen/dimen_30dp"
-                    android:layoutMode="opticalBounds"
-                    android:spinnerMode="dialog" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/notificationImageButton"
-                    android:layout_width="109dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_action_notification" />
-
-            </LinearLayout>
-
+                android:text="@string/string_save" />
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_30dp">
+
+        <TextView
+            android:id="@+id/managerStartTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_25dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:typeface="normal" />
+
+        <Switch
+            android:id="@+id/endTimeSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_end_time"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/mangerEndTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/managerUrgencySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_25dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:backgroundTint="@color/colorEventManagerBack"
+            android:elevation="3dp"
+            android:layoutMode="opticalBounds"
+            android:spinnerMode="dialog" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notificationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_25dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_notification_label"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/notificationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_60dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_60dp"
+            app:srcCompat="@drawable/ic_action_notification" />
+
+        <TextView
+            android:id="@+id/notificationInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_30dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_notification_info"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -31,7 +31,8 @@
     <string name="string_save">Save</string>
     <string name="string_time_select">Select time</string>
     <string name="string_end_time">Is a long event</string>
-    <string name="string_notification_label">Notifications</string>
+    <string name="string_notification_label">Set a reminder</string>
     <string name="string_date_select">Select date</string>
     <string name="string_not_done">Not done yet</string>
+    <string name="string_notification_info">Click the button to set a reminder</string>
 </resources>

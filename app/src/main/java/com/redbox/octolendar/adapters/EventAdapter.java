@@ -25,44 +25,46 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private List<Event> list;
     private DatabaseHelper db;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView timeTextView;
         private TextView titleTextView;
         private TextView commentTextView;
         private TextView urgencyTextView;
         private CheckBox doneCheckBox;
         private ImageButton editButton;
+        private ImageButton shareButton;
         private ImageButton deleteButton;
         private TextView doneTextView;
-        public ViewHolder(View view){
+
+
+        public ViewHolder(View view) {
             super(view);
             timeTextView = view.findViewById(R.id.timeTextView);
             titleTextView = view.findViewById(R.id.titleTextView);
             commentTextView = view.findViewById(R.id.commentTextView);
             urgencyTextView = view.findViewById(R.id.urgencyTextView);
             doneCheckBox = view.findViewById(R.id.doneCheckBox);
-            deleteButton= view.findViewById(R.id.deleteButton);
+            deleteButton = view.findViewById(R.id.deleteButton);
+            shareButton = view.findViewById(R.id.shareButton);
             editButton = view.findViewById(R.id.editButton);
             doneTextView = view.findViewById(R.id.doneTextView);
         }
 
-        public ImageButton getDeleteButton(){
+        public ImageButton getDeleteButton() {
             return deleteButton;
         }
 
     }
 
-    public EventAdapter(Context context, List<Event> eventlist){
+    public EventAdapter(Context context, List<Event> eventlist) {
         this.context = context;
         this.list = eventlist;
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card_layout, parent, false);
-
         return new ViewHolder(itemView);
     }
 
@@ -70,47 +72,57 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         db = new DatabaseHelper(context);
         Event event = list.get(holder.getAdapterPosition());
-        if (event.getEndTime() !=null) holder.timeTextView.setText(event.getStartTime() + "-" + event.getEndTime());
+        if (event.getEndTime() != null)
+            holder.timeTextView.setText(event.getStartTime() + "-" + event.getEndTime());
         else holder.timeTextView.setText(event.getStartTime());
         holder.titleTextView.setText(event.getTitle());
         holder.commentTextView.setText(event.getComment());
         holder.urgencyTextView.setText(event.getUrgency());
 
-        if (event.getCompleted() == 1){
-           holder.doneTextView.setText(R.string.string_done);
-           holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
+        if (event.getCompleted() == 1) {
+            holder.doneTextView.setText(R.string.string_done);
+            holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
 
-           holder.doneCheckBox.setChecked(true);
-        }
-        else{
+            holder.doneCheckBox.setChecked(true);
+        } else {
             holder.doneTextView.setText(R.string.string_not_done);
             holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
         }
 
-
-        holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) ->{
-                if(isChecked){
-                    holder.doneTextView.setText(R.string.string_done);
-                    holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
-                    event.setCompleted(1);
-                    db.updateEvent(event);
-                }
-                else{
-                    holder.doneTextView.setText(R.string.string_not_done);
-                    holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
-                    event.setCompleted(0);
-                    db.updateEvent(event);
-                }
+        holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            if (isChecked) {
+                holder.doneTextView.setText(R.string.string_done);
+                holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
+                event.setCompleted(1);
+                db.updateEvent(event);
+            } else {
+                holder.doneTextView.setText(R.string.string_not_done);
+                holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
+                event.setCompleted(0);
+                db.updateEvent(event);
+            }
         });
 
-        holder.editButton.setOnClickListener((View v) ->{
+        //Edit Event
+        holder.editButton.setOnClickListener((View v) -> {
             Intent intent = new Intent(v.getContext(), EventManagerActivity.class);
             intent.putExtra("Event", event);
             v.getContext().startActivity(intent);
         });
 
+        //Share Intent to other apps
+        holder.shareButton.setOnClickListener((View v) -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, event.getShareText());
+            intent.setType("text/plain");
+            v.getContext().startActivity(Intent.createChooser(intent, "Send to"));
+        });
+
     }
 
     @Override
-    public int getItemCount(){ return list.size(); }
+    public int getItemCount() {
+        return list.size();
+    }
 }

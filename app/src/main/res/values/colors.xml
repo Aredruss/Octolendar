@@ -21,6 +21,7 @@
     <color name="colorTextSecondary">#4C4C4C</color>
     <color name="gradientFirst">#2E2E2E</color>
     <color name="gradientSecond">#030303</color>
+    <color name="colorCardButtonRow">#C92B50</color>
 
 
 </resources>

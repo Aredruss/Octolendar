@@ -1,6 +1,5 @@
 package com.redbox.octolendar.fragments;
 
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.redbox.octolendar.R;
@@ -55,8 +53,7 @@ public class PlannedEventsFragment extends Fragment {
 
         try {
             date = getArguments().getString("Date");
-        }
-        catch (NullPointerException exc){
+        } catch (NullPointerException exc) {
             exc.printStackTrace();
         }
 
@@ -70,8 +67,8 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-               if (dy > 0) floatingActionButton.hide();
-               else floatingActionButton.show();
+                if (dy > 0) floatingActionButton.hide();
+                else floatingActionButton.show();
             }
         });
 
@@ -100,6 +97,7 @@ public class PlannedEventsFragment extends Fragment {
                 });
 
             }
+
             @Override
             public void onLongClick(View view, int position) {
 
@@ -116,17 +114,17 @@ public class PlannedEventsFragment extends Fragment {
 
     //Get Content for the recyclerView [A basic reload]
     public void getRecyclerViewContent() {
-        if(!eventList.isEmpty()) {
-           eventList.clear();
+        if (!eventList.isEmpty()) {
+            eventList.clear();
         }
         eventList.addAll(db.getDayEvents(date));
     }
 
 
     //Opens event creation dialog
-    private void openCreateDialog(){
+    private void openCreateDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View dialogView = layoutInflater.inflate(R.layout.event_dialog,null);
+        View dialogView = layoutInflater.inflate(R.layout.event_dialog, null);
         Event newEvent = new Event();
 
         EditText titleEditText = dialogView.findViewById(R.id.titleEditText);
@@ -134,33 +132,18 @@ public class PlannedEventsFragment extends Fragment {
         RadioGroup urgencyRadioGroup = dialogView.findViewById(R.id.urgencyRadioGroup);
         TextView timeTextView = dialogView.findViewById(R.id.startTextView);
 
-        newEvent.setStartTime(DateTimeUtilityClass.getCurrentTime());
         newEvent.setUrgency("Ugh");
 
         timeTextView.setOnClickListener((View v) -> {
-            TimePickerDialog pickerDialog;
-            int hour = 0, minute = 0;
-            pickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String timeStr = DateTimeUtilityClass.prepareStringTime(hourOfDay, minute);
-                    timeTextView.setText(timeStr);
-                    newEvent.setStartTime(timeStr);
-                }
-            }, hour, minute, true);
-            pickerDialog.setTitle("Pick time");
-            pickerDialog.show();
+            DateTimeUtilityClass.openTimeDialog(getContext(), timeTextView);
         });
 
-        urgencyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                for (int x = 0; x < 2; x++) {
-                    RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
-                    if (btn.getId() == i) {
-                        String innerUrgencyType = btn.getText().toString();
-                        newEvent.setUrgency(innerUrgencyType);
-                    }
+        urgencyRadioGroup.setOnCheckedChangeListener((RadioGroup radioGroup, int i) -> {
+            for (int x = 0; x < 2; x++) {
+                RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
+                if (btn.getId() == i) {
+                    String innerUrgencyType = btn.getText().toString();
+                    newEvent.setUrgency(innerUrgencyType);
                 }
             }
         });
@@ -171,30 +154,29 @@ public class PlannedEventsFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                    if(!titleEditText.getText().toString().isEmpty()){
+        }).setPositiveButton("Ok", (DialogInterface dialogInterface, int i) -> {
+            if (!titleEditText.getText().toString().isEmpty()) {
+                newEvent.setTitle(titleEditText.getText().toString());
+                newEvent.setDate(date);
+                newEvent.setId(db.getEventCount() + 1);
 
-                        newEvent.setTitle(titleEditText.getText().toString());
-                        newEvent.setDate(date);
-                        newEvent.setId(db.getEventCount()+1);
-                        if(commentEditText.getText().toString().isEmpty()){
-                            newEvent.setComment(" ");
-                        }
-                        else{
-                            newEvent.setComment(commentEditText.getText().toString());
+                if (timeTextView.getText().toString().equals("Select time"))
+                    newEvent.setStartTime(DateTimeUtilityClass.getCurrentTime());
+                else newEvent.setStartTime(timeTextView.getText().toString());
 
-                        }
-                        eventList.add(0, newEvent);
-                        eventAdapter.notifyDataSetChanged();
-                        db.insertEvent(newEvent);
-                        getRecyclerViewContent();
-                    }
-                    else {
-                        Toast toast = Toast.makeText(getContext(), "The title field is not optional", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
+                if (commentEditText.getText().toString().isEmpty()) {
+                    newEvent.setComment("");
+                } else {
+                    newEvent.setComment(commentEditText.getText().toString());
+
+                }
+                eventList.add(0, newEvent);
+                eventAdapter.notifyDataSetChanged();
+                db.insertEvent(newEvent);
+                getRecyclerViewContent();
+            } else {
+                Toast toast = Toast.makeText(getContext(), "The title field is not optional", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
         builder.show();

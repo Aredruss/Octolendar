@@ -1,16 +1,16 @@
 package com.redbox.octolendar;
 
-import android.app.Notification;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -18,16 +18,20 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Spinner;
 import android.widget.Button;
+import android.widget.TimePicker;
 
+import com.allyants.notifyme.NotifyMe;
 import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.database.DatabaseHelper;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
-import com.redbox.octolendar.utilities.NotificationUtils;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 
-public class EventManagerActivity extends AppCompatActivity {
+/*An activity for managing event's info */
+
+public class EventManagerActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private EditText titleEditText;
     private EditText commentEditText;
@@ -40,8 +44,12 @@ public class EventManagerActivity extends AppCompatActivity {
     private Event openedEvent;
     private Switch timeSwitch;
     private DatabaseHelper db;
+    private TextView notificationTextView;
     private ImageButton notificationButton;
-    private NotificationUtils notificationUtils;
+
+    private Calendar now = Calendar.getInstance();
+    private TimePickerDialog timePickerDialog;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,6 @@ public class EventManagerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        notificationUtils = new NotificationUtils(getApplicationContext());
         db = new DatabaseHelper(getApplicationContext());
 
         titleEditText = findViewById(R.id.managerTitleEditText);
@@ -62,16 +69,17 @@ public class EventManagerActivity extends AppCompatActivity {
         timeSwitch = findViewById(R.id.endTimeSwitch);
         closeButton = findViewById(R.id.managerCloseImageButton);
         saveButton = findViewById(R.id.managerSaveButton);
-        notificationButton = findViewById(R.id.notificationImageButton);
+        notificationTextView = findViewById(R.id.notificationInfoTextView);
+        notificationButton = findViewById(R.id.notificationButton);
 
         openedEvent = (Event) intent.getSerializableExtra("Event");
 
+        // We check if opend event has a duration
         if (openedEvent.getEndTime() == null) {
             timeEndTextView.setEnabled(false);
             timeSwitch.setChecked(false);
 
-        }
-        else {
+        } else {
             timeEndTextView.setText(openedEvent.getEndTime());
             timeSwitch.setChecked(true);
         }
@@ -81,47 +89,93 @@ public class EventManagerActivity extends AppCompatActivity {
         dateTextView.setText(openedEvent.getDate());
         timeStartTextView.setText(openedEvent.getStartTime());
 
+        // We load info to spinner which contains event's urgency info
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.urgency_string_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         urgencySpinner.setAdapter(adapter);
 
+        //Close and Save button
         closeButton.setOnClickListener((View v) -> super.onBackPressed());
-
         saveButton.setOnClickListener(this::saveChanges);
 
-        timeStartTextView.setOnClickListener((View v) -> setTime(0));
-        timeEndTextView.setOnClickListener((View v) -> setTime(1));
+        //We call function from DateTimeUtility class, a separate method for the timepicker dialog
+        timeStartTextView.setOnClickListener((View v) -> setTime(timeStartTextView));
+        timeEndTextView.setOnClickListener((View v) -> setTime(timeEndTextView));
 
+        //Applying listener for the event-has-a-duration switch
         timeSwitch.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-                timeEndTextView.setEnabled(true);
-                if (!isChecked) {
-                    timeEndTextView.setEnabled(false);
-                    timeEndTextView.setText(getResources().getText(R.string.string_time_select));
-                    openedEvent.setEndTime(null);
-                }
+            timeEndTextView.setEnabled(true);
+            if (!isChecked) {
+                timeEndTextView.setEnabled(false);
+                timeEndTextView.setText(getResources().getText(R.string.string_time_select));
+                openedEvent.setEndTime(null);
+            }
         });
 
-        notificationButton.setOnClickListener((View v)-> {
-                Notification.Builder nb = notificationUtils.getEventChannelNotification(openedEvent.getTitle());
-                notificationUtils.getManager().notify(101, nb.build());
+        //We init. two dialogs for the notification params
+        datePickerDialog = new DatePickerDialog(this,
+                EventManagerActivity.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH));
 
+        timePickerDialog = new TimePickerDialog(this,
+                EventManagerActivity.this,
+                12, 0, true);
+
+        notificationButton.setOnClickListener((View v) -> {
+            datePickerDialog.show();
         });
     }
 
-    public void setTime(int type) {
-        if (type == 0) DateTimeUtilityClass.openTimeDialog(EventManagerActivity.this, timeStartTextView);
-        else DateTimeUtilityClass.openTimeDialog(EventManagerActivity.this, timeEndTextView);
+    //We set Calendar's fields via DatePicker
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        now.set(Calendar.YEAR, year);
+        now.set(Calendar.MONTH, month);
+        now.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        timePickerDialog.show();
     }
 
+    //We set Calendar's fields via TimePicker
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        now.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        now.set(Calendar.MINUTE, minute);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        notificationTextView.setText(DateTimeUtilityClass.prepareDateTime(now));
+
+        NotifyMe.Builder notifyMe = new NotifyMe.Builder(getApplicationContext());
+
+        notifyMe.title(openedEvent.getTitle())
+                .small_icon(R.drawable.ic_action_notification)
+                .time(now)
+                .addAction(intent, "Go to calendar", true)
+                .key("event");
+
+        notifyMe.build();
+    }
+
+
+    //This method serves to call separate TimePicker from DateTime UtilityClass
+    public void setTime(TextView t) {
+        DateTimeUtilityClass.openTimeDialog(EventManagerActivity.this, t);
+    }
+
+    //This method gets info our user typed into all the fields and writes it to Event object and to the database
     public void saveChanges(View v) {
+        //Check if title is empty
         if (!titleEditText.getText().toString().equals("")) {
             openedEvent.setTitle(titleEditText.getText().toString());
             openedEvent.setComment(commentEditText.getText().toString());
             openedEvent.setUrgency(urgencySpinner.getSelectedItem().toString());
             openedEvent.setStartTime(timeStartTextView.getText().toString());
 
+            //Check user has selected the proper end time
             if (timeSwitch.isChecked()) {
                 try {
                     if (!checkTime()) {
@@ -134,7 +188,7 @@ public class EventManagerActivity extends AppCompatActivity {
                     s.show();
                 }
 
-            } else{
+            } else {
                 db.updateEvent(openedEvent);
                 super.onBackPressed();
             }
@@ -146,17 +200,18 @@ public class EventManagerActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkTime(){
+    //Compare endTime and startTime to check if endTime does not "happen" before the startTime
+    public boolean checkTime() {
         LocalTime startTime = DateTimeUtilityClass.getTimeFromString(timeStartTextView.getText().toString());
         LocalTime endTime = DateTimeUtilityClass.getTimeFromString(timeEndTextView.getText().toString());
         boolean timeError = false;
 
         if (startTime.compareTo(endTime) > 0) {
-            timeEndTextView.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorAccent));
+            timeEndTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
             timeError = true;
         } else
             timeEndTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.design_default_color_primary));
 
-        return  timeError;
+        return timeError;
     }
 }

@@ -41,7 +41,8 @@ public class Event implements Serializable {
 
     private int completed;
 
-    public Event() { }
+    public Event() {
+    }
 
     public Event(int id, String timeSt, String title, String comment, String urgency, String day, String month, String year, int completed) {
         this.id = id;
@@ -58,7 +59,6 @@ public class Event implements Serializable {
     public int getId() {
         return id;
     }
-
 
 
     public String getTitle() {
@@ -92,6 +92,7 @@ public class Event implements Serializable {
     public String getYear() {
         return year;
     }
+
     public int getCompleted() {
         return completed;
     }
@@ -121,7 +122,7 @@ public class Event implements Serializable {
         this.timeStart = timeStart;
     }
 
-    public void setEndTime(String timeEnd){
+    public void setEndTime(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -146,6 +147,10 @@ public class Event implements Serializable {
         this.day = date.split("-")[0];
         this.month = date.split("-")[1];
         this.year = date.split("-")[2];
+    }
+
+    public String getShareText() {
+        return "I've planned " + this.getTitle() + " on " + this.getDate() + " at " + this.getStartTime();
     }
 
 }
