@@ -74,7 +74,7 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
 
         openedEvent = (Event) intent.getSerializableExtra("Event");
 
-        // We check if opend event has a duration
+        // We check if opened event has a duration
         if (openedEvent.getEndTime() == null) {
             timeEndTextView.setEnabled(false);
             timeSwitch.setChecked(false);
