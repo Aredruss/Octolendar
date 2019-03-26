@@ -42,12 +42,14 @@ public class TimelineFragment extends Fragment {
 
             TimelineRow timelineRow = new TimelineRow(i);
 
-            if((e.getCompleted() == 1)){
-                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextDone));
-            }
-            else{
-                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-            }
+//            if((e.getCompleted() == 1)){
+//                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextDone));
+//            }
+//            else{
+//                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextNotDone));
+//            }
+
+            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIcon));
 
             timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
             timelineRow.setBellowLineSize(15);

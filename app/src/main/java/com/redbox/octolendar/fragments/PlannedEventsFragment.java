@@ -139,7 +139,7 @@ public class PlannedEventsFragment extends Fragment {
         });
 
         urgencyRadioGroup.setOnCheckedChangeListener((RadioGroup radioGroup, int i) -> {
-            for (int x = 0; x < 2; x++) {
+            for (int x = 0; x < 3; x++) {
                 RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
                 if (btn.getId() == i) {
                     String innerUrgencyType = btn.getText().toString();
