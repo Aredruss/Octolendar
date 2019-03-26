@@ -1,3 +1,5 @@
+![logo](https://github.com/Aredruss/Octolendar/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
+
 # Octolendar
 ### *Note*: Current version supports Android API 27 and higher, and that's probably not gonna change.
 
@@ -14,9 +16,5 @@ Octolendar is a calendar-based application which allows you to manage your sched
 * You can get advice on how to entertain yourself (Via Bored API)
 * You can set a reminder for your event
 * You can share event to another app
+* You can set a notification for the event
 
-## Database entries are presented as depicted here:
-
-| id  | day | month | year | time_start| time_end | title | comment | urgency | completed |
-| ------------- | ------------- | -------------  | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |------------- |
-| 1 | 31 | 10 | 2019 | 22:30 | 23:55| Halloween Party| At Ashley's House | It's important| 0 |
