@@ -34,7 +34,7 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View fragmentView = inflater.inflate(R.layout.calendar_fragment_layout, container, false);
+        View fragmentView = inflater.inflate(R.layout.calendar_fragment, container, false);
 
         calendarView = fragmentView.findViewById(R.id.fragmentCalendarView);
         progressTextView = fragmentView.findViewById(R.id.monthProgressTextView);

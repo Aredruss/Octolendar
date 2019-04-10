@@ -169,4 +169,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //todo find event by name
+    public List<Event> findEvent(String arg){
+
+        List<Event> eventList = new ArrayList<>();
+
+        return eventList;
+    }
 }

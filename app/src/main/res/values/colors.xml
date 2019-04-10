@@ -14,7 +14,7 @@
     <color name="colorCheck">#C2C2C2</color>
     <color name="colorNoColor">#00FFFFFF</color>
     <color name="colorManagerBack">#2B2B2B</color>
-    <color name="colorDarker">#000000</color>
+    <color name="colorDarker">#1F1F1F</color>
     <color name="colorEventManagerBack">#373737</color>
     <color name="colorCardBack">#575757</color>
     <color name="colorCardText">#AAAAAA</color>

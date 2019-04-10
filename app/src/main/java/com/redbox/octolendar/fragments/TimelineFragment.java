@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.database.DatabaseHelper;
@@ -27,27 +28,22 @@ public class TimelineFragment extends Fragment {
 
     private DatabaseHelper db;
     private List<Event> eventList;
+    private SearchView searchView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View timelineView = inflater.inflate(R.layout.timeline_fragment_layout, container, false);
+        View timelineView = inflater.inflate(R.layout.timeline_fragment, container, false);
 
-        db = new DatabaseHelper(getContext());
-        eventList = new ArrayList<>();
-        eventList = db.getAllEvents();
+        getTimeLineContent();
+
+        ListView listView = timelineView.findViewById(R.id.timelineListView);
+        searchView = timelineView.findViewById(R.id.eventSearchView);
 
         ArrayList<TimelineRow> timeline = new ArrayList<>();
         int i = 0;
         for (Event e : eventList) {
 
             TimelineRow timelineRow = new TimelineRow(i);
-
-//            if((e.getCompleted() == 1)){
-//                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextDone));
-//            }
-//            else{
-//                timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTextNotDone));
-//            }
 
             timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIcon));
 
@@ -63,32 +59,56 @@ public class TimelineFragment extends Fragment {
         }
 
         ArrayAdapter<TimelineRow> timelineRowArrayAdapter = new TimelineViewAdapter(getContext(), 0, timeline, false);
-        ListView listView = timelineView.findViewById(R.id.timelineListView);
+
         listView.setAdapter(timelineRowArrayAdapter);
 
-        listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int index, long l)-> {
-                final Event e = getItem(index);
-                TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
+        listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int index, long l) -> {
+            final Event e = getItem(index);
+            TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
 
-                Bundle args = new Bundle();
-                args.putString("Date", e.getDate());
-                if (e.getEndTime() != null) args.putString("Time", e.getStartTime() + "-" + e.getEndTime());
-                else args.putString("Time", e.getStartTime());
-                args.putString("Title", e.getTitle());
-                args.putString("Comment", e.getComment());
-                args.putString("Completed", String.valueOf(e.getCompleted()));
+            Bundle args = new Bundle();
+            args.putString("Date", e.getDate());
+            if (e.getEndTime() != null)
+                args.putString("Time", e.getStartTime() + "-" + e.getEndTime());
+            else args.putString("Time", e.getStartTime());
+            args.putString("Title", e.getTitle());
+            args.putString("Comment", e.getComment());
+            args.putString("Completed", String.valueOf(e.getCompleted()));
 
-                timelineInfoDialog.setArguments(args);
+            timelineInfoDialog.setArguments(args);
 
-                try {
-                    timelineInfoDialog.show(getFragmentManager(), " ");
-                }
-                catch (NullPointerException exc){
-                   exc.printStackTrace();
-                }
+            try {
+                timelineInfoDialog.show(getFragmentManager(), " ");
+            } catch (NullPointerException exc) {
+                exc.printStackTrace();
+            }
 
         });
+
+        //todo implement database interactions
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnClickListener((View v) -> {
+
+        });
+
         return timelineView;
+    }
+
+    public void getTimeLineContent() {
+        db = new DatabaseHelper(getContext());
+        eventList = new ArrayList<>();
+        eventList = db.getAllEvents();
     }
 
     public Event getItem(int i) {

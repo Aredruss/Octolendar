@@ -19,7 +19,6 @@
         android:icon="@drawable/ic_action_today"
         android:title="@string/string_today" />
 
-
     <item
         android:id="@+id/info"
         android:enabled="true"
