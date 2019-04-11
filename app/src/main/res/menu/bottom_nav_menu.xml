@@ -6,18 +6,16 @@
         android:enabled="true"
         android:icon="@drawable/ic_action_calendar"
         android:title="@string/string_calendar" />
-
-    <item
-        android:id="@+id/timeline"
-        android:enabled="true"
-        android:icon="@drawable/ic_action_timeline"
-        android:title="@string/string_timeline" />
-
     <item
         android:id="@+id/today"
         android:enabled="true"
         android:icon="@drawable/ic_action_today"
         android:title="@string/string_today" />
+    <item
+        android:id="@+id/timeline"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_timeline"
+        android:title="@string/string_timeline" />
 
     <item
         android:id="@+id/info"

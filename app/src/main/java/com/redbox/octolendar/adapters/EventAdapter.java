@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,6 +39,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         private ImageButton deleteButton;
         private TextView doneTextView;
 
+        private TableLayout infoTable;
+        private ImageButton infoButton;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -48,6 +54,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             shareButton = view.findViewById(R.id.shareButton);
             editButton = view.findViewById(R.id.editButton);
             doneTextView = view.findViewById(R.id.doneTextView);
+
+            infoTable = view.findViewById(R.id.infoTable);
+            infoButton = view.findViewById(R.id.infoButton);
+
         }
 
         public ImageButton getDeleteButton() {
@@ -101,6 +111,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 event.setCompleted(0);
                 db.updateEvent(event);
             }
+        });
+
+        holder.infoButton.setOnClickListener((View v)->{
+            Log.d("VJH", "onBindViewHolder: "+ "click");
+            holder.infoTable.setVisibility(View.VISIBLE);
         });
 
         //Edit Event
