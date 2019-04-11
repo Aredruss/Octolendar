@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_5dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/eventCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_15dp"
         android:backgroundTint="@color/colorCardButtonRow"
         android:elevation="@dimen/dimen_greater_elevation"
         app:cardCornerRadius="@dimen/dimen_info_card_corner_radius">
@@ -17,12 +17,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorCardBack"
             android:orientation="vertical">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3">
+                android:layout_weight="3"
+                android:background="@color/colorCardBack">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,7 +53,7 @@
                         android:layout_marginTop="@dimen/dimen_20dp"
                         android:layout_marginEnd="@dimen/dimen_25dp"
                         android:layout_weight="0"
-                        android:buttonTint="@color/colorCheck"
+                        android:buttonTint="@color/colorTextDone"
                         android:text="@string/string_navbar_title"
                         android:textColorLink="@color/colorPrimary" />
                 </LinearLayout>
@@ -61,7 +63,8 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dimen_5dp">
+                android:layout_marginBottom="@dimen/dimen_info_card_corner_radius"
+                android:background="@color/colorCardBack">
 
                 <TextView
                     android:id="@+id/timeTextView"
@@ -69,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_25dp"
                     android:layout_marginTop="@dimen/dimen_5dp"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
                     android:layout_weight="0"
                     android:accessibilityHeading="true"
                     android:fadingEdge="none"
@@ -87,34 +91,29 @@
 
                 <ImageButton
                     android:id="@+id/infoButton"
-                    android:layout_width="76dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:layout_marginEnd="@dimen/dimen_30dp"
+                    android:layout_marginBottom="@dimen/dimen_5dp"
                     android:layout_weight="0"
-                    android:background="@color/colorCardButtonRow"
+                    android:background="@color/colorCardBack"
                     app:srcCompat="@drawable/ic_action_dropdown" />
-
-                <View
-                    android:id="@+id/divider3"
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0" />
 
             </TableRow>
 
-            <TableLayout
+            <LinearLayout
                 android:id="@+id/infoTable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:visibility="visible">
+                android:background="@color/colorInfoCardViewBackground"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <TableRow
-                    android:id="@+id/statusRow"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:visibility="visible">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/doneTextView"
@@ -130,35 +129,12 @@
                         android:textSize="@dimen/dimen_smaller_font"
                         android:textStyle="bold" />
 
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/infoRow"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/commentTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_25dp"
-                        android:layout_marginTop="@dimen/dimen_10dp"
-                        android:layout_weight="1"
-                        android:focusable="false"
-                        android:fontFamily="@font/droid_sans_mono"
-                        android:text="TextView"
-                        android:textColor="@color/colorCardText"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
                     <TextView
                         android:id="@+id/urgencyTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_25dp"
-                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:layout_marginTop="@dimen/dimen_15dp"
                         android:layout_marginEnd="@dimen/dimen_30dp"
                         android:focusable="false"
                         android:fontFamily="@font/droid_sans_mono"
@@ -168,14 +144,35 @@
                         android:textColor="@color/colorTextSecondary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
+                </LinearLayout>
 
-                </TableRow>
+                <TextView
+                    android:id="@+id/commentTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_25dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:fontFamily="@font/droid_sans_mono"
+                    android:text="TextView"
+                    android:textColor="@color/colorCardText"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <TableRow
-                    android:id="@+id/ButtonRow"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible">
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:background="@color/colorCardBack"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="143dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2" />
 
                     <ImageButton
                         android:id="@+id/editButton"
@@ -185,7 +182,7 @@
                         android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_marginEnd="@dimen/dimen_5dp"
                         android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@drawable/button_background"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         app:srcCompat="@drawable/ic_action_edit" />
@@ -198,7 +195,7 @@
                         android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_marginEnd="@dimen/dimen_5dp"
                         android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@drawable/button_background"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:paddingBottom="@dimen/dimen_5dp"
@@ -212,12 +209,13 @@
                         android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_marginEnd="@dimen/dimen_5dp"
                         android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:background="@drawable/button_background"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         app:srcCompat="@drawable/ic_action_delete" />
-                </TableRow>
-            </TableLayout>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

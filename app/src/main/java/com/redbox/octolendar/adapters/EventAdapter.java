@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         private ImageButton deleteButton;
         private TextView doneTextView;
 
-        private TableLayout infoTable;
+        private LinearLayout infoTable;
         private ImageButton infoButton;
 
 
@@ -114,8 +115,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         });
 
         holder.infoButton.setOnClickListener((View v)->{
-            Log.d("VJH", "onBindViewHolder: "+ "click");
-            holder.infoTable.setVisibility(View.VISIBLE);
+            if(holder.infoTable.getVisibility() == View.VISIBLE) holder.infoTable.setVisibility(View.GONE);
+            else holder.infoTable.setVisibility(View.VISIBLE);
         });
 
         //Edit Event
