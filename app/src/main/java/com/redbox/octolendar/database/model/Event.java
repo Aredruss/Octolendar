@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Event implements Serializable {
 
-    public static final String TABLE_NAME = "events_db";
+    public static final String TABLE_NAME = "events";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_START_TIME = "time_start";
     public static final String COLUMN_END_TIME = "time_end";
@@ -15,6 +15,7 @@ public class Event implements Serializable {
     public static final String COLUMN_MONTH = "month";
     public static final String COLUMN_YEAR = "year";
     public static final String COLUMN_COMPLETED = "completed";
+
 
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
@@ -28,6 +29,8 @@ public class Event implements Serializable {
             COLUMN_COMMENT + " TEXT," +
             COLUMN_URGENCY + " TEXT NOT NULL," +
             COLUMN_COMPLETED + " INTEGER NOT NULL)";
+
+    public static final String CREATE_INDEX = "CREATE INDEX title ON "+TABLE_NAME+"(title);";
 
     private int id;
     private String timeStart;

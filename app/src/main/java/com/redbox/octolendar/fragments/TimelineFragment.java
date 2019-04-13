@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -29,6 +31,8 @@ public class TimelineFragment extends Fragment {
     private DatabaseHelper db;
     private List<Event> eventList;
     private SearchView searchView;
+    private ListView listView;
+    private ImageButton refreshButton;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,31 +40,11 @@ public class TimelineFragment extends Fragment {
 
         getTimeLineContent();
 
-        ListView listView = timelineView.findViewById(R.id.timelineListView);
+        listView = timelineView.findViewById(R.id.timelineListView);
         searchView = timelineView.findViewById(R.id.eventSearchView);
+        refreshButton = timelineView.findViewById(R.id.refreshButton);
 
-        ArrayList<TimelineRow> timeline = new ArrayList<>();
-        int i = 0;
-        for (Event e : eventList) {
-
-            TimelineRow timelineRow = new TimelineRow(i);
-
-            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIcon));
-
-            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
-            timelineRow.setBellowLineSize(15);
-
-            timelineRow.setTitle(e.getTitle());
-            timelineRow.setDescription(e.getDate());
-            timelineRow.setImageSize(30);
-
-            timeline.add(timelineRow);
-            i++;
-        }
-
-        ArrayAdapter<TimelineRow> timelineRowArrayAdapter = new TimelineViewAdapter(getContext(), 0, timeline, false);
-
-        listView.setAdapter(timelineRowArrayAdapter);
+        loadTimeLine(eventList);
 
         listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int index, long l) -> {
             final Event e = getItem(index);
@@ -89,18 +73,18 @@ public class TimelineFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                List<Event> searchResult = db.findEvent(query);
+                loadTimeLine(searchResult);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                return true;
             }
         });
 
-        searchView.setOnClickListener((View v) -> {
-
-        });
+        refreshButton.setOnClickListener((View v) -> loadTimeLine(eventList));
 
         return timelineView;
     }
@@ -113,5 +97,32 @@ public class TimelineFragment extends Fragment {
 
     public Event getItem(int i) {
         return eventList.get(i);
+    }
+
+    public void loadTimeLine(List<Event> timelineList) {
+
+        ArrayList<TimelineRow> timeline = new ArrayList<>();
+        int i = 0;
+        for (Event e : timelineList) {
+
+            TimelineRow timelineRow = new TimelineRow(i);
+
+            timelineRow.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTimelineIcon));
+
+            timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
+            timelineRow.setBellowLineSize(15);
+
+            timelineRow.setTitle(e.getTitle());
+            timelineRow.setDescription(e.getDate());
+            timelineRow.setImageSize(30);
+
+            timeline.add(timelineRow);
+            i++;
+        }
+
+        ArrayAdapter<TimelineRow> timelineRowArrayAdapter = new TimelineViewAdapter(getContext(), 0, timeline, false);
+
+        listView.setAdapter(timelineRowArrayAdapter);
+        timelineRowArrayAdapter.notifyDataSetChanged();
     }
 }

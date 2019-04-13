@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(Event.CREATE_TABLE);
+        sqLiteDatabase.execSQL(Event.CREATE_INDEX);
     }
 
     @Override
@@ -84,26 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{splitDateStr[0], splitDateStr[1], splitDateStr[2]});
 
-        if (cursor.moveToFirst()) {
-            do {
-                Event event = new Event();
-                event.setId(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)));
-                event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
-                event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
-                event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
-                event.setStartTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)));
-                event.setEndTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_END_TIME)));
-                event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
-                event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
-                event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
-                event.setCompleted(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
-                events.add(event);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return events;
+        return getList(cursor);
     }
 
 
@@ -114,28 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                Event event = new Event();
-                event.setId(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)));
-                event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
-                event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
-                event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
-                event.setStartTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)));
-                event.setEndTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_END_TIME)));
-                event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
-                event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
-                event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
-                event.setCompleted(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
-                eventList.add(event);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        int i = 0;
-
-        return eventList;
+        return getList(cursor);
     }
 
     //Count Events
@@ -169,11 +130,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //todo find event by name
-    public List<Event> findEvent(String arg){
 
+    public List<Event> findEvent(String arg){
+        String query = "SELECT * FROM " + Event.TABLE_NAME + " WHERE title=?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{arg});
+       return getList(cursor);
+    }
+
+
+    public  List<Event> getList(Cursor cursor){
         List<Event> eventList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setId(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_ID)));
+                event.setDay(cursor.getString(cursor.getColumnIndex(Event.COLUMN_DAY)));
+                event.setMonth(cursor.getString(cursor.getColumnIndex(Event.COLUMN_MONTH)));
+                event.setYear(cursor.getString(cursor.getColumnIndex(Event.COLUMN_YEAR)));
+                event.setStartTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_START_TIME)));
+                event.setEndTime(cursor.getString(cursor.getColumnIndex(Event.COLUMN_END_TIME)));
+                event.setTitle(cursor.getString(cursor.getColumnIndex(Event.COLUMN_TITLE)));
+                event.setComment(cursor.getString(cursor.getColumnIndex(Event.COLUMN_COMMENT)));
+                event.setUrgency(cursor.getString(cursor.getColumnIndex(Event.COLUMN_URGENCY)));
+                event.setCompleted(cursor.getInt(cursor.getColumnIndex(Event.COLUMN_COMPLETED)));
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
 
         return eventList;
     }
 }
+
+
