@@ -35,4 +35,5 @@
     <string name="string_date_select">Select date</string>
     <string name="string_not_done">Not done yet</string>
     <string name="string_notification_info">Click the button to set a reminder</string>
+    <string name="string_something_do"> </string>
 </resources>

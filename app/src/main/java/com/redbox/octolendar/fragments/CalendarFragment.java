@@ -45,19 +45,20 @@ public class CalendarFragment extends Fragment {
         progressTextView.setText(String.format(percentString, DateTimeUtilityClass.getMonthProgress()));
         progressBar.setProgress(DateTimeUtilityClass.getMonthProgress());
 
-        calendarView.setOnDateChangeListener((CalendarView calendarView, int year, int month, int day)-> {
-                date = day + "-" + (month + 1) + "-" + year;
-                sendDate();
+        calendarView.setOnDateChangeListener((CalendarView calendarView, int year, int month, int day) -> {
+            date = day + "-" + (month + 1) + "-" + year;
+            sendDate();
         });
 
         requestButton = fragmentView.findViewById(R.id.boredButton);
         requestTextView = fragmentView.findViewById(R.id.boredTextView);
-        requestTextView.setText("Something you can do");
+
         new ApiInteraction().execute(getResources().getString(R.string.string_url));
 
         requestButton.setOnClickListener((View v) -> {
-                new ApiInteraction().execute(getResources().getString(R.string.string_url));
-                requestTextView.setText(jsonResponse);
+            new ApiInteraction().execute(getResources().getString(R.string.string_url));
+            requestTextView.setText(jsonResponse);
+            requestTextView.setVisibility(View.VISIBLE);
         });
         return fragmentView;
     }

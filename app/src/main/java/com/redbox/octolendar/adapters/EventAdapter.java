@@ -19,15 +19,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.redbox.octolendar.EventManagerActivity;
-import com.redbox.octolendar.database.DatabaseHelper;
-import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.R;
+import com.redbox.octolendar.singleton.App;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private Context context;
-    private List<Event> list;
-    private DatabaseHelper db;
+    private List<App.Event> list;
+
+    private App.EventDatabase database;
+    private App.EventDao dao;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView timeTextView;
@@ -67,7 +68,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     }
 
-    public EventAdapter(Context context, List<Event> eventlist) {
+    public EventAdapter(Context context, List<App.Event> eventlist) {
         this.context = context;
         this.list = eventlist;
     }
@@ -81,16 +82,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        db = new DatabaseHelper(context);
-        Event event = list.get(holder.getAdapterPosition());
-        if (event.getEndTime() != null)
-            holder.timeTextView.setText(event.getStartTime() + "-" + event.getEndTime());
-        else holder.timeTextView.setText(event.getStartTime());
-        holder.titleTextView.setText(event.getTitle());
-        holder.commentTextView.setText(event.getComment());
-        holder.urgencyTextView.setText(event.getUrgency());
 
-        if (event.getCompleted() == 1) {
+        App.Event event = list.get(holder.getAdapterPosition());
+        database = App.getInstance().getEventDatabase();
+        dao = database.eventDao();
+        Log.d("T", "onBindViewHolder: "  + dao.getAll().size());
+
+        if (event.timeEnd != null)
+            holder.timeTextView.setText(event.timeStart + "-" + event.timeEnd);
+        else holder.timeTextView.setText(event.timeStart);
+        holder.titleTextView.setText(event.title);
+        holder.commentTextView.setText(event.comment);
+        holder.urgencyTextView.setText(event.urgency);
+
+        if (event.completed == 1) {
             holder.doneTextView.setText(R.string.string_done);
             holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
 
@@ -104,18 +109,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             if (isChecked) {
                 holder.doneTextView.setText(R.string.string_done);
                 holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
-                event.setCompleted(1);
-                db.updateEvent(event);
+                event.completed = 1;
             } else {
                 holder.doneTextView.setText(R.string.string_not_done);
                 holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
-                event.setCompleted(0);
-                db.updateEvent(event);
+                event.completed = 0;
+
             }
+            dao.update(event);
         });
 
-        holder.infoButton.setOnClickListener((View v)->{
-            if(holder.infoTable.getVisibility() == View.VISIBLE) holder.infoTable.setVisibility(View.GONE);
+        holder.infoButton.setOnClickListener((View v) -> {
+            if (holder.infoTable.getVisibility() == View.VISIBLE)
+                holder.infoTable.setVisibility(View.GONE);
             else holder.infoTable.setVisibility(View.VISIBLE);
         });
 

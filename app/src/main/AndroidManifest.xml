@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".singleton.App"
         android:theme="@style/AppTheme">
 
         <receiver android:name="com.allyants.notifyme.NotificationPublisher"/>

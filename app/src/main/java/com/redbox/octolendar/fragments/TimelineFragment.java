@@ -16,9 +16,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.redbox.octolendar.R;
-import com.redbox.octolendar.database.DatabaseHelper;
-import com.redbox.octolendar.database.model.Event;
 import com.redbox.octolendar.dialogs.TimelineInfoDialog;
+import com.redbox.octolendar.singleton.App;
 
 import org.qap.ctimelineview.TimelineRow;
 import org.qap.ctimelineview.TimelineViewAdapter;
@@ -28,11 +27,12 @@ import java.util.List;
 
 public class TimelineFragment extends Fragment {
 
-    private DatabaseHelper db;
-    private List<Event> eventList;
+    private List<App.Event> eventList;
     private SearchView searchView;
     private ListView listView;
     private ImageButton refreshButton;
+    private App.EventDatabase database;
+    private App.EventDao dao;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,17 +47,18 @@ public class TimelineFragment extends Fragment {
         loadTimeLine(eventList);
 
         listView.setOnItemClickListener((AdapterView<?> adapterView, View view, int index, long l) -> {
-            final Event e = getItem(index);
+            final App.Event e = getItem(index);
             TimelineInfoDialog timelineInfoDialog = new TimelineInfoDialog();
 
             Bundle args = new Bundle();
             args.putString("Date", e.getDate());
-            if (e.getEndTime() != null)
-                args.putString("Time", e.getStartTime() + "-" + e.getEndTime());
-            else args.putString("Time", e.getStartTime());
-            args.putString("Title", e.getTitle());
-            args.putString("Comment", e.getComment());
-            args.putString("Completed", String.valueOf(e.getCompleted()));
+            if (e.timeEnd != null)
+                args.putString("Time", e.timeStart + "-" + e.timeEnd);
+            else args.putString("Time", e.timeStart);
+
+            args.putString("Title", e.title);
+            args.putString("Comment", e.comment);
+            args.putString("Completed", String.valueOf(e.completed));
 
             timelineInfoDialog.setArguments(args);
 
@@ -73,7 +74,7 @@ public class TimelineFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                List<Event> searchResult = db.findEvent(query);
+                List<App.Event> searchResult = dao.getByTitle(query);
                 loadTimeLine(searchResult);
                 return true;
             }
@@ -90,20 +91,21 @@ public class TimelineFragment extends Fragment {
     }
 
     public void getTimeLineContent() {
-        db = new DatabaseHelper(getContext());
-        eventList = new ArrayList<>();
-        eventList = db.getAllEvents();
+       App.EventDatabase database = App.getInstance().getEventDatabase();
+       App.EventDao dao = database.eventDao();
+       eventList = dao.getAll();
+
     }
 
-    public Event getItem(int i) {
+    public App.Event getItem(int i) {
         return eventList.get(i);
     }
 
-    public void loadTimeLine(List<Event> timelineList) {
+    public void loadTimeLine(List<App.Event> timelineList) {
 
         ArrayList<TimelineRow> timeline = new ArrayList<>();
         int i = 0;
-        for (Event e : timelineList) {
+        for (App.Event e : timelineList) {
 
             TimelineRow timelineRow = new TimelineRow(i);
 
@@ -112,7 +114,7 @@ public class TimelineFragment extends Fragment {
             timelineRow.setBellowLineColor(ContextCompat.getColor(getContext(), R.color.colorTimelineLineColor));
             timelineRow.setBellowLineSize(15);
 
-            timelineRow.setTitle(e.getTitle());
+            timelineRow.setTitle(e.title);
             timelineRow.setDescription(e.getDate());
             timelineRow.setImageSize(30);
 

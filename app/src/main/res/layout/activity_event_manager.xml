@@ -162,8 +162,9 @@
 
         <ImageButton
             android:id="@+id/notificationButton"
-            android:layout_width="match_parent"
+            android:layout_width="148dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/dimen_60dp"
             android:layout_marginTop="@dimen/dimen_15dp"
             android:layout_marginEnd="@dimen/dimen_60dp"

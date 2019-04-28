@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,7 @@ import android.widget.Toast;
 
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.adapters.EventAdapter;
-import com.redbox.octolendar.database.DatabaseHelper;
-import com.redbox.octolendar.database.model.Event;
+import com.redbox.octolendar.singleton.App;
 import com.redbox.octolendar.utilities.RecyclerTouchListener;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
@@ -34,10 +34,11 @@ public class PlannedEventsFragment extends Fragment {
     private TextView dateTextView;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
-    private List<Event> eventList;
+    private List<App.Event> eventList = new ArrayList<>();
     private String date;
     private EventAdapter eventAdapter;
-    private DatabaseHelper db;
+    private App.EventDatabase database;
+    private App.EventDao dao;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView = fragmentView.findViewById(R.id.cardFragmentRecyclerView);
         floatingActionButton = fragmentView.findViewById(R.id.addFragmentFloatingButton);
 
-        eventList = new ArrayList<>();
-
         date = DateTimeUtilityClass.getToday();
 
         try {
@@ -57,9 +56,11 @@ public class PlannedEventsFragment extends Fragment {
             exc.printStackTrace();
         }
 
+        database = App.getInstance().getEventDatabase();
+        dao = database.eventDao();
+
         dateTextView.setText(date);
 
-        db = new DatabaseHelper(getContext());
         getRecyclerViewContent();
 
         floatingActionButton.setOnClickListener((View v) -> openCreateDialog());
@@ -76,7 +77,6 @@ public class PlannedEventsFragment extends Fragment {
 
             The problem is that I can't notify Recycler View from the ViewHolder, and if I don't, user will have to reload fragment to see the changes.
         */
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
 
             //Deleting the event from recyclerView
@@ -86,8 +86,8 @@ public class PlannedEventsFragment extends Fragment {
                 ImageButton deleteButton = childViewHolder.getDeleteButton();
 
                 deleteButton.setOnClickListener((View v) -> {
-                    Event event = eventList.get(position);
-                    db.deleteEvent(event);
+                    App.Event event = eventList.get(position);
+                    dao.delete(event);
                     eventAdapter.notifyItemRemoved(position);
 
                     Toast toast = Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT);
@@ -95,7 +95,6 @@ public class PlannedEventsFragment extends Fragment {
 
                     getRecyclerViewContent();
                 });
-
             }
 
             @Override
@@ -105,34 +104,41 @@ public class PlannedEventsFragment extends Fragment {
         }
         ));
 
-        eventAdapter = new EventAdapter(getContext(), eventList);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(eventAdapter);
+
         return fragmentView;
     }
 
     //Get Content for the recyclerView [A basic reload]
     public void getRecyclerViewContent() {
-        if (!eventList.isEmpty()) {
-            eventList.clear();
-        }
-        eventList.addAll(db.getDayEvents(date));
-    }
+        eventList.clear();
 
+        String[] dateArray = date.split("-");
+        eventList = dao.getDayEvents(dateArray[0], dateArray[1], dateArray[2]);
+
+        for(App.Event e: eventList){
+            Log.e("EVENT ", "getRecyclerViewContent: " + e.title);
+        }
+
+        eventAdapter = new EventAdapter(getContext(), eventList);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(eventAdapter);
+
+        eventAdapter.notifyDataSetChanged();
+    }
 
     //Opens event creation dialog
     private void openCreateDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         View dialogView = layoutInflater.inflate(R.layout.event_dialog, null);
-        Event newEvent = new Event();
+        App.Event newEvent = new App.Event();
 
         EditText titleEditText = dialogView.findViewById(R.id.titleEditText);
         EditText commentEditText = dialogView.findViewById(R.id.commentEditText);
         RadioGroup urgencyRadioGroup = dialogView.findViewById(R.id.urgencyRadioGroup);
         TextView timeTextView = dialogView.findViewById(R.id.startTextView);
 
-        newEvent.setUrgency("Ugh");
+        newEvent.urgency = "Ugh";
 
         timeTextView.setOnClickListener((View v) -> {
             DateTimeUtilityClass.openTimeDialog(getContext(), timeTextView);
@@ -142,8 +148,7 @@ public class PlannedEventsFragment extends Fragment {
             for (int x = 0; x < 3; x++) {
                 RadioButton btn = (RadioButton) urgencyRadioGroup.getChildAt(x);
                 if (btn.getId() == i) {
-                    String innerUrgencyType = btn.getText().toString();
-                    newEvent.setUrgency(innerUrgencyType);
+                    newEvent.urgency = btn.getText().toString();
                 }
             }
         });
@@ -156,24 +161,26 @@ public class PlannedEventsFragment extends Fragment {
             }
         }).setPositiveButton("Ok", (DialogInterface dialogInterface, int i) -> {
             if (!titleEditText.getText().toString().isEmpty()) {
-                newEvent.setTitle(titleEditText.getText().toString());
+                newEvent.title = titleEditText.getText().toString();
                 newEvent.setDate(date);
-                newEvent.setId(db.getEventCount() + 1);
+                newEvent.id = dao.getAll().size() + 1;
 
                 if (timeTextView.getText().toString().equals("Select time"))
-                    newEvent.setStartTime(DateTimeUtilityClass.getCurrentTime());
-                else newEvent.setStartTime(timeTextView.getText().toString());
+                    newEvent.timeStart = DateTimeUtilityClass.getCurrentTime();
+                else newEvent.timeStart = timeTextView.getText().toString();
 
                 if (commentEditText.getText().toString().isEmpty()) {
-                    newEvent.setComment("");
+                    newEvent.comment = "";
                 } else {
-                    newEvent.setComment(commentEditText.getText().toString());
+                    newEvent.comment = commentEditText.getText().toString();
 
                 }
-                eventList.add(0, newEvent);
-                eventAdapter.notifyDataSetChanged();
-                db.insertEvent(newEvent);
+
+                dao.insert(newEvent);
                 getRecyclerViewContent();
+
+                Log.e("T", "openCreateDialog: " + eventList.isEmpty());
+
             } else {
                 Toast toast = Toast.makeText(getContext(), "The title field is not optional", Toast.LENGTH_SHORT);
                 toast.show();

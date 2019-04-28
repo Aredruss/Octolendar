@@ -21,8 +21,7 @@ import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.allyants.notifyme.NotifyMe;
-import com.redbox.octolendar.database.model.Event;
-import com.redbox.octolendar.database.DatabaseHelper;
+import com.redbox.octolendar.singleton.App;
 import com.redbox.octolendar.utilities.DateTimeUtilityClass;
 
 import java.time.LocalTime;
@@ -41,11 +40,12 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
     private Spinner urgencySpinner;
     private Button saveButton;
     private ImageButton closeButton;
-    private Event openedEvent;
+    private App.Event openedEvent;
     private Switch timeSwitch;
-    private DatabaseHelper db;
     private TextView notificationTextView;
     private ImageButton notificationButton;
+    private App.EventDatabase database;
+    private App.EventDao dao;
 
     private Calendar now = Calendar.getInstance();
     private TimePickerDialog timePickerDialog;
@@ -58,7 +58,8 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
 
         Intent intent = getIntent();
 
-        db = new DatabaseHelper(getApplicationContext());
+        database = App.getInstance().getEventDatabase();
+        dao = database.eventDao();
 
         titleEditText = findViewById(R.id.managerTitleEditText);
         commentEditText = findViewById(R.id.managerCommentEditText);
@@ -72,22 +73,22 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
         notificationTextView = findViewById(R.id.notificationInfoTextView);
         notificationButton = findViewById(R.id.notificationButton);
 
-        openedEvent = (Event) intent.getSerializableExtra("Event");
+        openedEvent = (App.Event) intent.getSerializableExtra("Event");
 
         // We check if opened event has a duration
-        if (openedEvent.getEndTime() == null) {
+        if (openedEvent.timeEnd == null) {
             timeEndTextView.setEnabled(false);
             timeSwitch.setChecked(false);
 
         } else {
-            timeEndTextView.setText(openedEvent.getEndTime());
+            timeEndTextView.setText(openedEvent.timeEnd);
             timeSwitch.setChecked(true);
         }
 
-        titleEditText.setText(openedEvent.getTitle());
-        commentEditText.setText(openedEvent.getComment());
+        titleEditText.setText(openedEvent.title);
+        commentEditText.setText(openedEvent.comment);
         dateTextView.setText(openedEvent.getDate());
-        timeStartTextView.setText(openedEvent.getStartTime());
+        timeStartTextView.setText(openedEvent.timeStart);
 
         // We load info to spinner which contains event's urgency info
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -110,7 +111,7 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
             if (!isChecked) {
                 timeEndTextView.setEnabled(false);
                 timeEndTextView.setText(getResources().getText(R.string.string_time_select));
-                openedEvent.setEndTime(null);
+                openedEvent.timeEnd = null;
             }
         });
 
@@ -151,7 +152,7 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
 
         NotifyMe.Builder notifyMe = new NotifyMe.Builder(getApplicationContext());
 
-        notifyMe.title(openedEvent.getTitle())
+        notifyMe.title(openedEvent.title)
                 .small_icon(R.drawable.ic_action_notification)
                 .time(now)
                 .addAction(intent, "Go to calendar", true)
@@ -170,17 +171,17 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
     public void saveChanges(View v) {
         //Check if title is empty
         if (!titleEditText.getText().toString().equals("")) {
-            openedEvent.setTitle(titleEditText.getText().toString());
-            openedEvent.setComment(commentEditText.getText().toString());
-            openedEvent.setUrgency(urgencySpinner.getSelectedItem().toString());
-            openedEvent.setStartTime(timeStartTextView.getText().toString());
+            openedEvent.title = titleEditText.getText().toString();
+            openedEvent.comment = commentEditText.getText().toString();
+            openedEvent.urgency = urgencySpinner.getSelectedItem().toString();
+            openedEvent.timeStart = timeStartTextView.getText().toString();
 
             //Check user has selected the proper end time
             if (timeSwitch.isChecked()) {
                 try {
                     if (!checkTime()) {
-                        openedEvent.setEndTime(timeEndTextView.getText().toString());
-                        db.updateEvent(openedEvent);
+                        openedEvent.timeEnd = timeEndTextView.getText().toString();
+                        dao.update(openedEvent);
                         super.onBackPressed();
                     }
                 } catch (DateTimeParseException exc) {
@@ -189,7 +190,7 @@ public class EventManagerActivity extends AppCompatActivity implements DatePicke
                 }
 
             } else {
-                db.updateEvent(openedEvent);
+                dao.update(openedEvent);
                 super.onBackPressed();
             }
 

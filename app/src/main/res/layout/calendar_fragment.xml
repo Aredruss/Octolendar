@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:id = "@+id/calendarRelativeLayout">
     <LinearLayout
@@ -38,49 +39,42 @@
                 android:text="@string/string_sample_progress"
                 android:textSize="18sp" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/statisticTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="You've got 34 planned events"
+                android:textSize="18sp" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/boredCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_25dp"
-            android:layout_marginTop="@dimen/dimen_20dp"
-            android:layout_marginRight="@dimen/dimen_25dp"
-            android:elevation="@dimen/dimen_10dp"
-            app:cardCornerRadius="@dimen/dimen_info_card_corner_radius">
+            <Button
+                android:id="@+id/boredButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginBottom="@dimen/dimen_25dp"
+                android:background="@color/colorAccent"
+                android:elevation="@dimen/dimen_10dp"
+                android:paddingLeft="@dimen/dimen_elevation"
+                android:paddingRight="@dimen/dimen_elevation"
+                android:text="@string/string_bored_button" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/boredTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:fontFamily="@font/droid_sans_mono"
+                android:lines="2"
+                android:paddingTop="@dimen/dimen_5dp"
+                android:text="@string/string_something_do"
+                android:textAlignment="center"
+                android:textSize="13sp"
+                tools:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/boredTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10dp"
-                    android:fontFamily="@font/droid_sans_mono"
-                    android:lines="2"
-                    android:text="@string/string_sample_text"
-                    android:textAlignment="center"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/boredButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_12dp"
-                    android:layout_marginBottom="@dimen/dimen_25dp"
-                    android:background="@color/colorAccent"
-                    android:elevation="@dimen/dimen_10dp"
-                    android:paddingLeft="@dimen/dimen_elevation"
-                    android:paddingRight="@dimen/dimen_elevation"
-                    android:text="@string/string_bored_button" />
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
 
     </LinearLayout>
 
