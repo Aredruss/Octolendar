@@ -40,7 +40,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/statisticTextView"
+                android:id="@+id/countTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
