@@ -1,11 +1,11 @@
 package com.redbox.octolendar.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +31,10 @@ public class TimelineFragment extends Fragment {
     private SearchView searchView;
     private ListView listView;
     private ImageButton refreshButton;
+    private ImageButton infoButton;
     private App.EventDatabase database;
     private App.EventDao dao;
+    private OnInfoButtonClickListener onInfoButtonClickListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class TimelineFragment extends Fragment {
         listView = timelineView.findViewById(R.id.timelineListView);
         searchView = timelineView.findViewById(R.id.eventSearchView);
         refreshButton = timelineView.findViewById(R.id.refreshButton);
+        infoButton = timelineView.findViewById(R.id.infoImageButton);
 
         loadTimeLine(eventList);
 
@@ -70,7 +73,6 @@ public class TimelineFragment extends Fragment {
 
         });
 
-        //todo implement database interactions
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -87,13 +89,17 @@ public class TimelineFragment extends Fragment {
 
         refreshButton.setOnClickListener((View v) -> loadTimeLine(eventList));
 
+        infoButton.setOnClickListener((v -> {
+            openInfo();
+        }));
+
         return timelineView;
     }
 
     public void getTimeLineContent() {
-       App.EventDatabase database = App.getInstance().getEventDatabase();
-       App.EventDao dao = database.eventDao();
-       eventList = dao.getAll();
+        App.EventDatabase database = App.getInstance().getEventDatabase();
+        App.EventDao dao = database.eventDao();
+        eventList = dao.getAll();
 
     }
 
@@ -126,5 +132,23 @@ public class TimelineFragment extends Fragment {
 
         listView.setAdapter(timelineRowArrayAdapter);
         timelineRowArrayAdapter.notifyDataSetChanged();
+    }
+
+    public void openInfo() {
+        onInfoButtonClickListener.OnInfoButtonClickListener();
+    }
+
+    public interface OnInfoButtonClickListener {
+        void OnInfoButtonClickListener();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onInfoButtonClickListener = (OnInfoButtonClickListener) context;
+        } catch (ClassCastException exc) {
+            throw new ClassCastException(context.toString());
+        }
     }
 }

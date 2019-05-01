@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_history_menu_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/colorCardButtonRow"
+    android:orientation="horizontal"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="165dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/typeRadioGroup"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|clip_vertical"
+            android:layout_marginStart="@dimen/dimen_15dp">
+
+            <RadioButton
+                android:id="@+id/eduRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="Educational" />
+
+            <RadioButton
+                android:id="@+id/socialRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:layout_marginBottom="@dimen/dimen_5dp"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="Social" />
+
+            <RadioButton
+                android:id="@+id/recRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/droid_sans_mono"
+                android:text="Recreational" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/paricipantsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_35dp"
+            android:fontFamily="@font/droid_sans_mono"
+            android:text="@string/string_part" />
+
+        <SeekBar
+            android:id="@+id/participantsSeekBar"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_15dp"
+            android:layout_marginEnd="@dimen/dimen_15dp"
+            android:indeterminate="false"
+            android:indeterminateTint="@color/colorAccent"
+            android:max="2"
+            android:progress="0"
+            android:thumbTintMode="multiply" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

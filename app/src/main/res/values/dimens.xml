@@ -16,4 +16,6 @@
     <dimen name="dimen_smaller_font">16sp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>
     <dimen name="dimen_font_size">20sp</dimen>
+    <dimen name="dimen_35dp">35dp</dimen>
+    <dimen name="dimen_100dp">100dp</dimen>
 </resources>

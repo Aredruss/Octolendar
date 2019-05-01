@@ -16,7 +16,7 @@ import com.redbox.octolendar.fragments.MiscFragment;
 import com.redbox.octolendar.fragments.PlannedEventsFragment;
 import com.redbox.octolendar.fragments.TimelineFragment;
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.OnCalendarInteractionListener {
+public class MainActivity extends AppCompatActivity implements CalendarFragment.OnCalendarInteractionListener, TimelineFragment.OnInfoButtonClickListener {
 
     private BottomNavigationView bottomNavigationView;
     private FragmentTransaction fragmentTransaction;
@@ -55,12 +55,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 
                 case R.id.timeline: {
                     currentFragment = new TimelineFragment();
-                    fragmentTransaction.replace(R.id.content, currentFragment);
-                    break;
-                }
-
-                case R.id.info: {
-                    currentFragment = new MiscFragment();
                     fragmentTransaction.replace(R.id.content, currentFragment);
                     break;
                 }
@@ -117,4 +111,11 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void OnInfoButtonClickListener() {
+        MiscFragment miscFragment = new MiscFragment();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content, miscFragment);
+        fragmentTransaction.commit();
+    }
 }

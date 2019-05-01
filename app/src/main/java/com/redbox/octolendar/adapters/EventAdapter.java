@@ -12,8 +12,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.List;
@@ -58,7 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             doneTextView = view.findViewById(R.id.doneTextView);
 
             infoTable = view.findViewById(R.id.infoTable);
-            infoButton = view.findViewById(R.id.infoButton);
+            infoButton = view.findViewById(R.id.infoImageButton);
 
         }
 

@@ -1,6 +1,7 @@
 package com.redbox.octolendar.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.widget.CalendarView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.redbox.octolendar.BoredActivity;
+import com.redbox.octolendar.MainActivity;
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.parser.GetJson;
 import com.redbox.octolendar.singleton.App;
@@ -24,12 +27,11 @@ public class CalendarFragment extends Fragment {
     private String percentString= "%d%% of the month has passed";
     private CalendarView calendarView;
     private ProgressBar progressBar;
+    private Button boredButton;
     private TextView progressTextView;
     private TextView countTextView;
     private String date;
-    private TextView requestTextView;
-    private Button requestButton;
-    private String jsonResponse;
+
     private App.EventDatabase database;
     private App.EventDao dao;
     private int count;
@@ -45,6 +47,7 @@ public class CalendarFragment extends Fragment {
         calendarView = fragmentView.findViewById(R.id.fragmentCalendarView);
         progressTextView = fragmentView.findViewById(R.id.monthProgressTextView);
         progressBar = fragmentView.findViewById(R.id.monthProgressBar);
+        boredButton = fragmentView.findViewById(R.id.boredRequestButton);
 
         date = DateTimeUtilityClass.getToday();
         setStatistics();
@@ -57,36 +60,12 @@ public class CalendarFragment extends Fragment {
             sendDate();
         });
 
-        requestButton = fragmentView.findViewById(R.id.boredButton);
-        requestTextView = fragmentView.findViewById(R.id.boredTextView);
+        boredButton.setOnClickListener((v -> {
+            Intent intent = new Intent(v.getContext(), BoredActivity.class);
+            startActivity(intent);
+        }));
 
-        new ApiInteraction().execute(getResources().getString(R.string.string_url));
-
-        requestButton.setOnClickListener((View v) -> {
-            new ApiInteraction().execute(getResources().getString(R.string.string_url));
-            requestTextView.setText(jsonResponse);
-            requestTextView.setVisibility(View.VISIBLE);
-        });
         return fragmentView;
-    }
-
-    private class ApiInteraction extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            jsonResponse = GetJson.getInfoFromUrl(strings);
-            return "Launch success";
-        }
     }
 
     public interface OnCalendarInteractionListener {

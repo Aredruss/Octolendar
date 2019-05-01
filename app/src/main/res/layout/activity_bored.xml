@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/boredLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".BoredActivity">
+
+    <TextView
+        android:id="@+id/adviceTextView"
+        style="@android:style/Widget.Holo.Light.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dimen_25dp"
+        android:layout_marginTop="@dimen/dimen_25dp"
+        android:layout_marginEnd="@dimen/dimen_25dp"
+        android:layout_marginBottom="@dimen/dimen_60dp"
+        android:text="@string/string_something_to_do"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorCardText"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/boredRequestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="clip_vertical|center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/dimen_55dp"
+        android:layout_marginBottom="@dimen/dimen_15dp"
+        android:background="@drawable/button_background"
+        android:elevation="@dimen/dimen_10dp"
+        android:paddingStart="@dimen/dimen_20dp"
+        android:paddingEnd="@dimen/dimen_20dp"
+        android:text="@string/string_bored" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/boredConfigButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_100dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorDarker"
+        app:srcCompat="@drawable/ic_action_filter" />
+
+</FrameLayout>

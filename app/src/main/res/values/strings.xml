@@ -25,7 +25,7 @@
     <string name="string_timeline">Timeline</string>
     <string name="string_misc">Info</string>
     <string name="string_bored">I am bored</string>
-    <string name="string_url">http://www.boredapi.com/api/activity/</string>
+    <string name="string_url">http://www.boredapi.com/api/activity</string>
     <string name="string_bored_button">Find something to do</string>
     <string name="string_done">Done</string>
     <string name="string_save">Save</string>
@@ -35,5 +35,6 @@
     <string name="string_date_select">Select date</string>
     <string name="string_not_done">Not done yet</string>
     <string name="string_notification_info">Click the button to set a reminder</string>
-    <string name="string_something_do"> </string>
+    <string name="string_something_to_do">Please don\'t take any advice coming from the Internet.</string>
+    <string name="string_part">Number of participants</string>
 </resources>
