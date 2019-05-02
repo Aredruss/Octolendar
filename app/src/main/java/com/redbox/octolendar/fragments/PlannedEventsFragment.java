@@ -163,7 +163,7 @@ public class PlannedEventsFragment extends Fragment {
             if (!titleEditText.getText().toString().isEmpty()) {
                 newEvent.title = titleEditText.getText().toString();
                 newEvent.setDate(date);
-                newEvent.id = dao.getAll().size() + 1;
+                newEvent.id = dao.getAvID()+1;
 
                 if (timeTextView.getText().toString().equals("Select time"))
                     newEvent.timeStart = DateTimeUtilityClass.getCurrentTime();

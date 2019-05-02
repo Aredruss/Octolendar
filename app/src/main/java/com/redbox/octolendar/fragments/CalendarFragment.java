@@ -34,6 +34,7 @@ public class CalendarFragment extends Fragment {
 
     private App.EventDatabase database;
     private App.EventDao dao;
+    private App.TagDao tagDao;
     private int count;
     private int completed;
 
@@ -88,8 +89,9 @@ public class CalendarFragment extends Fragment {
 
     public void setStatistics(){
         String countString = "You have %d planned events";
-        App.EventDatabase database = App.getInstance().getEventDatabase();
-        App.EventDao dao = database.eventDao();
+        database = App.getInstance().getEventDatabase();
+        dao = database.eventDao();
+        tagDao = database.tagDao();
 
         count = dao.getAll().size();
         if(count ==1 ) {

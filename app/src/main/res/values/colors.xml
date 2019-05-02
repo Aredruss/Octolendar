@@ -6,12 +6,12 @@
     <color name="colorTextNotDone">#FF9100</color>
     <color name="colorTextDone">#6DC427</color>
     <color name="colorScrollBack">#272727</color>
-    <color name="colorTimelineBack">#CE1E47</color>
+    <color name="colorTimelineBack">#9B112D</color>
     <color name="colorInfoCardViewBackground">#3C3C3C</color>
     <color name="colorTimelineLineColor">#252525</color>
     <color name="colorTimelineIconSecond">#5E8FE2</color>
     <color name="colorTimelineIcon">#1DE9B6</color>
-    <color name="colorCheck">#66D24D</color>
+    <color name="colorCheck">#F0F0F0</color>
     <color name="colorNoColor">#00FFFFFF</color>
     <color name="colorManagerBack">#2B2B2B</color>
     <color name="colorDarker">#1F1F1F</color>
@@ -22,7 +22,9 @@
     <color name="gradientFirst">#2E2E2E</color>
     <color name="gradientSecond">#030303</color>
     <color name="colorCardButtonRow">#424242</color>
-    <color name="colorTagWork">#2E3875</color>
+    <color name="colorTagWork">#3747AA</color>
+    <color name="colorTagHome">#DA8506</color>
+    <color name="colorTagRed">#C62828</color>
 
 
 </resources>

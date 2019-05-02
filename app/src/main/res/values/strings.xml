@@ -37,4 +37,6 @@
     <string name="string_notification_info">Click the button to set a reminder</string>
     <string name="string_something_to_do">Please don\'t take any advice coming from the Internet.</string>
     <string name="string_part">Number of participants</string>
+    <string name="string_tag">Edit tags</string>
+    <string name="string_tag_placeholder">Tag title</string>
 </resources>

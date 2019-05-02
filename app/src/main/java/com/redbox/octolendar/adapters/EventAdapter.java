@@ -1,7 +1,14 @@
 package com.redbox.octolendar.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.support.design.chip.Chip;
+import android.support.design.chip.ChipGroup;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,6 +36,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     private App.EventDatabase database;
     private App.EventDao dao;
+    private App.TagDao tagDao;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView timeTextView;
@@ -42,6 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         private LinearLayout infoTable;
         private ImageButton infoButton;
 
+        private Chip eventTag;
+        private Chip addTag;
 
         public ViewHolder(View view) {
             super(view);
@@ -57,6 +69,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             infoTable = view.findViewById(R.id.infoTable);
             infoButton = view.findViewById(R.id.infoImageButton);
+
+            eventTag = view.findViewById(R.id.eventTag);
+            addTag = view.findViewById(R.id.addTag);
 
         }
 
@@ -84,14 +99,31 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         App.Event event = list.get(holder.getAdapterPosition());
         database = App.getInstance().getEventDatabase();
         dao = database.eventDao();
-        Log.d("T", "onBindViewHolder: "  + dao.getAll().size());
+        tagDao = database.tagDao();
+
+        App.Tag eventTag = tagDao.getTag(event.id);
+
+        if (eventTag != null) {
+            Log.d("T", "onBindViewHolder: " + eventTag.text);
+            holder.eventTag.setVisibility(View.VISIBLE);
+            holder.eventTag.setText(eventTag.text);
+            holder.eventTag.setChipBackgroundColor(ColorStateList.valueOf(eventTag.color));
+            holder.eventTag.setChipBackgroundColor(ContextCompat.getColorStateList(context, eventTag.color));
+        } else {
+            holder.eventTag.setVisibility(View.GONE);
+        }
 
         if (event.timeEnd != null)
             holder.timeTextView.setText(event.timeStart + "-" + event.timeEnd);
         else holder.timeTextView.setText(event.timeStart);
+
         holder.titleTextView.setText(event.title);
         holder.commentTextView.setText(event.comment);
         holder.urgencyTextView.setText(event.urgency);
+
+        holder.addTag.setOnClickListener((View v) -> {
+            openCreateTagDialog(v, event);
+        });
 
         if (event.completed == 1) {
             holder.doneTextView.setText(R.string.string_done);
@@ -139,10 +171,70 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             v.getContext().startActivity(Intent.createChooser(intent, "Send to"));
         });
 
+        holder.eventTag.setOnLongClickListener((View v) ->{
+            tagDao.delete(eventTag);
+            notifyDataSetChanged();
+            return true;
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+
+    private void openCreateTagDialog(View v, App.Event event) {
+        LayoutInflater layoutInflater = LayoutInflater.from(v.getContext());
+        App.Tag currentTag = tagDao.getTag(event.id);
+        View dialogView = layoutInflater.inflate(R.layout.tag_dialog, null);
+        ChipGroup chipGroup = dialogView.findViewById(R.id.colorGroup);
+        EditText nameEditText = dialogView.findViewById(R.id.tagNameEditText);
+
+        if(currentTag != null){
+            nameEditText.setText(currentTag.text);
+        }
+
+        App.Tag tag = new App.Tag();
+
+        tag.id = tagDao.getTagCount()+1;
+        tag.eventId = event.id;
+        tag.color = R.color.colorDarker;
+
+        chipGroup.setOnCheckedChangeListener((ChipGroup chipGr, int i) -> {
+            switch (i) {
+                case (R.id.blue): {
+                    tag.color = R.color.colorTagWork;
+                    break;
+                }
+                case (R.id.green): {
+                    tag.color = R.color.colorTagHome;
+                    break;
+                }
+                case (R.id.black): {
+                    tag.color = R.color.colorDarker;
+                    break;
+                }
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView).setTitle("Tag editor").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).setPositiveButton("Ok", (DialogInterface dialogInterface, int i) -> {
+            if(currentTag != null){
+                tagDao.delete(currentTag);
+            }
+            tag.text = nameEditText.getText().toString();
+            if (!nameEditText.getText().toString().equals("")) {
+                tagDao.insert(tag);
+            }
+            notifyDataSetChanged();
+        });
+        builder.show();
     }
 }

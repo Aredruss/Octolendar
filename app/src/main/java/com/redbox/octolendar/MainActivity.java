@@ -43,19 +43,16 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
             switch (item.getItemId()) {
                 case R.id.calendar: {
                     currentFragment = new CalendarFragment();
-                    fragmentTransaction.replace(R.id.content, currentFragment);
                     break;
                 }
 
                 case R.id.today: {
                     currentFragment = new PlannedEventsFragment();
-                    fragmentTransaction.replace(R.id.content, currentFragment);
                     break;
                 }
 
                 case R.id.timeline: {
                     currentFragment = new TimelineFragment();
-                    fragmentTransaction.replace(R.id.content, currentFragment);
                     break;
                 }
 
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                     break;
                 }
             }
+            fragmentTransaction.replace(R.id.content, currentFragment);
             fragmentTransaction.commit();
             return true;
         });
