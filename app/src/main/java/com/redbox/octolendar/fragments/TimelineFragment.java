@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ public class TimelineFragment extends Fragment {
     private List<App.Event> eventList;
     private SearchView searchView;
     private ListView listView;
-    private ImageButton refreshButton;
     private ImageButton infoButton;
     private App.EventDatabase database;
     private App.EventDao dao;
@@ -44,7 +44,6 @@ public class TimelineFragment extends Fragment {
 
         listView = timelineView.findViewById(R.id.timelineListView);
         searchView = timelineView.findViewById(R.id.eventSearchView);
-        refreshButton = timelineView.findViewById(R.id.refreshButton);
         infoButton = timelineView.findViewById(R.id.infoImageButton);
 
         loadTimeLine(eventList);
@@ -83,11 +82,13 @@ public class TimelineFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty()){
+                    getTimeLineContent();
+                    loadTimeLine(eventList);
+                }
                 return true;
             }
         });
-
-        refreshButton.setOnClickListener((View v) -> loadTimeLine(eventList));
 
         infoButton.setOnClickListener((v -> {
             openInfo();
@@ -97,8 +98,8 @@ public class TimelineFragment extends Fragment {
     }
 
     public void getTimeLineContent() {
-        App.EventDatabase database = App.getInstance().getEventDatabase();
-        App.EventDao dao = database.eventDao();
+        database = App.getInstance().getEventDatabase();
+        dao = database.eventDao();
         eventList = dao.getAll();
 
     }
