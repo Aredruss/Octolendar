@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
+import static android.arch.persistence.room.ForeignKey.SET_NULL;
 
 public class App extends Application {
     public static App instance;
@@ -40,7 +41,7 @@ public class App extends Application {
 
     @Entity
     public static class Event implements Serializable {
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
         public long id;
 
         public String title;
@@ -53,20 +54,7 @@ public class App extends Application {
         public String timeStart;
         public String timeEnd;
 
-        public Event(int id, String timeSt, String title, String comment, String urgency, String day, String month, String year, int completed) {
-            this.id = id;
-            this.timeStart = timeSt;
-            this.title = title;
-            this.comment = comment;
-            this.urgency = urgency;
-            this.day = day;
-            this.month = month;
-            this.year = year;
-            this.completed = completed;
-        }
-
-        public Event() {
-        }
+        public int tagId = 0;
 
         public void setDate(String date) {
             this.day = date.split("-")[0];
@@ -83,12 +71,10 @@ public class App extends Application {
         }
     }
 
-    @Entity(foreignKeys = @ForeignKey(entity = Event.class, parentColumns = "id", childColumns = "eventId", onDelete = CASCADE))
+    @Entity
     public static class Tag {
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
         public long id;
-
-        public long eventId;
 
         public String text;
 
@@ -127,11 +113,11 @@ public class App extends Application {
     @Dao
     public interface TagDao {
 
-        @Query("SELECT * FROM tag WHERE eventId=(SELECT id FROM event WHERE id=:id)")
-        Tag getTag(long id);
-
         @Query("SELECT MAX(id) FROM tag")
         int getTagCount();
+
+        @Query("SELECT * FROM tag")
+        List<Tag> getAll();
 
         @Insert
         void insert(Tag tag);
@@ -143,7 +129,7 @@ public class App extends Application {
         void delete(Tag tag);
     }
 
-    @Database(entities = {Event.class, Tag.class}, version = 4)
+    @Database(entities = {Event.class, Tag.class}, version = 7)
     public abstract static class EventDatabase extends RoomDatabase {
         public abstract EventDao eventDao();
 

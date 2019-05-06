@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.chip.ChipGroup;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -34,11 +35,13 @@ public class PlannedEventsFragment extends Fragment {
     private TextView dateTextView;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
+    private ImageButton tagImageButton;
     private List<App.Event> eventList = new ArrayList<>();
     private String date;
     private EventAdapter eventAdapter;
     private App.EventDatabase database;
     private App.EventDao dao;
+    private App.TagDao tagDao;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class PlannedEventsFragment extends Fragment {
         dateTextView = fragmentView.findViewById(R.id.dateFragmentTextView);
         recyclerView = fragmentView.findViewById(R.id.cardFragmentRecyclerView);
         floatingActionButton = fragmentView.findViewById(R.id.addFragmentFloatingButton);
+        tagImageButton = fragmentView.findViewById(R.id.tagImageButton);
 
         date = DateTimeUtilityClass.getToday();
 
@@ -58,6 +62,7 @@ public class PlannedEventsFragment extends Fragment {
 
         database = App.getInstance().getEventDatabase();
         dao = database.eventDao();
+        tagDao = database.tagDao();
 
         dateTextView.setText(date);
 
@@ -104,6 +109,9 @@ public class PlannedEventsFragment extends Fragment {
         }
         ));
 
+        tagImageButton.setOnClickListener((View v) -> {
+            openCreateTagDialog(v);
+        });
 
         return fragmentView;
     }
@@ -115,7 +123,7 @@ public class PlannedEventsFragment extends Fragment {
         String[] dateArray = date.split("-");
         eventList = dao.getDayEvents(dateArray[0], dateArray[1], dateArray[2]);
 
-        for(App.Event e: eventList){
+        for (App.Event e : eventList) {
             Log.e("EVENT ", "getRecyclerViewContent: " + e.title);
         }
 
@@ -163,7 +171,6 @@ public class PlannedEventsFragment extends Fragment {
             if (!titleEditText.getText().toString().isEmpty()) {
                 newEvent.title = titleEditText.getText().toString();
                 newEvent.setDate(date);
-                newEvent.id = dao.getAvID()+1;
 
                 if (timeTextView.getText().toString().equals("Select time"))
                     newEvent.timeStart = DateTimeUtilityClass.getCurrentTime();
@@ -188,4 +195,44 @@ public class PlannedEventsFragment extends Fragment {
         });
         builder.show();
     }
+
+    private void openCreateTagDialog(View v) {
+        LayoutInflater layoutInflater = LayoutInflater.from(v.getContext());
+        App.Tag tag = new App.Tag();
+        View dialogView = layoutInflater.inflate(R.layout.tag_dialog, null);
+        ChipGroup chipGroup = dialogView.findViewById(R.id.colorGroup);
+        EditText nameEditText = dialogView.findViewById(R.id.tagNameEditText);
+
+        chipGroup.setOnCheckedChangeListener((ChipGroup chipGr, int i) -> {
+            switch (i) {
+                case (R.id.blue): {
+                    tag.color = R.color.colorTagWork;
+                    break;
+                }
+                case (R.id.green): {
+                    tag.color = R.color.colorTagHome;
+                    break;
+                }
+                case (R.id.black): {
+                    tag.color = R.color.colorDarker;
+                    break;
+                }
+            }
+        });
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView).setTitle("My Tags").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        }).setPositiveButton("Ok", (DialogInterface dialogInterface, int i) -> {
+            tag.text = nameEditText.getText().toString();
+            if (!tag.text.equals("")) {
+                tagDao.insert(tag);
+            }
+        });
+        builder.show();
+    }
+
+
 }

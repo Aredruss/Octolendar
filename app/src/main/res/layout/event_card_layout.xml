@@ -35,7 +35,7 @@
 
                     <TextView
                         android:id="@+id/titleTextView"
-                        android:layout_width="144dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_25dp"
                         android:layout_marginTop="@dimen/dimen_20dp"
@@ -46,6 +46,18 @@
                         android:textColor="@color/colorCardText"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <android.support.design.chip.Chip
+                        android:id="@+id/eventTag"
+                        style="@style/Widget.MaterialComponents.Chip.Action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_25dp"
+                        android:layout_marginTop="@dimen/dimen_20dp"
+                        android:text="@string/app_name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/colorCheck"
+                        android:visibility="visible" />
 
                     <CheckBox
                         android:id="@+id/doneCheckBox"
@@ -67,16 +79,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dimen_info_card_corner_radius"
                 android:background="@color/colorCardBack">
-
-                <android.support.design.chip.Chip
-                    android:id="@+id/eventTag"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_25dp"
-                    android:text="@string/app_name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/colorCheck"
-                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/timeTextView"

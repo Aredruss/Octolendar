@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
 import android.support.design.widget.Snackbar;
@@ -17,17 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
+
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import com.redbox.octolendar.EventManagerActivity;
 import com.redbox.octolendar.R;
 import com.redbox.octolendar.singleton.App;
+import com.redbox.octolendar.utilities.TagUtility;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
@@ -72,7 +70,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             eventTag = view.findViewById(R.id.eventTag);
             addTag = view.findViewById(R.id.addTag);
-
         }
 
         public ImageButton getDeleteButton() {
@@ -101,14 +98,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         dao = database.eventDao();
         tagDao = database.tagDao();
 
-        App.Tag eventTag = tagDao.getTag(event.id);
 
-        if (eventTag != null) {
-            Log.d("T", "onBindViewHolder: " + eventTag.text);
+        if (event.tagId != 0) {
             holder.eventTag.setVisibility(View.VISIBLE);
-            holder.eventTag.setText(eventTag.text);
-            holder.eventTag.setChipBackgroundColor(ColorStateList.valueOf(eventTag.color));
-            holder.eventTag.setChipBackgroundColor(ContextCompat.getColorStateList(context, eventTag.color));
+            holder.eventTag.setText("A");
+            // holder.eventTag.setChipBackgroundColor(ColorStateList.valueOf(eventTag.color));
+            // holder.eventTag.setChipBackgroundColor(ContextCompat.getColorStateList(context, eventTag.color));
         } else {
             holder.eventTag.setVisibility(View.GONE);
         }
@@ -122,29 +117,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.urgencyTextView.setText(event.urgency);
 
         holder.addTag.setOnClickListener((View v) -> {
-            openCreateTagDialog(v, event);
+            TagUtility.setTag(v, tagDao);
         });
 
         if (event.completed == 1) {
-            holder.doneTextView.setText(R.string.string_done);
-            holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
-
-            holder.doneCheckBox.setChecked(true);
+            setCompletion(holder);
         } else {
-            holder.doneTextView.setText(R.string.string_not_done);
-            holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
+            unsetCompletion(holder);
         }
 
         holder.doneCheckBox.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isChecked) {
-                holder.doneTextView.setText(R.string.string_done);
-                holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
+                setCompletion(holder);
                 event.completed = 1;
             } else {
-                holder.doneTextView.setText(R.string.string_not_done);
-                holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
+                unsetCompletion(holder);
                 event.completed = 0;
-
             }
             dao.update(event);
         });
@@ -171,8 +159,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             v.getContext().startActivity(Intent.createChooser(intent, "Send to"));
         });
 
-        holder.eventTag.setOnLongClickListener((View v) ->{
-            tagDao.delete(eventTag);
+        holder.eventTag.setOnLongClickListener((View v) -> {
             notifyDataSetChanged();
             return true;
         });
@@ -184,57 +171,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return list.size();
     }
 
-
-    private void openCreateTagDialog(View v, App.Event event) {
-        LayoutInflater layoutInflater = LayoutInflater.from(v.getContext());
-        App.Tag currentTag = tagDao.getTag(event.id);
-        View dialogView = layoutInflater.inflate(R.layout.tag_dialog, null);
-        ChipGroup chipGroup = dialogView.findViewById(R.id.colorGroup);
-        EditText nameEditText = dialogView.findViewById(R.id.tagNameEditText);
-
-        if(currentTag != null){
-            nameEditText.setText(currentTag.text);
-        }
-
-        App.Tag tag = new App.Tag();
-
-        tag.id = tagDao.getTagCount()+1;
-        tag.eventId = event.id;
-        tag.color = R.color.colorDarker;
-
-        chipGroup.setOnCheckedChangeListener((ChipGroup chipGr, int i) -> {
-            switch (i) {
-                case (R.id.blue): {
-                    tag.color = R.color.colorTagWork;
-                    break;
-                }
-                case (R.id.green): {
-                    tag.color = R.color.colorTagHome;
-                    break;
-                }
-                case (R.id.black): {
-                    tag.color = R.color.colorDarker;
-                    break;
-                }
-            }
-        });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-        builder.setView(dialogView).setTitle("Tag editor").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        }).setPositiveButton("Ok", (DialogInterface dialogInterface, int i) -> {
-            if(currentTag != null){
-                tagDao.delete(currentTag);
-            }
-            tag.text = nameEditText.getText().toString();
-            if (!nameEditText.getText().toString().equals("")) {
-                tagDao.insert(tag);
-            }
-            notifyDataSetChanged();
-        });
-        builder.show();
+    private void setCompletion(ViewHolder holder) {
+        holder.doneTextView.setText(R.string.string_done);
+        holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextDone));
+        holder.doneCheckBox.setChecked(true);
     }
+
+    private void unsetCompletion(ViewHolder holder) {
+        holder.doneTextView.setText(R.string.string_not_done);
+        holder.doneTextView.setTextColor(ContextCompat.getColor(context, R.color.colorTextNotDone));
+    }
+
 }
