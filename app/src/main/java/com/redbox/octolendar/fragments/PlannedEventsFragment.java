@@ -36,6 +36,7 @@ public class PlannedEventsFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private ImageButton tagImageButton;
+    private ImageButton refreshImageButton;
     private List<App.Event> eventList = new ArrayList<>();
     private String date;
     private EventAdapter eventAdapter;
@@ -51,6 +52,7 @@ public class PlannedEventsFragment extends Fragment {
         recyclerView = fragmentView.findViewById(R.id.cardFragmentRecyclerView);
         floatingActionButton = fragmentView.findViewById(R.id.addFragmentFloatingButton);
         tagImageButton = fragmentView.findViewById(R.id.tagImageButton);
+        refreshImageButton = fragmentView.findViewById(R.id.refreshImageButton);
 
         date = DateTimeUtilityClass.getToday();
 
@@ -113,6 +115,10 @@ public class PlannedEventsFragment extends Fragment {
             openCreateTagDialog(v);
         });
 
+        refreshImageButton.setOnClickListener(v -> {
+            getRecyclerViewContent();
+        });
+
         return fragmentView;
     }
 
@@ -131,7 +137,6 @@ public class PlannedEventsFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(eventAdapter);
-
         eventAdapter.notifyDataSetChanged();
     }
 

@@ -54,7 +54,7 @@ public class App extends Application {
         public String timeStart;
         public String timeEnd;
 
-        public int tagId = 0;
+        public long tagId = 0;
 
         public void setDate(String date) {
             this.day = date.split("-")[0];
@@ -87,18 +87,20 @@ public class App extends Application {
         @Query("SELECT * FROM event ORDER BY day, month, year, timeStart")
         List<Event> getAll();
 
-        @Query("SELECT MAX(id) FROM event")
-        int getAvID();
+        @Query("SELECT COUNT(*) FROM event")
+        int getEvCount();
 
-        @Query("SELECT * FROM event WHERE title = :title")
-        List<Event> getByTitle(String title);
-
+        @Query("SELECT * FROM event WHERE title = :keyword OR tagId in (SELECT id FROM tag WHERE text = :keyword)")
+        List<Event> getByKeyWord(String keyword);
 
         @Query("SELECT * FROM event WHERE id = :id")
         Event getEvent(long id);
 
         @Query("SELECT * FROM event WHERE day = :day AND month=:month AND year = :year ORDER BY timeStart ASC")
         List<Event> getDayEvents(String day, String month, String year);
+
+        @Query("SELECT * FROM event WHERE day = :day AND month=:month AND year = :year AND tagId =:id ORDER BY timeStart ASC")
+        List<Event> getTaggedEvents(String day, String month, String year, long id);
 
         @Insert
         void insert(Event event);
@@ -116,6 +118,9 @@ public class App extends Application {
         @Query("SELECT MAX(id) FROM tag")
         int getTagCount();
 
+        @Query("SELECT * FROM Tag WHERE Tag.id = :id")
+        Tag getTag(long id);
+
         @Query("SELECT * FROM tag")
         List<Tag> getAll();
 
@@ -129,7 +134,7 @@ public class App extends Application {
         void delete(Tag tag);
     }
 
-    @Database(entities = {Event.class, Tag.class}, version = 7)
+    @Database(entities = {Event.class, Tag.class}, version = 8)
     public abstract static class EventDatabase extends RoomDatabase {
         public abstract EventDao eventDao();
 

@@ -75,7 +75,8 @@ public class TimelineFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                List<App.Event> searchResult = dao.getByTitle(query);
+                List<App.Event> searchResult = dao.getByKeyWord(query);
+                Log.d("RES", "onQueryTextSubmit: " + searchResult.size());
                 loadTimeLine(searchResult);
                 return true;
             }
@@ -101,7 +102,6 @@ public class TimelineFragment extends Fragment {
         database = App.getInstance().getEventDatabase();
         dao = database.eventDao();
         eventList = dao.getAll();
-
     }
 
     public App.Event getItem(int i) {

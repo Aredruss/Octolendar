@@ -94,16 +94,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         App.Event event = list.get(holder.getAdapterPosition());
+        App.Tag tag = new App.Tag();
         database = App.getInstance().getEventDatabase();
         dao = database.eventDao();
         tagDao = database.tagDao();
 
-
         if (event.tagId != 0) {
+            tag = tagDao.getTag(event.tagId);
             holder.eventTag.setVisibility(View.VISIBLE);
-            holder.eventTag.setText("A");
-            // holder.eventTag.setChipBackgroundColor(ColorStateList.valueOf(eventTag.color));
-            // holder.eventTag.setChipBackgroundColor(ContextCompat.getColorStateList(context, eventTag.color));
+            holder.eventTag.setText(tag.text);
+            holder.eventTag.setChipBackgroundColor(ContextCompat.getColorStateList(context, tag.color));
         } else {
             holder.eventTag.setVisibility(View.GONE);
         }
@@ -117,7 +117,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.urgencyTextView.setText(event.urgency);
 
         holder.addTag.setOnClickListener((View v) -> {
-            TagUtility.setTag(v, tagDao);
+            TagUtility.setTag(v, tagDao, event, dao, this, position);
+
         });
 
         if (event.completed == 1) {
@@ -159,8 +160,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             v.getContext().startActivity(Intent.createChooser(intent, "Send to"));
         });
 
-        holder.eventTag.setOnLongClickListener((View v) -> {
+        holder.eventTag.setOnClickListener((View v) -> {
+            Log.d("T", "onBindViewHolder: " + event.tagId);
+            list = dao.getTaggedEvents(event.day, event.month, event.year, event.tagId);
             notifyDataSetChanged();
+        });
+
+        holder.eventTag.setOnLongClickListener((View v) ->{
+            event.tagId = 0;
+            dao.update(event);
+            notifyItemChanged(position);
             return true;
         });
 
